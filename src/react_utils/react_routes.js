@@ -6,7 +6,9 @@ const routes =  {
     user: "/user",
     welcome: "/welcome",
     logout: "/logout",
-    update: "/update"
+    update: "/update",
+    userWithId: "/user/:id",
+    otherUser: "/other-user/:id",
 };
 
 export default routes;

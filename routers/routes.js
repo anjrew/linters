@@ -6,7 +6,8 @@ const routes =  {
     user: "/user",
     welcome: "/welcome",
     logout: "/logout",
-    update: "/update"
+    update: "/update",
+    otherUser: "/other-user/:id",
 };
 
 module.exports = routes;

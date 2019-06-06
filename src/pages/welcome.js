@@ -38,8 +38,7 @@ export class Welcome extends React.Component{
                                     </CSSTransition>
                                 </TransitionGroup>
                             );  
-                        }}
-                        />
+                        }} />
                     </HashRouter>
                 </CenteredColumn>
             </SafeArea>

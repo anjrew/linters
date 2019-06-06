@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from '../react_utils/axios';
 import routes from '../react_utils/react_routes';
-import { BrowserRouter as Router , Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route} from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { UserProfile } from '../data/user_profile';
 
@@ -14,9 +14,6 @@ import { Avatar } from '../components/graphics/avatar';
 import { Uploader } from '../components/modules/Uploader';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
-
-
-
 
 export class App extends React.Component{
 
@@ -52,36 +49,47 @@ export class App extends React.Component{
                 </Row>
 
                 <SafeArea>
-                    {/* <TransitionGroup>
-                        <CSSTransition
-                            key={location.key}
-                            timeout={{ enter: 300, exit: 300 }}
-                        >
-                            <Switch location={location}>
+                    <BrowserRouter>
+                        <Route render= {({location}) => {
+                            console.log('The location is ', location);
+                            console.log('The props are', this.props);
+                        
+                            return(
+                                <TransitionGroup>
+                                    <CSSTransition
+                                        key={location.pathname}
+                                        timeout={{ enter: 300, exit: 300 }}
+                                    >
+                                        <Switch location={location}>
+                                            <Route exact path={routes.home} render={(props) => {
+                                                console.log('Props to profile are', props);
+                                                return (
+                                                    <Profile 
+                                                        bioEditorIsVisible={ this.state.bioEditorIsVisible}
+                                                        uploadClicked={this.avatarClicked}
+                                                        user={this.state.user}
+                                                        setBio={this.setBio}
+                                                    />
+                                                );
+                                            }}/>
+                    
+                                            <Route path={routes.userWithId} render={(props) => {
+                                                console.log('Props to otherProfile are', props);
+                                                return (
+                                                    <OtherProfile 
+                                                        key={props.match.url}
+                                                        match={props.match}
+                                                        history={props.history}
+                                                    />
+                                                );
+                                            }}/> 
 
-                                <Route exact path="/" component={ */}
+                                        </Switch>
+                                    </CSSTransition>
+                                </TransitionGroup>
+                            );}} />
+                    </BrowserRouter>
 
-                    <Profile 
-                        bioEditorIsVisible={ this.state.bioEditorIsVisible}
-                        uploadClicked={this.avatarClicked}
-                        user={this.state.user}
-                        setBio={this.setBio}
-                    />
-                    {/* } */}
-
-                    {/* // /> */}
-                    {/* 
-                                <Route path="/first" component={
-                                    <OtherProfile 
-                                        key={this.props.match.url}
-                                        match={this.props.match}
-                                        history={this.props.history}
-                                    />} 
-                                />
-
-                            </Switch>
-                        </CSSTransition>
-                    </TransitionGroup> */}
 
                     <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
                         <Uploader 

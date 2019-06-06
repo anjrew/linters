@@ -14,7 +14,6 @@ export class OtherProfile extends React.Component{
         this.state = { 
             user: {}
         };
-       
     }
 
     render(){
@@ -43,9 +42,9 @@ export class OtherProfile extends React.Component{
     componentDidMount(){
         // Browser router adds match pramas id to props.
         const userId = this.props.match.params.id;
-        console.log("The userId ");
+        console.log("The userId ", userId);
 
-        axios.get(routes.user,{
+        axios.get(routes.otherUser,{
             id: userId
         }).then(res => {
             console.log('The response in app from component did mount', res);

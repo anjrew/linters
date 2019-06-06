@@ -42,8 +42,7 @@ export class Login extends React.Component{
             [target.name]: target.value
         });
     }
-
-    
+  
     submit(){
         console.log('Login button pressed');
         console.log(this.state);

@@ -13,6 +13,7 @@ const routes = require('./routers/routes');
 
 
 const routers = [
+    require('./routers/other_user.js'),
     require('./routers/update'),
     require('./routers/user'),
     require('./routers/register'),
