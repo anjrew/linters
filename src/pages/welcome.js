@@ -18,7 +18,7 @@ export class Welcome extends React.Component{
             <SafeArea>
                 <CenteredColumn>
                     <h2>Welcome to the Nerd Network</h2>
-                    <Logo/>
+                    <Logo margin={'30px'}/>
                     <HashRouter>
                         <Route render= {({location}) => {
                             console.log(location);

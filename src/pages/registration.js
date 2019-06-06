@@ -24,7 +24,9 @@ export class Registration extends React.Component{
         console.log("this.state.error is ", this.state.error);
         return (
             <React.Fragment>
-                {this.state.error && <ErrorMessage>{this.state.error}</ErrorMessage>}
+                <CSSTransition in={this.state.error} timeout={300} classNames="scale" unmountOnExit>
+                    <ErrorMessage>{this.state.error}</ErrorMessage>
+                </CSSTransition>
                 <CenteredColumn>
                     <TextField inputType="text" label="First name" id={id.firstName} handleChange={this.handleChange} required/>
                     <TextField inputType="text" label="Last name" id={id.lastName} handleChange={this.handleChange} required/>

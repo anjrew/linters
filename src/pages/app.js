@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from '../react_utils/axios';
 import routes from '../react_utils/react_routes';
+import { BrowserRouter as Router , Switch, Route} from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { UserProfile } from '../data/user_profile';
 
 // Components
@@ -11,6 +13,10 @@ import { Row } from '../components/layout/row';
 import { Avatar } from '../components/graphics/avatar';
 import { Uploader } from '../components/modules/Uploader';
 import { Profile } from '../components/modules/profile';
+import { OtherProfile } from '../pages/other_profile';
+
+
+
 
 export class App extends React.Component{
 
@@ -25,7 +31,7 @@ export class App extends React.Component{
                 email: null,
                 first: null,
                 last: null,
-                imageUrl: "./placeholder.gif"
+                imageUrl: "/assets/images/nerd-avatar.png"
             }
         };
         this.dismissLoader = this.dismissLoader.bind(this);
@@ -39,18 +45,51 @@ export class App extends React.Component{
         console.log('Rendering app with state', this);
         return (
             <CenteredColumn>
+                
                 <Row id="header" backgroundColor={ 'red' }>
                     <Logo height={ '100px' } width={ "100px" }/>
                     <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                 </Row>
+
                 <SafeArea>
+                    {/* <TransitionGroup>
+                        <CSSTransition
+                            key={location.key}
+                            timeout={{ enter: 300, exit: 300 }}
+                        >
+                            <Switch location={location}>
+
+                                <Route exact path="/" component={ */}
+
                     <Profile 
                         bioEditorIsVisible={ this.state.bioEditorIsVisible}
                         uploadClicked={this.avatarClicked}
                         user={this.state.user}
                         setBio={this.setBio}
                     />
-                    { this.state.uploaderVisible && <Uploader dismissLoader={ this.dismissLoader } changeImage={this.changeImage}/> }
+                    {/* } */}
+
+                    {/* // /> */}
+                    {/* 
+                                <Route path="/first" component={
+                                    <OtherProfile 
+                                        key={this.props.match.url}
+                                        match={this.props.match}
+                                        history={this.props.history}
+                                    />} 
+                                />
+
+                            </Switch>
+                        </CSSTransition>
+                    </TransitionGroup> */}
+
+                    <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
+                        <Uploader 
+                            dismissLoader={ this.dismissLoader } 
+                            changeImage={this.changeImage}
+                        />
+                    </CSSTransition>
+
                 </SafeArea>
             </CenteredColumn>
         );
@@ -65,7 +104,7 @@ export class App extends React.Component{
                 email: res.data.email,
                 first: res.data.first,
                 last: res.data.last,
-                imageUrl: res.data.pic_url || "./placeholder.gif"
+                imageUrl: res.data.pic_url || "/assets/images/nerd-avatar.png"
             });
             console.log(userProfile);
             this.setState({

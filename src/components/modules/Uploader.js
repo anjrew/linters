@@ -13,8 +13,6 @@ export class Uploader extends React.Component{
         this.state = {};
         this.handleChange = this.handleChange.bind(this);
         this.upload = this.upload.bind(this);
-        // this.dismissLoader = this.dismissLoader.bind(this);
-        // this.dismissLoader = props.dismissLoader;
     }
 
     render(){

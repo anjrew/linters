@@ -6,7 +6,7 @@ export class UserProfile {
         this.email = params.email,
         this.first = params.first,
         this.last = params.last,
-        this.imageUrl = params.imageUrl || "./placeholder.gif" ;
+        this.imageUrl = params.imageUrl || "/assets/images/nerd-avatar.png" ;
         this.bio = params.bio;
         console.log('This user Profile is ', this );
     }

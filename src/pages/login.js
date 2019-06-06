@@ -2,6 +2,8 @@ import React from 'react';
 import axios from '../react_utils/axios';
 import db from '../react_utils/ids';
 import routes from '../react_utils/react_routes';
+import { CSSTransition } from "react-transition-group";
+
 
 // Components
 import { TextField } from '../components/inputs/textfield';
@@ -20,7 +22,10 @@ export class Login extends React.Component{
     render(){
         return (
             <React.Fragment>
-                {this.state.error && <ErrorMessage>{this.state.error}</ErrorMessage>}
+                <CSSTransition in={this.state.error} timeout={300} classNames="scale" unmountOnExit>
+                    <ErrorMessage>{this.state.error}</ErrorMessage>
+                </CSSTransition>
+
                 <CenteredColumn>
                     <TextField inputType="email" label="Email" id={db.email} handleChange={this.handleChange} required/>
                     <TextField inputType="password" label="Password" id={db.password} handleChange={this.handleChange} required/>
