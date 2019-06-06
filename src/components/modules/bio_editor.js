@@ -20,9 +20,11 @@ export class BioEditor extends React.Component{
     }
 
     render(){
+
+        var bioBool = this.props.bio ? true : false;
         if (this.state.bioIsEditing){
             return (
-                <CSSTransition in={this.state.bioIsEditing} timeout={200} classNames="scale" unmountOnExit>
+                <CSSTransition in={this.state.bioIsEditing} timeout={300} classNames="scale" unmountOnExit>
                     <CenteredColumn padding={'20px'}>
                         <TextArea 
                             name='bio' 

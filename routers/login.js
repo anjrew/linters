@@ -5,7 +5,6 @@ const routes = require('../routers/routes');
 const cookies = require('../utils/cookies');
 const { db } = require('../utils/db');
 const encryption = require('../utils/encryption');
-// const userLoggedInAtEntry = require('../utils/middleware').userLoggedInAtEntry;
 const print = require('../utils/print');
 
 router.route(routes.login)
