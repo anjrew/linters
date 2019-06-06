@@ -20,6 +20,7 @@ export class Uploader extends React.Component{
     }
 
     render(){
+        console.log('Rendering upLoader with this', this);
         return (
             <Container 
                 margin="20px" 
@@ -30,11 +31,13 @@ export class Uploader extends React.Component{
                 borderStyle="solid"
                 boxShadow={true} >
 
-                <CSSTransition in={this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
-                    <CircularProgressIndicator/> 
+                <CSSTransition in={this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
+                    <React.Fragment>
+                        <CircularProgressIndicator/> 
+                    </React.Fragment>
                 </CSSTransition>
 
-                <CSSTransition in={!this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
+                <CSSTransition in={!this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
 
                     <React.Fragment>
                         <Row justifyContent={'space-between'} >
@@ -43,7 +46,7 @@ export class Uploader extends React.Component{
                             <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', margin: '5px' }}>x</button>
                         </Row>
                         <label>Add File...</label>
-                        <p>{this.state.file}</p>
+                        <p>{ !this.state.uploading ? 'this.state.file' : '' }</p>
                         <input
                             // style={{ display: 'none' }}
                             id="upload-photo"
@@ -67,7 +70,6 @@ export class Uploader extends React.Component{
             uploading: false
         }, () => { 
             console.log('The new state is ', this.state);
-            this.forceUpdate();
         } );
         var formData = new FormData();
         formData.append("file", this.state.file);

@@ -10,8 +10,10 @@ export class BioEditor extends React.Component{
 
     constructor (props) {
         super(props);
+        console.log('This pros in bio_editor', props);
         this.state = { 
             bioIsEditing: false,
+            bio: props.bio
         };
         this.editClicked = this.editClicked.bind(this);
         this.addClicked = this.addClicked.bind(this);
@@ -28,8 +30,8 @@ export class BioEditor extends React.Component{
                     <CenteredColumn padding={'20px'}>
                         <TextArea 
                             name='bio' 
-                            value={this.state.bio} 
-                            handleChange={this.handleChange}
+                            value={ this.state.bio } 
+                            handleChange={ this.handleChange }
                         />
                         <button onClick={() => this.setBio(this.state.bio)}>Save</button>
                     </CenteredColumn>
@@ -44,7 +46,6 @@ export class BioEditor extends React.Component{
                             <button onClick={this.editClicked}>Edit</button>
                         </CenteredColumn>
                     </CSSTransition>
-
                 );
             } else {
                 return (
@@ -57,9 +58,10 @@ export class BioEditor extends React.Component{
     }
 
     editClicked(){
-        console.log('Edit clicked in the bio Editor');
+        console.log('Edit clicked in the bio Editor and this is ', this);
         this.setState({
-            bioIsEditing: true
+            bioIsEditing: true,
+            bio: this.props.bio
         });
     }
 

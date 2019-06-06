@@ -1,7 +1,6 @@
 
 const spicedPg = require('spiced-pg');
 const relation = 'nerd-network';
-const print = require('../utils/print');
 
 // process.env.NODE_ENV === "production" ? secrets = process.env : secrets = require('./secrets');
 const dbUrl = process.env.DATABASE_URL || `postgres:postgres:postgres@localhost:5432/${relation}`;
@@ -59,7 +58,7 @@ module.exports.db = {
 
     findUserEmail: function (email) {
         return db.query(
-            `SELECT users.id, first, last, email, password, bio, pic_url, created_at
+            `SELECT users.id, first, last, email, bio, pic_url, created_at
             FROM users
             WHERE email=$1;
             `,
@@ -69,7 +68,7 @@ module.exports.db = {
     
     findUserId: async function (id) {
         return db.query(
-            `SELECT users.id, first, last, email, password, bio, pic_url, created_at
+            `SELECT users.id, first, last, email, bio, pic_url, created_at
             FROM users
             WHERE id=$1;
             `,

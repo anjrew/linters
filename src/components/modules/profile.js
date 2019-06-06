@@ -3,7 +3,6 @@ import { Row } from '../layout/row';
 import { Avatar } from '../graphics/avatar';
 import { BioEditor } from '../modules/bio_editor';
 import { CenteredColumn } from '../layout/centered_column';
-import { CSSTransition } from 'react-transition-group';
 
 export class Profile extends React.Component{
 

@@ -4,7 +4,6 @@ export class Container extends React.Component{
 
     constructor (props) {
         super(props);
-        this.children = props.children;
         this.style = {
             display: props.display || 'flex',
             flexDirection: props.flexDirection || 'column',
@@ -26,7 +25,7 @@ export class Container extends React.Component{
     render(){
         return (
             <div style={this.style}>
-                {this.children}
+                {this.props.children}
             </div>
         );
     }

@@ -143,10 +143,10 @@ export class App extends React.Component{
 
     changeImage(imageUrl){
         console.log('Setting imageUrl in AppState as ',  imageUrl);
+        let user = this.state.user;
+        user.imageUrl = imageUrl;
         this.setState({
-            user: {
-                imageUrl: imageUrl
-            }
+            user: user
         });
     }
 
