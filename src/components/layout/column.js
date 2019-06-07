@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class CenteredColumn extends React.Component{
+export class Column extends React.Component{
 
     constructor (props) {
         super(props);
@@ -9,9 +9,10 @@ export class CenteredColumn extends React.Component{
             display:'flex',
             flexDirection: 'column',
             justifyContent: 'start',
-            alignItems: 'center',
+            alignItems: props.alignItems || 'center',
+            alignSelf: props.alignSelf || 'center',
             flexWrap: 'wrap',
-            alignContent: 'center',
+            alignContent: props.alignContent || 'center',
             width: props.width
         };
     }

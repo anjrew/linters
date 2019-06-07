@@ -7,7 +7,7 @@ import { CSSTransition } from "react-transition-group";
 
 // Components
 import { TextField } from '../components/inputs/textfield';
-import { CenteredColumn } from '../components/layout/centered_column';
+import { Column } from '../components/layout/column';
 import { ErrorMessage } from '../components/text/error_message';
 import { Link } from 'react-router-dom';
 
@@ -26,11 +26,11 @@ export class Login extends React.Component{
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
 
-                <CenteredColumn>
+                <Column>
                     <TextField inputType="email" label="Email" id={db.email} handleChange={this.handleChange} required/>
                     <TextField inputType="password" label="Password" id={db.password} handleChange={this.handleChange} required/>
                     <button onClick={() => this.submit()}>Login</button>
-                </CenteredColumn>
+                </Column>
                 <Link className='link-button' to={routes.home}>Click here to sign up!</Link>
             </React.Fragment>
         );

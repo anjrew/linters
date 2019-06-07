@@ -12,7 +12,7 @@ export class SafeArea extends React.Component{
     }
     render(){
         return (
-            <div className={'safe-area'}>
+            <div style={this.style}>
                 {this.props.children}
             </div>
         );

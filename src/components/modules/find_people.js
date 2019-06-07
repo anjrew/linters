@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../react_utils/axios';
-import { CenteredColumn } from '../layout/centered_column';
+import { Column } from '../layout/column';
 import { CSSTransition } from 'react-transition-group';
 import { CircularProgressIndicator } from '../progress_indicators/circular_progress_indicator';
-import { Avatar } from '../graphics/avatar';
-import { Row } from '../layout/row';
-
-
+import { ProfileTile } from '../boxes/profile_tile';
 
 // eslint-disable-next-line no-unused-vars
 export function FindPeople() {
@@ -15,14 +12,9 @@ export function FindPeople() {
     const [searchVal, setSearchVal] = useState('');
 
     useEffect(() => {
-        console.log('The users are ', users);
-        console.log('And the search val is ',  searchVal);
         !searchVal && setUsers(null,);
-
         if (!searchVal) {
-            console.log('Getting the latest users');
             axios.get(`/api/users`).then(({ data })=>{
-                console.log('The data from the databse is', data);
                 setUsers(data);
             }).catch((e)=>{
                 console.log('ERROR: ' + e);
@@ -30,9 +22,7 @@ export function FindPeople() {
                     
         } else {
             if (searchVal) {
-                console.log(`Trying to get users with search val ${searchVal}`);
                 axios.get(`/api/users/${searchVal}`).then(({ data }) =>{
-                    console.log('The data from the database is', data);
                     setUsers(data);
                 }).catch((e)=>{
                     console.log('ERROR: ' + e);
@@ -44,33 +34,28 @@ export function FindPeople() {
 
     const usersList = users ? (
         <CSSTransition key="users" in={!!users} timeout={300} classNames="scale" unmountOnExit>
-            <CenteredColumn width='100%'>
+            <Column   
+                padding="30px">
                 {users && users.map(
-                    user => (
-                        <Row key={user.id}>
-                            <Avatar imageUrl={user.pic_url}/>
-                            <h2>{user.first}</h2>
-                            {/* ... */}
-                        </Row>
-                    )
+                    user => <ProfileTile key={user.id} user={user} />
                 )}
-            </CenteredColumn>
+            </Column>
         </CSSTransition>
     ): null;
     
 
     return (
-        <CenteredColumn>
+        <Column>
             <h2>Find people</h2>
             <input onChange={e => setSearchVal(e.target.value)} defaultValue={''} />
 
-            <CSSTransition key="checkNewPeople" in={!!!searchVal} timeout={300} classNames="scale" unmountOnExit>
+            <CSSTransition key="checkNewPeople" in={!searchVal } timeout={300} classNames="scale" unmountOnExit>
                 <h3>Check out the new people who have joined</h3>
             </CSSTransition>
             
             { !users ? <CircularProgressIndicator /> : usersList}
          
-        </CenteredColumn>
+        </Column>
     );
 }
 

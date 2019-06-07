@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 // Components
 import { TextField } from '../components/inputs/textfield';
-import { CenteredColumn } from '../components/layout/centered_column';
+import { Column } from '../components/layout/column';
 import { ErrorMessage } from '../components/text/error_message';
 import routes from '../react_utils/react_routes';
 import { CSSTransition, TransitionGroup,} from 'react-transition-group';
@@ -27,13 +27,13 @@ export class Registration extends React.Component{
                 <CSSTransition in={this.state.error} timeout={300} classNames="scale" unmountOnExit>
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
-                <CenteredColumn>
+                <Column>
                     <TextField inputType="text" label="First name" id={id.firstName} handleChange={this.handleChange} required/>
                     <TextField inputType="text" label="Last name" id={id.lastName} handleChange={this.handleChange} required/>
                     <TextField inputType="email" label="Email" id={id.email} handleChange={this.handleChange} required/>
                     <TextField inputType="password" label="Password" id={id.password} handleChange={this.handleChange} required/>
                     <button onClick={() => this.submit()}>Sign-up</button>
-                </CenteredColumn>
+                </Column>
                 <Link className='link-button' to={routes.login}>Click here to Log in!</Link>
             </React.Fragment>
         );

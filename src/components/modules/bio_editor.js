@@ -1,5 +1,5 @@
 import React from 'react';
-import { CenteredColumn } from '../layout/centered_column';
+import { Column } from '../layout/column';
 import { TextArea } from '../inputs/text_area';
 import axios from '../../react_utils/axios';
 import routes from '../../react_utils/react_routes';
@@ -28,24 +28,24 @@ export class BioEditor extends React.Component{
             return (
 
                 <CSSTransition key="Save" in={this.state.isEditing} timeout={300} classNames="scale" unmountOnExit>
-                    <CenteredColumn padding={'20px'}>
+                    <Column padding={'20px'}>
                         <TextArea 
                             name='bio' 
                             value={ this.state.bio } 
                             handleChange={ this.handleChange }
                         />
                         <button onClick={() => this.setBio(this.state.bio)}>Save</button>
-                    </CenteredColumn>
+                    </Column>
                 </CSSTransition>
             );
         } else {
             if (this.props.bio) {
                 return (
                     <CSSTransition key="Edit" in={bioBool} timeout={300} classNames="scale" unmountOnExit>
-                        <CenteredColumn padding={'20px'}>
+                        <Column padding={'20px'}>
                             <p>{this.props.bio}</p>
                             <button onClick={this.editClicked}>Edit</button>
-                        </CenteredColumn>
+                        </Column>
                     </CSSTransition>
                 );
             } else {

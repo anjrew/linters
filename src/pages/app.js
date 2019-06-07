@@ -8,7 +8,7 @@ import { UserProfile } from '../data/user_profile';
 // Components
 import { Logo } from '../components/graphics/logo';
 import { SafeArea } from '../components/layout/safe_area';
-import { CenteredColumn } from '../components/layout/centered_column';
+import { Column } from '../components/layout/column';
 import { Row } from '../components/layout/row';
 import { Avatar } from '../components/graphics/avatar';
 import { Uploader } from '../components/modules/Uploader';
@@ -42,7 +42,7 @@ export class App extends React.Component{
 
     render(){
         return (
-            <CenteredColumn>
+            <Column>
                 
                 <Row id="header" backgroundColor={ 'red' }>
                     <Logo height={ '100px' } width={ "100px" }/>
@@ -101,7 +101,7 @@ export class App extends React.Component{
                     </CSSTransition>
 
                 </SafeArea>
-            </CenteredColumn>
+            </Column>
         );
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row } from '../components/layout/row';
 import { Avatar } from '../components/graphics/avatar';
-import { CenteredColumn } from '../components/layout/centered_column';
+import { Column } from '../components/layout/column';
 import axios from '../react_utils/axios';
 import { UserProfile } from '../data/user_profile';
 import { ErrorMessage } from '../components/text/error_message';
@@ -37,13 +37,13 @@ export class OtherProfile extends React.Component{
                         imageUrl={this.state.user.imageUrl ||  '/assets/images/nerd-avatar.png'}
                         description="User image"
                     />
-                    <CenteredColumn padding={'20px'}>
+                    <Column padding={'20px'}>
                         <h2>{`${this.state.user.first || ' '}`}</h2>   
 
-                        <CenteredColumn padding={'20px'}>
+                        <Column padding={'20px'}>
                             <p>{`${this.state.user.bio || ' '}`}</p>
-                        </CenteredColumn>
-                    </CenteredColumn>
+                        </Column>
+                    </Column>
                 </Row>
             </React.Fragment>
 

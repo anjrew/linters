@@ -2,7 +2,7 @@ import React from 'react';
 import { Row } from '../layout/row';
 import { Avatar } from '../graphics/avatar';
 import { BioEditor } from '../modules/bio_editor';
-import { CenteredColumn } from '../layout/centered_column';
+import { Column } from '../layout/column';
 
 export class Profile extends React.Component{
 
@@ -16,14 +16,14 @@ export class Profile extends React.Component{
                     imageUrl={this.props.user.imageUrl}
                     description="User image"
                 />
-                <CenteredColumn padding={'20px'}>
+                <Column padding={'20px'}>
                     <h2>{`${this.props.user.first}`}</h2>   
 
                     <BioEditor
                         bio={this.props.user.bio}
                         setBio={this.props.setBio}
                     />
-                </CenteredColumn>
+                </Column>
             </Row>
         );
     }

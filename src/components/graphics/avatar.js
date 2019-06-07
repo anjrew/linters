@@ -11,6 +11,7 @@ export class Avatar extends React.Component{
             height: props.height || '100px',
             width: props.width || '100px',
             borderRadius: props.borderRadius || '50%',
+            objectFit: 'cover'
         };
     }
                     
