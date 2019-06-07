@@ -2,13 +2,12 @@ import React from 'react';
 import axios from '../../react_utils/axios';
 import routes from '../../react_utils/react_routes';
 import { CSSTransition } from 'react-transition-group';
-import { BrowserRouter, Switch, Route} from "react-router-dom";
-
 
 // Components
 import { Row } from '../layout/row';
 import { Container } from '../boxes/container';
 import { CircularProgressIndicator } from '../progress_indicators/circular_progress_indicator';
+import { UploadButton } from '../buttons/upload_button';
 
 export class Uploader extends React.Component{
 
@@ -24,50 +23,56 @@ export class Uploader extends React.Component{
     render(){
         console.log('Rendering upLoader with this', this);
         return (
-            <Container 
-                margin="20px" 
-                padding='10px' 
-                borderRadius="20px" 
-                borderWidth="1px"
-                borderColor="black" 
-                borderStyle="solid"
-                boxShadow={true} >
 
-                <CSSTransition in={this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
+            <React.Fragment>
+                <CSSTransition in={this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
                     <React.Fragment>
-                        <CircularProgressIndicator/> 
+                        <Container padding="40px">
+                            <CircularProgressIndicator/> 
+                        </Container>
                     </React.Fragment>
                 </CSSTransition>
 
+                <CSSTransition in={!this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
+                    <Container 
+                        margin="20px" 
+                        padding='10px' 
+                        borderRadius="20px" 
+                        borderWidth="1px"
+                        borderColor="black" 
+                        borderStyle="solid"
+                        boxShadow={true} >
 
-                <React.Fragment>
-                    <Row justifyContent={'space-between'} >
-                        <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', visibility: 'hidden' }}>x</button>
-                        <h2 style={{padding: '20px'}}>Want to change your image?</h2>
-                        <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', margin: '5px' }}>x</button>
-                    </Row>
-                    <label>Add File...</label>
-                    <p>{ !this.state.uploading ? 'this.state.file' : '' }</p>
-                    <input
-                        // style={{ display: 'none' }}
-                        id="upload-photo"
-                        type="file"
-                        name="file"
-                        accept="image/*"
-                        onChange={e => this.handleChange(e)}
-                    />
-                </React.Fragment>
+                        <React.Fragment>
+                            <Row justifyContent={'space-between'} >
+                                <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', visibility: 'hidden' }}>x</button>
+                                <h2 style={{padding: '20px'}}>Want to change your image?</h2>
+                                <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', margin: '5px' }}>x</button>
+                            </Row>
+                            <label>Add File...</label>
+                            <p>{ !this.state.uploading ? 'this.state.file' : '' }</p>
+                            <input
+                                // style={{ display: 'none' }}
+                                id="upload-photo"
+                                type="file"
+                                name="file"
+                                accept="image/*"
+                                onChange={e => this.handleChange(e)}
+                            />
+                            {/* <UploadButton onChange={e => this.handleChange(e)}/> */}
 
-
-                <button onClick={ this.upload }  style={{ margin: '30px' }}>Upload</button>
-            </Container>
+                            <button onClick={ this.upload }  style={{ margin: '30px' }}>Upload</button>
+                        </React.Fragment>
+                    </Container>
+                </CSSTransition>
+            </React.Fragment>
         );
     }
 
     async upload() {
         console.log('Upload clicked and this is', this);
         this.setState({
-            uploading: false
+            uploading: true
         }, () => { 
             console.log('The new state is ', this.state);
         } );

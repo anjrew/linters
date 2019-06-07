@@ -70,6 +70,30 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     transform: scale(1.03);
 }
 
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
 .logoImage{
     height: 200px;
     width: 200px;
@@ -145,10 +169,10 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     width: 51px;
     height: 51px;
     margin: 6px;
-    border: 6px solid #fff;
+    border: 6px solid #ec0909;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
+    border-color: #ec0909 transparent transparent transparent;
   }
   .lds-ring div:nth-child(1) {
     animation-delay: -0.45s;

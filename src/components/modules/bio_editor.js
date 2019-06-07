@@ -11,7 +11,7 @@ export class BioEditor extends React.Component{
     constructor (props) {
         super(props);
         this.state = { 
-            bioIsEditing: false,
+            isEditing: false,
             bio: props.bio
         };
         this.editClicked = this.editClicked.bind(this);
@@ -23,9 +23,9 @@ export class BioEditor extends React.Component{
     render(){
 
         var bioBool = this.props.bio ? true : false;
-        if (this.state.bioIsEditing){
+        if (this.state.isEditing){
             return (
-                <CSSTransition in={this.state.bioIsEditing} timeout={300} classNames="scale" unmountOnExit>
+                <CSSTransition in={this.state.isEditing} timeout={300} classNames="scale" unmountOnExit>
                     <CenteredColumn padding={'20px'}>
                         <TextArea 
                             name='bio' 
@@ -59,7 +59,7 @@ export class BioEditor extends React.Component{
     editClicked(){
         console.log('Edit clicked in the bio Editor and this is ', this);
         this.setState({
-            bioIsEditing: true,
+            isEditing: true,
             bio: this.props.bio
         });
     }
@@ -67,7 +67,7 @@ export class BioEditor extends React.Component{
     addClicked(){
         console.log('Add clicked in the bio Editor');
         this.setState({
-            bioIsEditing: true
+            isEditing: true
         });
     }
 
@@ -82,7 +82,7 @@ export class BioEditor extends React.Component{
         const data = { bio: bio};
         console.log('The data in the post request is' , data);
         this.setState({
-            bioIsEditing: false,
+            isEditing: false,
         });
         try {
             const response = await axios.post(routes.update, data);
