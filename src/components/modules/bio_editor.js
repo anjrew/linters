@@ -25,7 +25,7 @@ export class BioEditor extends React.Component{
         var bioBool = this.props.bio ? true : false;
         if (this.state.isEditing){
             return (
-                <CSSTransition in={this.state.isEditing} timeout={300} classNames="scale" unmountOnExit>
+                <CSSTransition key="Save" in={this.state.isEditing} timeout={300} classNames="scale" unmountOnExit>
                     <CenteredColumn padding={'20px'}>
                         <TextArea 
                             name='bio' 
@@ -39,7 +39,7 @@ export class BioEditor extends React.Component{
         } else {
             if (this.props.bio) {
                 return (
-                    <CSSTransition in={bioBool} timeout={200} classNames="scale" unmountOnExit>
+                    <CSSTransition key="Edit" in={bioBool} timeout={300} classNames="scale" unmountOnExit>
                         <CenteredColumn padding={'20px'}>
                             <p>{this.props.bio}</p>
                             <button onClick={this.editClicked}>Edit</button>
@@ -48,7 +48,7 @@ export class BioEditor extends React.Component{
                 );
             } else {
                 return (
-                    <CSSTransition in={!bioBool} timeout={200} classNames="scale" unmountOnExit>
+                    <CSSTransition key="Add" in={!bioBool} timeout={300} classNames="scale" unmountOnExit>
                         <button onClick={this.addClicked}>Add</button>
                     </CSSTransition>
                 );
