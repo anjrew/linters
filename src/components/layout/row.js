@@ -22,7 +22,7 @@ export class Row extends React.Component{
     render(){
         console.log(this.style);
         return (
-            <div className="row" style={this.style}>
+            <div id={this.props} className="row" style={this.style}>
                 { this.props.children }
             </div>
         );

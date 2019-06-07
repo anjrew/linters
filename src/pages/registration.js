@@ -8,7 +8,7 @@ import { TextField } from '../components/inputs/textfield';
 import { Column } from '../components/layout/column';
 import { ErrorMessage } from '../components/text/error_message';
 import routes from '../react_utils/react_routes';
-import { CSSTransition, TransitionGroup,} from 'react-transition-group';
+import { CSSTransition} from 'react-transition-group';
 
 
 export class Registration extends React.Component{

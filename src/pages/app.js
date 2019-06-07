@@ -15,6 +15,7 @@ import { Uploader } from '../components/modules/Uploader';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
 import { FindPeople } from '../components/modules/find_people';
+import { Link } from 'react-router-dom';
 
 
 export class App extends React.Component{
@@ -43,10 +44,20 @@ export class App extends React.Component{
     render(){
         return (
             <Column>
-                <Row id="header" backgroundColor={ 'red' } justifyContent='space-between'>
+                <Row id="header" backgroundColor={ 'red' } justifyContent={'space-between'}>
                     <Logo height={ '100px' } width={ "100px" }/>
+                    {/* <Link className='link-button' to={'/users'}>Find users</Link> */}
+                    {/* <Link className='link-button' to={routes.login}>Click here to Log in!</Link> */}
                     <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                 </Row>
+
+                <div style={{
+                    justifyContent: 'space-between'
+                }}>
+                    <Logo height={ '100px' } width={ "100px" }/>
+
+                    <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
+                </div>
 
                 <SafeArea>
                     <BrowserRouter>
@@ -68,7 +79,7 @@ export class App extends React.Component{
                                                 );
                                             }}/> 
 
-                                            <Route exact path={routes.home} render={(props) => {
+                                            <Route exact path={routes.home} render={() => {
                                                 return (
                                                     <Profile 
                                                         bioEditorIsVisible={ this.state.bioEditorIsVisible}
@@ -79,7 +90,7 @@ export class App extends React.Component{
                                                 );
                                             }}/>  
 
-                                            <Route exact path={'/users'} render={(props) => {
+                                            <Route exact path={'/users'} render={() => {
                                                 return (
                                                     <FindPeople/>
                                                 );
