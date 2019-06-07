@@ -8,7 +8,12 @@ export class Profile extends React.Component{
 
     render(){
         return (
-            <Row padding={'20px'}>
+            <Row 
+                padding={'20px'}
+                alignItems={'start'}
+                alignContent={'start'}
+                placeContent={'start'}
+            >
                 <Avatar
                     height ='300px'
                     width = '300px'
@@ -16,7 +21,7 @@ export class Profile extends React.Component{
                     imageUrl={this.props.user.imageUrl}
                     description="User image"
                 />
-                <Column padding={'20px'}>
+                <Column  padding={'20px'}>
                     <h2>{`${this.props.user.first}`}</h2>   
 
                     <BioEditor

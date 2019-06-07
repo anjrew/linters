@@ -16,6 +16,9 @@ export class Uploader extends React.Component{
         this.state = {
             uploading: false
         };
+        this.style ={
+            maxWidth: '400px'
+        },
         this.handleChange = this.handleChange.bind(this);
         this.upload = this.upload.bind(this);
     }
@@ -23,8 +26,7 @@ export class Uploader extends React.Component{
     render(){
         console.log('Rendering upLoader with this', this);
         return (
-
-            <React.Fragment>
+            <Row>
                 <CSSTransition in={this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
                     <React.Fragment>
                         <Container padding="40px">
@@ -41,6 +43,7 @@ export class Uploader extends React.Component{
                         borderWidth="1px"
                         borderColor="black" 
                         borderStyle="solid"
+                        maxWidth="450px"
                         boxShadow={true} >
 
                         <React.Fragment>
@@ -65,7 +68,7 @@ export class Uploader extends React.Component{
                         </React.Fragment>
                     </Container>
                 </CSSTransition>
-            </React.Fragment>
+            </Row>
         );
     }
 

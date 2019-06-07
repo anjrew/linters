@@ -17,7 +17,8 @@ export class Container extends React.Component{
             borderStyle: props.borderStyle,
             height: props.height,
             width: props.width,
-            padding: props.padding, 
+            padding: props.padding,
+            maxWidth: props.maxWidth,
             margin: props.margin,
             boxShadow: props.boxShadow && "1px 0px 3px 1px rgba(0,0,0,0.75)"
         };

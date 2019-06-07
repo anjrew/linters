@@ -28,7 +28,8 @@ export class BioEditor extends React.Component{
             return (
 
                 <CSSTransition key="Save" in={this.state.isEditing} timeout={300} classNames="scale" unmountOnExit>
-                    <Column padding={'20px'}>
+                    <Column 
+                        padding={'20px'}>
                         <TextArea 
                             name='bio' 
                             value={ this.state.bio } 

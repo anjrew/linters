@@ -19,7 +19,7 @@ export class Column extends React.Component{
     
     render(){
         return (
-            <div style={this.style}>
+            <div className="column" style={this.style}>
                 {this.props.children}
             </div>
         );

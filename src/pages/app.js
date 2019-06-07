@@ -43,7 +43,7 @@ export class App extends React.Component{
     render(){
         return (
             <Column>
-                <Row id="header" backgroundColor={ 'red' }>
+                <Row id="header" backgroundColor={ 'red' } justifyContent='space-between'>
                     <Logo height={ '100px' } width={ "100px" }/>
                     <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                 </Row>

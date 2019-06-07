@@ -43,7 +43,6 @@ export function FindPeople() {
         </CSSTransition>
     ): null;
     
-    console.log('Users is ', users);
     return (
         <Column width='80%'>
             <h2>Find people</h2>

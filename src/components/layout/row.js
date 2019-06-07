@@ -12,13 +12,17 @@ export class Row extends React.Component{
             justifyContent: props.justifyContent || 'space-between',
             width: props.width || '100%',
             backgroundColor: props.backgroundColor,
-            padding: props.padding
+            padding: props.padding,
+            placeContent: props.placeContent || 'center',
+            funkyChicken: '100px'
         };
+    
     }
 
     render(){
+        console.log(this.style);
         return (
-            <div style={this.style}>
+            <div className="row" style={this.style}>
                 { this.props.children }
             </div>
         );
