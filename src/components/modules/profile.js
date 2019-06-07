@@ -7,7 +7,6 @@ import { CenteredColumn } from '../layout/centered_column';
 export class Profile extends React.Component{
 
     render(){
-        console.log('Rendering Profile with props', this.props);
         return (
             <Row padding={'20px'}>
                 <Avatar

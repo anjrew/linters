@@ -3,8 +3,10 @@ import { Row } from '../components/layout/row';
 import { Avatar } from '../components/graphics/avatar';
 import { CenteredColumn } from '../components/layout/centered_column';
 import axios from '../react_utils/axios';
-import routes from '../react_utils/react_routes';
 import { UserProfile } from '../data/user_profile';
+import { ErrorMessage } from '../components/text/error_message';
+import { CSSTransition } from "react-transition-group";
+
 
 
 export class OtherProfile extends React.Component{
@@ -12,54 +14,71 @@ export class OtherProfile extends React.Component{
     constructor (props) {
         super(props);
         this.state = { 
-            user: {}
+            erro: null,
+            user: {
+                imageUrl: "/assets/images/nerd-avatar.png"
+            }
         };
     }
 
     render(){
-        console.log('Rendering OtherProfile with props', this.props);
+        console.log('Rendering OtherProfile with this', this);
         return (
-            <Row padding={'20px'}>
-                <Avatar
-                    height ='300px'
-                    width = '300px'
-                    onClick={ this.props.uploadClicked} 
-                    imageUrl={this.props.user.imageUrl}
-                    description="User image"
-                />
-                <CenteredColumn padding={'20px'}>
-                    <h2>{`${this.props.user.first}`}</h2>   
+            <React.Fragment>
 
+                <CSSTransition in={this.state.error} timeout={300} classNames="scale" unmountOnExit>
+                    <ErrorMessage>{this.state.error}</ErrorMessage>
+                </CSSTransition>
+
+                <Row padding={'20px'}>
+                    <Avatar
+                        height ='300px'
+                        width = '300px'
+                        imageUrl={this.state.user.imageUrl ||  '/assets/images/nerd-avatar.png'}
+                        description="User image"
+                    />
                     <CenteredColumn padding={'20px'}>
-                        <p>{this.props.bio}</p>
-                        <button onClick={this.editClicked}>Edit</button>
+                        <h2>{`${this.state.user.first || ' '}`}</h2>   
+
+                        <CenteredColumn padding={'20px'}>
+                            <p>{`${this.state.user.bio || ' '}`}</p>
+                        </CenteredColumn>
                     </CenteredColumn>
-                </CenteredColumn>
-            </Row>
+                </Row>
+            </React.Fragment>
+
         );
     }
 
     componentDidMount(){
         // Browser router adds match pramas id to props.
         const userId = this.props.match.params.id;
-        console.log("The userId ", userId);
+        console.log("The userId to get other Profile is", userId);
 
-        axios.get(routes.otherUser,{
-            id: userId
-        }).then(res => {
-            console.log('The response in app from component did mount', res);
-            const userProfile =  new UserProfile({
-                bio: res.data.bio,
-                profile_creation_date: res.data.created_at,
-                email: res.data.email,
-                first: res.data.first,
-                last: res.data.last,
-                imageUrl: res.data.pic_url || "/assets/images/nerd"
+        try {
+            axios.post('/api/user', {
+                id: userId
+            } ).then(res => {
+                console.log('The response in Other Profile from component did mount', res);
+
+                if (res.data.currentUser){
+                    this.props.history.push("/");
+                } else if (!res.data.first) {
+                    this.setState({
+                        error: "No Such User!"
+                    });
+                } else {
+                    const userProfile =  new UserProfile(res.data);
+                    console.log(' The user profile create from the response is', userProfile);
+                    this.setState({
+                        user: userProfile
+                    });
+                }
             });
-            console.log(userProfile);
+        } catch (e) {
             this.setState({
-                user:userProfile
+                error: "Error from the database"
             });
-        });
+        }
     }
 }

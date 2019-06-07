@@ -7,8 +7,8 @@ const routes =  {
     welcome: "/welcome",
     logout: "/logout",
     update: "/update",
-    userWithId: "/user/:id",
     otherUser: "/other-user/:id",
+    otherUserApi: '/api/user'
 };
 
 export default routes;

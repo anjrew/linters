@@ -7,7 +7,7 @@ const routes =  {
     welcome: "/welcome",
     logout: "/logout",
     update: "/update",
-    otherUser: "/other-user/:id",
+    otherUserApi: '/api/user'
 };
 
 module.exports = routes;

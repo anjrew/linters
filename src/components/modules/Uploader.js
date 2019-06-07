@@ -2,6 +2,8 @@ import React from 'react';
 import axios from '../../react_utils/axios';
 import routes from '../../react_utils/react_routes';
 import { CSSTransition } from 'react-transition-group';
+import { BrowserRouter, Switch, Route} from "react-router-dom";
+
 
 // Components
 import { Row } from '../layout/row';
@@ -37,27 +39,25 @@ export class Uploader extends React.Component{
                     </React.Fragment>
                 </CSSTransition>
 
-                <CSSTransition in={!this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
 
-                    <React.Fragment>
-                        <Row justifyContent={'space-between'} >
-                            <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', visibility: 'hidden' }}>x</button>
-                            <h2 style={{padding: '20px'}}>Want to change your image?</h2>
-                            <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', margin: '5px' }}>x</button>
-                        </Row>
-                        <label>Add File...</label>
-                        <p>{ !this.state.uploading ? 'this.state.file' : '' }</p>
-                        <input
-                            // style={{ display: 'none' }}
-                            id="upload-photo"
-                            type="file"
-                            name="file"
-                            accept="image/*"
-                            onChange={e => this.handleChange(e)}
-                        />
-                    </React.Fragment>
+                <React.Fragment>
+                    <Row justifyContent={'space-between'} >
+                        <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', visibility: 'hidden' }}>x</button>
+                        <h2 style={{padding: '20px'}}>Want to change your image?</h2>
+                        <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', margin: '5px' }}>x</button>
+                    </Row>
+                    <label>Add File...</label>
+                    <p>{ !this.state.uploading ? 'this.state.file' : '' }</p>
+                    <input
+                        // style={{ display: 'none' }}
+                        id="upload-photo"
+                        type="file"
+                        name="file"
+                        accept="image/*"
+                        onChange={e => this.handleChange(e)}
+                    />
+                </React.Fragment>
 
-                </CSSTransition>
 
                 <button onClick={ this.upload }  style={{ margin: '30px' }}>Upload</button>
             </Container>

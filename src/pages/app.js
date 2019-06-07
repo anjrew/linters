@@ -39,7 +39,6 @@ export class App extends React.Component{
     }
 
     render(){
-        console.log('Rendering app with state', this);
         return (
             <CenteredColumn>
                 
@@ -51,9 +50,6 @@ export class App extends React.Component{
                 <SafeArea>
                     <BrowserRouter>
                         <Route render= {({location}) => {
-                            console.log('The location is ', location);
-                            console.log('The props are', this.props);
-                        
                             return(
                                 <TransitionGroup>
                                     <CSSTransition
@@ -61,20 +57,8 @@ export class App extends React.Component{
                                         timeout={{ enter: 300, exit: 300 }}
                                     >
                                         <Switch location={location}>
-                                            <Route exact path={routes.home} render={(props) => {
-                                                console.log('Props to profile are', props);
-                                                return (
-                                                    <Profile 
-                                                        bioEditorIsVisible={ this.state.bioEditorIsVisible}
-                                                        uploadClicked={this.avatarClicked}
-                                                        user={this.state.user}
-                                                        setBio={this.setBio}
-                                                    />
-                                                );
-                                            }}/>
-                    
-                                            <Route path={routes.userWithId} render={(props) => {
-                                                console.log('Props to otherProfile are', props);
+
+                                            <Route path={ "/other-user/:id"} render={(props) => {
                                                 return (
                                                     <OtherProfile 
                                                         key={props.match.url}
@@ -83,6 +67,17 @@ export class App extends React.Component{
                                                     />
                                                 );
                                             }}/> 
+
+                                            <Route exact path={routes.home} render={(props) => {
+                                                return (
+                                                    <Profile 
+                                                        bioEditorIsVisible={ this.state.bioEditorIsVisible}
+                                                        uploadClicked={this.avatarClicked}
+                                                        user={this.state.user}
+                                                        setBio={this.setBio}
+                                                    />
+                                                );
+                                            }}/>                                            
 
                                         </Switch>
                                     </CSSTransition>
@@ -104,8 +99,8 @@ export class App extends React.Component{
     }
 
     componentDidMount() {
+
         axios.get(routes.user).then(res => {
-            console.log('The response in app from component did mount', res);
             const userProfile =  new UserProfile({
                 bio: res.data.bio,
                 profile_creation_date: res.data.created_at,
@@ -114,7 +109,6 @@ export class App extends React.Component{
                 last: res.data.last,
                 imageUrl: res.data.pic_url || "/assets/images/nerd-avatar.png"
             });
-            console.log(userProfile);
             this.setState({
                 user:userProfile
             });
@@ -122,14 +116,12 @@ export class App extends React.Component{
     }
 
     dismissLoader(){
-        console.log('Dismissing the Uploader and this is ', this);
         this.setState({
             uploaderVisible: false
         });
     }
 
     avatarClicked(){
-        console.log('Avatar Clicked and this is', this.state.uploaderVisible);
         if (this.state.uploaderVisible) {
             this.setState({ uploaderVisible: false });
         } else {
@@ -142,7 +134,6 @@ export class App extends React.Component{
     }
 
     changeImage(imageUrl){
-        console.log('Setting imageUrl in AppState as ',  imageUrl);
         let user = this.state.user;
         user.imageUrl = imageUrl;
         this.setState({
@@ -159,13 +150,11 @@ export class App extends React.Component{
     }
 
     setBio(bio){
-        console.log('incoming bio is', bio);
         let user = this.state.user;
-        console.log('the user is ', user);
         user.bio = bio;
         this.setState({
             user: user ,
             bioEditorIsVisible: false
-        }, () => console.log('The new state is', this.state));
+        });
     }
 }

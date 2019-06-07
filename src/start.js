@@ -5,7 +5,7 @@ import { App } from './pages/app';
 import routes from './react_utils/react_routes';
 
 
-if (location.pathname === routes.welcome){  
+if (location.pathname === routes.welcome){ 
     ReactDOM.render(
         <Welcome/>,
         document.querySelector('main')

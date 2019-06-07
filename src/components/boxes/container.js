@@ -22,6 +22,7 @@ export class Container extends React.Component{
             boxShadow: props.boxShadow && "1px 0px 3px 1px rgba(0,0,0,0.75)"
         };
     }
+
     render(){
         return (
             <div style={this.style}>

@@ -10,7 +10,6 @@ export class BioEditor extends React.Component{
 
     constructor (props) {
         super(props);
-        console.log('This pros in bio_editor', props);
         this.state = { 
             bioIsEditing: false,
             bio: props.bio
