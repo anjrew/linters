@@ -17,7 +17,9 @@ export function FindPeople() {
     useEffect(() => {
         console.log('The users are ', users);
         console.log('And the search val is ',  searchVal);
-        if (!users && !searchVal) {
+        !searchVal && setUsers(null,);
+
+        if (!searchVal) {
             console.log('Getting the latest users');
             axios.get(`/api/users`).then(({ data })=>{
                 console.log('The data from the databse is', data);
@@ -39,12 +41,9 @@ export function FindPeople() {
         }   
     },[searchVal]);
 
-    
-    const showCheckText = users ? users.length < 0 ? true : false : false;
-    const showUsers = !showCheckText;
 
     const usersList = users ? (
-        <CSSTransition key="users" in={showUsers} timeout={300} classNames="scale" unmountOnExit>
+        <CSSTransition key="users" in={!!users} timeout={300} classNames="scale" unmountOnExit>
             <CenteredColumn width='100%'>
                 {users && users.map(
                     user => (
@@ -63,15 +62,14 @@ export function FindPeople() {
     return (
         <CenteredColumn>
             <h2>Find people</h2>
+            <input onChange={e => setSearchVal(e.target.value)} defaultValue={''} />
 
-            <CSSTransition key="checkNewPeople" in={showCheckText} timeout={300} classNames="scale" unmountOnExit>
+            <CSSTransition key="checkNewPeople" in={!!!searchVal} timeout={300} classNames="scale" unmountOnExit>
                 <h3>Check out the new people who have joined</h3>
             </CSSTransition>
             
-            { !showUsers ? <CircularProgressIndicator /> : usersList}
+            { !users ? <CircularProgressIndicator /> : usersList}
          
-            <input onChange={e => setSearchVal(e.target.value)} defaultValue={''} />
-    
         </CenteredColumn>
     );
 }
