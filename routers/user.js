@@ -15,7 +15,6 @@ router.route(routes.user)
         try {
             let user = await db.findUserId(userId);
             user = user.rows[0];
-            print.success("Got the user from the database with details and sending", user);
             res.json(user);
         } catch (error) {
             res.status(500).json({

@@ -16,8 +16,6 @@ router.route(routes.update)
                 result = await db.updateBio(userId, bio);
             }
             const user = result.rows[0];
-            print.props(user);
-            print.success("Got the user from the database with details and sending", user);
             res.json(user);
         } catch (e) {
             print.error('Error', e);

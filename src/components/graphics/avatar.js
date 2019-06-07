@@ -15,11 +15,10 @@ export class Avatar extends React.Component{
     }
                     
     render(){
-        // console.log('Rendering Avatar with props', this.props);
         return (
             <img 
                 style={this.style} 
-                src={this.props.imageUrl || '/assets/images/nerd-avatar.png'} 
+                src={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'} 
                 alt={this.props.description} 
                 onClick={this.props.onClick}/>
         );

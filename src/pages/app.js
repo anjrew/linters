@@ -14,6 +14,8 @@ import { Avatar } from '../components/graphics/avatar';
 import { Uploader } from '../components/modules/Uploader';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
+import { FindPeople } from '../components/modules/find_people';
+
 
 export class App extends React.Component{
 
@@ -57,7 +59,6 @@ export class App extends React.Component{
                                         timeout={{ enter: 300, exit: 300 }}
                                     >
                                         <Switch location={location}>
-
                                             <Route path={ "/other-user/:id"} render={(props) => {
                                                 return (
                                                     <OtherProfile 
@@ -76,6 +77,12 @@ export class App extends React.Component{
                                                         user={this.state.user}
                                                         setBio={this.setBio}
                                                     />
+                                                );
+                                            }}/>  
+
+                                            <Route exact path={'/users'} render={(props) => {
+                                                return (
+                                                    <FindPeople/>
                                                 );
                                             }}/>                                            
 

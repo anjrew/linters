@@ -11,9 +11,9 @@ const path = require('path');
 const print = require('./utils/print');
 const routes = require('./routers/routes');
 
-
 const routers = [
-    require('./routers/other_user.js'),
+    require('./routers/users'),
+    require('./routers/other_user'),
     require('./routers/update'),
     require('./routers/user'),
     require('./routers/register'),
@@ -87,6 +87,7 @@ app.get('/welcome', (req, res) => {
 
 app.get('*', function(req, res) {
     if (!req.session.userId){
+        print.warning('Redirecting to welcome');
         res.redirect(routes.welcome);
     } else {
         res.sendFile(__dirname + '/index.html');

@@ -11,7 +11,8 @@ export class CenteredColumn extends React.Component{
             justifyContent: 'start',
             alignItems: 'center',
             flexWrap: 'wrap',
-            alignContent: 'center'
+            alignContent: 'center',
+            width: props.width
         };
     }
     
