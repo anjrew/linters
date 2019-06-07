@@ -43,14 +43,18 @@ export function FindPeople() {
         </CSSTransition>
     ): null;
     
-
+    console.log('Users is ', users);
     return (
-        <Column>
+        <Column width='80%'>
             <h2>Find people</h2>
             <input onChange={e => setSearchVal(e.target.value)} defaultValue={''} />
 
             <CSSTransition key="checkNewPeople" in={!searchVal } timeout={300} classNames="scale" unmountOnExit>
                 <h3>Check out the new people who have joined</h3>
+            </CSSTransition>
+
+            <CSSTransition key="no-matches" in={!!searchVal && users.length <1} timeout={300} classNames="scale" unmountOnExit>
+                <h3>No matches</h3>
             </CSSTransition>
             
             { !users ? <CircularProgressIndicator /> : usersList}

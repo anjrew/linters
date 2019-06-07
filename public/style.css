@@ -64,12 +64,12 @@ h3{
     margin: 20px;
 }
 
-input[type="text"], input[type="password"], input[type="email"]{
+input[type="text"], input[type="password"], input[type="email"], input{
     border-radius: 30px;
     padding:5px 10px;
     display: inline-block
 }
-input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hover{
+input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hover input{
     transform: scale(1.03);
 }
 
