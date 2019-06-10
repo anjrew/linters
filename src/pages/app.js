@@ -72,14 +72,14 @@ export class App extends React.Component{
                                         key={location.pathname}
                                         timeout={{ enter: 300, exit: 300 }}
                                         classNames="fade"
-                                        onEnter={() => console.log('In onEnter')}
-                                        onEntering={() => console.log('In onEntering')}
-                                        onEntered={() => console.log('In onEntered')}
-                                        onExit={() => console.log('In onExit')}
-                                        onExiting={() => console.log('In onExiting')}
-                                        onExited={() => console.log('In onExited')}
+                                        onEnter={() => console.log('In onEnter app')}
+                                        onEntering={() => console.log('In onEntering app')}
+                                        onEntered={() => console.log('In onEntered app')}
+                                        onExit={() => console.log('In onExit app')}
+                                        onExiting={() => console.log('In onExiting app')}
+                                        onExited={() => console.log('In onExited app')}
                                     >
-                                        {/* <OverLappedChildren>              */}
+                                        <OverLappedChildren>             
 
                                             <Switch location={location}>
                                                 <Route path={ "/other-user/:id"} render={(props) => {
@@ -110,7 +110,7 @@ export class App extends React.Component{
                                                 }}/> 
 
                                             </Switch>
-                                        {/* </OverLappedChildren>             */}
+                                        </OverLappedChildren>            
                                     </CSSTransition>
                                 </TransitionGroup>
                           

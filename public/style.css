@@ -210,3 +210,91 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     }
   }
 
+
+
+.shift-enter {
+    animation-delay: 1ms;
+    transform: translateX(-100vw);
+}
+
+.scale-enter-active {
+    transform: translateX(0px);
+    transition: all 300ms ease-in;
+}
+
+.shift-exit {
+    animation-delay: 1ms;
+    transform: translateX(0px);
+}
+
+.scale-exit-active {
+    transform: translateX(100vw);
+    transition: all 300ms ease-in;
+}
+
+@keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+.prev-leave-active{
+    transform: scale(0)
+}
+
+.prev-enter-active{
+    transform: scale(0)
+}
+
+@keyframes prevgo{
+    0%{ 
+        transform: translate(-50%, 0%);
+    }
+    10%{
+        transform: translate(-40%, 0%);
+    }
+    50%{
+    transform: translate(-70%, 0%);
+    }
+    80%{
+    transform: translate(0%, 0%);
+    }
+    99%{
+    opacity: 0.0
+    }
+    100%{
+    transform: translate(0%, 0%);
+    opacity: 0;
+    }
+}
+
+.next-leave-active{
+    animation: nextgo 1s
+}
+
+
+@keyframes nextgo{
+    0%{ 
+        transform: translate(-50%, 0%);
+    }
+    10%{
+        transform: translate(-60%, 0%);
+    }
+    50%{
+    transform: translate(-30%, 0%);
+    }
+    80%{
+    transform: translate(-100%, 0%);
+    }
+    99%{
+    opacity: 0.0
+    }
+    100%{
+        transform: translate(-100%, 0%);
+    }
+}
+
+

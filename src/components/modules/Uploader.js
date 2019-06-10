@@ -38,6 +38,7 @@ export class Uploader extends React.Component{
 
                 <CSSTransition in={!this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
                     <Container 
+                        id='uploder-model'
                         margin="20px" 
                         padding='10px' 
                         borderRadius="20px" 
@@ -45,7 +46,10 @@ export class Uploader extends React.Component{
                         borderColor="black" 
                         borderStyle="solid"
                         maxWidth="450px"
-                        boxShadow={true} >
+                        boxShadow={true} 
+                        backgroundColor="white"
+                        position='fixed'
+                    >
 
                         <React.Fragment>
                             <Row justifyContent={'space-between'} >

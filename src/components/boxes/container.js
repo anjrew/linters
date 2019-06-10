@@ -20,13 +20,16 @@ export class Container extends React.Component{
             padding: props.padding,
             maxWidth: props.maxWidth,
             margin: props.margin,
-            boxShadow: props.boxShadow && "1px 0px 3px 1px rgba(0,0,0,0.75)"
+            boxShadow: props.boxShadow && "1px 0px 3px 1px rgba(0,0,0,0.75)",
+            backgroundColor: props.backgroundColor,
+            position: props.position,
+            opacity: props.opacity
         };
     }
 
     render(){
         return (
-            <div style={this.style}>
+            <div id={this.props.idß} style={this.style}>
                 {this.props.children}
             </div>
         );
