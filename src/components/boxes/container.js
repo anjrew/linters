@@ -4,6 +4,7 @@ export class Container extends React.Component{
 
     constructor (props) {
         super(props);
+        console.log('Container props are ', props);
         this.style = {
             display: props.display || 'flex',
             flexDirection: props.flexDirection || 'column',
@@ -23,13 +24,15 @@ export class Container extends React.Component{
             boxShadow: props.boxShadow && "1px 0px 3px 1px rgba(0,0,0,0.75)",
             backgroundColor: props.backgroundColor,
             position: props.position,
-            opacity: props.opacity
+            opacity: props.opacity,
+            zIndex: props.zIndex,
         };
+        console.log('Container style is ', this.style);
     }
 
     render(){
         return (
-            <div id={this.props.idß} style={this.style}>
+            <div id={this.props.id} style={this.style}>
                 {this.props.children}
             </div>
         );

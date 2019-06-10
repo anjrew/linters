@@ -21,6 +21,7 @@ export class Uploader extends React.Component{
         },
         this.handleChange = this.handleChange.bind(this);
         this.upload = this.upload.bind(this);
+        this.uploading = props.uploading;
     }
 
     render(){
@@ -79,6 +80,7 @@ export class Uploader extends React.Component{
 
     async upload() {
         console.log('Upload clicked and this is', this);
+        this.props.uploading();
         this.setState({
             uploading: true
         }, () => { 

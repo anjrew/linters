@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from '../react_utils/axios';
 import routes from '../react_utils/react_routes';
-import { BrowserRouter, Switch, Route , Redirect} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { UserProfile } from '../data/user_profile';
 import { Link } from 'react-router-dom';
@@ -18,15 +18,15 @@ import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
 import { FindPeople } from '../components/modules/find_people';
 import { OverLappedChildren} from '../components/layout/overlapped_children';
-import { CircularProgressIndicator } from '../components/progress_indicators/circular_progress_indicator';
 import { ErrorMessage } from '../components/text/error_message';
-
+import { Loader } from '../components/graphics/loader';
 
 export class App extends React.Component{
 
     constructor(){
         super();
         this.state = {
+            uploading: false,
             error: null,
             uploaderVisible: false,
             bioEditorIsVisible: false,
@@ -52,6 +52,10 @@ export class App extends React.Component{
                 <Route render= {({location}) => {
                     return(
                         <Column>
+                            <CSSTransition in={this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
+                                <Loader/>
+                            </CSSTransition>
+
                             <Row id="header" backgroundColor={ 'red' } justifyContent='flex-start'>
                                 <Logo height={ '100px' } width={ "100px" }/>
                                 <Link className='link-button' to={'/users'}>Find users</Link>
@@ -117,6 +121,7 @@ export class App extends React.Component{
 
                                 <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
                                     <Uploader 
+                                        uploading={ () => this.setState({ uploading: true }, () => console.log('The state is ',this.state))}
                                         dismissLoader={ this.dismissLoader } 
                                         changeImage={this.changeImage}
                                     />
@@ -149,7 +154,8 @@ export class App extends React.Component{
 
     dismissLoader(){
         this.setState({
-            uploaderVisible: false
+            uploaderVisible: false,
+            uploading: false
         });
     }
 
