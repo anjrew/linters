@@ -72,38 +72,44 @@ export class App extends React.Component{
                                         key={location.pathname}
                                         timeout={{ enter: 300, exit: 300 }}
                                         classNames="fade"
+                                        onEnter={() => console.log('In onEnter')}
+                                        onEntering={() => console.log('In onEntering')}
+                                        onEntered={() => console.log('In onEntered')}
+                                        onExit={() => console.log('In onExit')}
+                                        onExiting={() => console.log('In onExiting')}
+                                        onExited={() => console.log('In onExited')}
                                     >
                                         {/* <OverLappedChildren>              */}
 
-                                        <Switch location={location}>
-                                            <Route path={ "/other-user/:id"} render={(props) => {
-                                                return (
-                                                    <OtherProfile 
-                                                        key={props.match.url}
-                                                        match={props.match}
-                                                        history={props.history}
-                                                    />
-                                                );
-                                            }}/> 
+                                            <Switch location={location}>
+                                                <Route path={ "/other-user/:id"} render={(props) => {
+                                                    return (
+                                                        <OtherProfile 
+                                                            key={props.match.url}
+                                                            match={props.match}
+                                                            history={props.history}
+                                                        />
+                                                    );
+                                                }}/> 
 
-                                            <Route exact path={routes.home} render={() => {
-                                                return (
-                                                    <Profile 
-                                                        bioEditorIsVisible={ this.state.bioEditorIsVisible}
-                                                        uploadClicked={this.avatarClicked}
-                                                        user={this.state.user}
-                                                        setBio={this.setBio}
-                                                    />
-                                                );
-                                            }}/>  
+                                                <Route exact path={routes.home} render={() => {
+                                                    return (
+                                                        <Profile 
+                                                            bioEditorIsVisible={ this.state.bioEditorIsVisible}
+                                                            uploadClicked={this.avatarClicked}
+                                                            user={this.state.user}
+                                                            setBio={this.setBio}
+                                                        />
+                                                    );
+                                                }}/>  
 
-                                            <Route exact path={'/users'} render={() => {
-                                                return (
-                                                    <FindPeople/>
-                                                );
-                                            }}/> 
+                                                <Route exact path={'/users'} render={() => {
+                                                    return (
+                                                        <FindPeople/>
+                                                    );
+                                                }}/> 
 
-                                        </Switch>
+                                            </Switch>
                                         {/* </OverLappedChildren>             */}
                                     </CSSTransition>
                                 </TransitionGroup>

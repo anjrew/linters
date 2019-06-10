@@ -74,6 +74,11 @@ h3{
     margin: 20px;
 }
 
+input[type='file'] {
+    opacity: 0;
+    position: absolute;
+  }
+
 input[type="text"], input[type="password"], input[type="email"], input{
     border-radius: 30px;
     padding:5px 10px;

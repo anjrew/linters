@@ -1,11 +1,12 @@
 import React from 'react';
 
-export class UploadButton extends React.Component{
+export class BrowseButton extends React.Component{
 
     constructor (props) {
         super(props);
         this.handleClick = props.handleClick;
         this.label = props.label;
+
         this.wrapper = {
             position: 'relative',
             overflow: 'hidden',
@@ -15,13 +16,13 @@ export class UploadButton extends React.Component{
             border: '2px solid gray',
             color: 'gray',
             backgroundColor: 'white',
-            padding: '8px 20px',
+            padding: '3px 10px',
             borderRadius: '8px',
             fontSize: '20px',
             fontWeight: 'bold',
         },
         this.input = {
-            fontSize: '100px',
+            fontSize: '30px',
             position: 'absolute',
             left: '0',
             top: '0',
@@ -31,14 +32,15 @@ export class UploadButton extends React.Component{
 
     render(){
         return (
-            <div className="upload-btn-wrapper">
-                <button className="btn">Upload a file</button>
+            <div style={this.wrapper} className='Upload button'>
+                <button style={this.button}>Browse</button>
                 <input 
                     id="upload-photo"
+                    style={this.input}
                     type="file"
                     name="file"
                     accept="image/*"
-                    onChange={e => this.props.handleChange(e)}
+                    onChange={e => this.props.onChange(e)}
                 />
             </div>
         );

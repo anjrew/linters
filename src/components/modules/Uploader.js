@@ -7,7 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 import { Row } from '../layout/row';
 import { Container } from '../boxes/container';
 import { CircularProgressIndicator } from '../progress_indicators/circular_progress_indicator';
-import { UploadButton } from '../buttons/upload_button';
+import { BrowseButton } from '../buttons/upload_button';
 
 export class Uploader extends React.Component{
 
@@ -24,6 +24,7 @@ export class Uploader extends React.Component{
     }
 
     render(){
+        const file = this.state.file;
         console.log('Rendering upLoader with this', this);
         return (
             <Row placeContent="center center" >
@@ -53,7 +54,7 @@ export class Uploader extends React.Component{
                                 <button onClick={ this.props.dismissLoader } style={{ height: '30px', width: '30px', padding: '0px', margin: '5px' }}>x</button>
                             </Row>
                             <label>Add File...</label>
-                            <p>{ !this.state.uploading ? 'this.state.file' : '' }</p>
+                            <p>{ !this.state.uploading && file ? this.state.file.name : '' }</p>
                             <input
                                 // style={{ display: 'none' }}
                                 id="upload-photo"
@@ -62,7 +63,7 @@ export class Uploader extends React.Component{
                                 accept="image/*"
                                 onChange={e => this.handleChange(e)}
                             />
-                            {/* <UploadButton onChange={e => this.handleChange(e)}/> */}
+                            <BrowseButton onChange={e => this.handleChange(e)}/>
 
                             <button onClick={ this.upload }  style={{ margin: '30px' }}>Upload</button>
                         </React.Fragment>
