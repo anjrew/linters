@@ -20,6 +20,7 @@ export class BrowseButton extends React.Component{
             borderRadius: '8px',
             fontSize: '20px',
             fontWeight: 'bold',
+
         },
         this.input = {
             fontSize: '30px',
@@ -33,7 +34,7 @@ export class BrowseButton extends React.Component{
     render(){
         return (
             <div style={this.wrapper} className='Upload button'>
-                <button style={this.button}>Browse</button>
+                <button className='link-button'>Browse</button>
                 <input 
                     id="upload-photo"
                     style={this.input}
