@@ -11,7 +11,12 @@ export class ProfileTile extends React.Component{
     render(){
         const user = this.props.user;
         return (
-            <Row key={user.id} justifyContent='flex-start' classNames="user-tile" margin="10px" padding="10px">
+            <Row                 
+                classNames="user-tile" 
+                margin="10px" 
+                padding="10px"
+                justifyContent='flex-start'>
+
                 <Avatar imageUrl={user.pic_url}/>
         
                 <Column 
@@ -22,7 +27,7 @@ export class ProfileTile extends React.Component{
                     <h2>{user.first}</h2>
                     <h3>{user.bio}</h3>
                     <h4>{user.email}</h4>
-                    <h4>Joined {new Date(user.created_at).toLocaleDateString()}</h4>
+                    <h4>Joined { new Date(user.created_at).toLocaleDateString() }</h4>
                 </Column>
             </Row>
         );

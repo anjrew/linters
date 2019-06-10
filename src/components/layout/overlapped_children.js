@@ -13,7 +13,7 @@ export class OverLappedChildren extends React.Component{
     }
     render(){
         return (
-            <div style={this.style} className={'Column'}>
+            <div style={this.style} className={'overLappedChildren'}>
                 {this.children}
             </div>
         );

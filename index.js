@@ -12,6 +12,7 @@ const print = require('./utils/print');
 const routes = require('./routers/routes');
 
 const routers = [
+    require('./routers/log_out'),
     require('./routers/users'),
     require('./routers/other_user'),
     require('./routers/update'),

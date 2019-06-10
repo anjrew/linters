@@ -8,13 +8,10 @@ export class Row extends React.Component{
             display: 'flex', 
             flexDirection: 'row',
             alignItems: props.alignItems || 'center',
-            alignContent: props.alignContent || 'center',
-            justifyContent: props.justifyContent || 'space-between',
             width: props.width || '100%',
             backgroundColor: props.backgroundColor,
             padding: props.padding,
-            placeContent: props.placeContent || 'center',
-            funkyChicken: '100px'
+            placeContent: props.placeContent || 'center space-between',
         };
     
     }

@@ -15,6 +15,7 @@ export function FindPeople() {
         !searchVal && setUsers(null,);
         if (!searchVal) {
             axios.get(`/api/users`).then(({ data })=>{
+                console.log('users: ', data);
                 setUsers(data);
             }).catch((e)=>{
                 console.log('ERROR: ' + e);
@@ -35,9 +36,10 @@ export function FindPeople() {
     const usersList = users ? (
         <CSSTransition key="users" in={!!users} timeout={300} classNames="scale" unmountOnExit>
             <Column   
-                padding="30px">
+                padding="30px"
+                alignItems='start'>
                 {users && users.map(
-                    user => <ProfileTile key={user.id} user={user} />
+                    user => <ProfileTile key={`${user.id}`} user={user} />
                 )}
             </Column>
         </CSSTransition>

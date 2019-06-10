@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from '../react_utils/axios';
 import routes from '../react_utils/react_routes';
-import { BrowserRouter, Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route , Redirect} from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { UserProfile } from '../data/user_profile';
+import { Link } from 'react-router-dom';
+
 
 // Components
 import { Logo } from '../components/graphics/logo';
@@ -15,7 +17,9 @@ import { Uploader } from '../components/modules/Uploader';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
 import { FindPeople } from '../components/modules/find_people';
-import { Link } from 'react-router-dom';
+import { OverLappedChildren} from '../components/layout/overlapped_children';
+import { CircularProgressIndicator } from '../components/progress_indicators/circular_progress_indicator';
+import { ErrorMessage } from '../components/text/error_message';
 
 
 export class App extends React.Component{
@@ -23,6 +27,7 @@ export class App extends React.Component{
     constructor(){
         super();
         this.state = {
+            error: null,
             uploaderVisible: false,
             bioEditorIsVisible: false,
             user: {
@@ -43,31 +48,33 @@ export class App extends React.Component{
 
     render(){
         return (
-            <Column>
-                <Row id="header" backgroundColor={ 'red' } justifyContent={'space-between'}>
-                    <Logo height={ '100px' } width={ "100px" }/>
-                    {/* <Link className='link-button' to={'/users'}>Find users</Link> */}
-                    {/* <Link className='link-button' to={routes.login}>Click here to Log in!</Link> */}
-                    <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
-                </Row>
+            <BrowserRouter>
+                <Route render= {({location}) => {
+                    return(
+                        <Column>
+                            <Row id="header" backgroundColor={ 'red' } justifyContent='flex-start'>
+                                <Logo height={ '100px' } width={ "100px" }/>
+                                <Link className='link-button' to={'/users'}>Find users</Link>
+                                <Link className='link-button' to={'/'}>My profile</Link>
+                                <Link className='link-button' to={'/welcome'}>Log out</Link>
 
-                <div style={{
-                    justifyContent: 'space-between'
-                }}>
-                    <Logo height={ '100px' } width={ "100px" }/>
+                                {/* <Link className='link-button' to={routes.login}>Click here to Log in!</Link> */}
+                                <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
+                            </Row>
 
-                    <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
-                </div>
+                            <CSSTransition in={!!this.state.error} timeout={300} classNames="scale" unmountOnExit>
+                                <ErrorMessage> </ErrorMessage>
+                            </CSSTransition>
 
-                <SafeArea>
-                    <BrowserRouter>
-                        <Route render= {({location}) => {
-                            return(
+                            <SafeArea>
+                    
                                 <TransitionGroup>
                                     <CSSTransition
                                         key={location.pathname}
                                         timeout={{ enter: 300, exit: 300 }}
                                     >
+                                        {/* <OverLappedChildren>              */}
+
                                         <Switch location={location}>
                                             <Route path={ "/other-user/:id"} render={(props) => {
                                                 return (
@@ -94,24 +101,44 @@ export class App extends React.Component{
                                                 return (
                                                     <FindPeople/>
                                                 );
-                                            }}/>                                            
+                                            }}/> 
+
+                                            <Redirect exact path={'/login'} render={() => {
+
+                                                axios.post('/api/logout').then((response) => {
+                                                    history.push('/welcome');
+                                                    console.log('The response is from logout', response);
+                                                    if (response.success) {
+                                                        
+                                                    }
+                                                }).catch((e) =>{
+                                                    this.setState({
+                                                        error: e
+                                                    });
+                                                });
+                                                return (
+                                                    <CircularProgressIndicator/>
+                                                );
+                                            }}/>                                           
 
                                         </Switch>
+                                        {/* </OverLappedChildren>             */}
                                     </CSSTransition>
                                 </TransitionGroup>
-                            );}} />
-                    </BrowserRouter>
+                          
 
+                                <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
+                                    <Uploader 
+                                        dismissLoader={ this.dismissLoader } 
+                                        changeImage={this.changeImage}
+                                    />
+                                </CSSTransition>
 
-                    <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
-                        <Uploader 
-                            dismissLoader={ this.dismissLoader } 
-                            changeImage={this.changeImage}
-                        />
-                    </CSSTransition>
+                            </SafeArea>
+                        </Column>
+                    );}} />
+            </BrowserRouter>
 
-                </SafeArea>
-            </Column>
         );
     }
 
