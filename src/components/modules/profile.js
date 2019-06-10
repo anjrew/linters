@@ -15,8 +15,8 @@ export class Profile extends React.Component{
                 placeContent={'start'}
             >
                 <Avatar
-                    height ='300px'
-                    width = '300px'
+                    height ='200px'
+                    width = '200px'
                     onClick={ this.props.uploadClicked} 
                     imageUrl={this.props.user.imageUrl}
                     description="User image"

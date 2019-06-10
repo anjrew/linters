@@ -53,8 +53,14 @@ button:active{
     box-shadow: none;
     transform: translateY(-3px);
 }
-/* title
-font-family: 'Space Mono', monospace; */
+
+.avatar:hover{
+    transform: scale(1.05)
+}
+.avatar:active{
+    transform: translateY(-3px)
+}
+
 
 h3{
     text-align: center

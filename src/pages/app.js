@@ -56,9 +56,8 @@ export class App extends React.Component{
                                 <Logo height={ '100px' } width={ "100px" }/>
                                 <Link className='link-button' to={'/users'}>Find users</Link>
                                 <Link className='link-button' to={'/'}>My profile</Link>
-                                <Link className='link-button' to={'/welcome'}>Log out</Link>
+                                <a className='link-button' href='/api/logout'>Logout</a>
 
-                                {/* <Link className='link-button' to={routes.login}>Click here to Log in!</Link> */}
                                 <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                             </Row>
 
@@ -72,6 +71,7 @@ export class App extends React.Component{
                                     <CSSTransition
                                         key={location.pathname}
                                         timeout={{ enter: 300, exit: 300 }}
+                                        classNames="fade"
                                     >
                                         {/* <OverLappedChildren>              */}
 
@@ -102,24 +102,6 @@ export class App extends React.Component{
                                                     <FindPeople/>
                                                 );
                                             }}/> 
-
-                                            <Redirect exact path={'/login'} render={() => {
-
-                                                axios.post('/api/logout').then((response) => {
-                                                    history.push('/welcome');
-                                                    console.log('The response is from logout', response);
-                                                    if (response.success) {
-                                                        
-                                                    }
-                                                }).catch((e) =>{
-                                                    this.setState({
-                                                        error: e
-                                                    });
-                                                });
-                                                return (
-                                                    <CircularProgressIndicator/>
-                                                );
-                                            }}/>                                           
 
                                         </Switch>
                                         {/* </OverLappedChildren>             */}

@@ -26,7 +26,7 @@ export class Uploader extends React.Component{
     render(){
         console.log('Rendering upLoader with this', this);
         return (
-            <Row>
+            <Row placeContent="center center" >
                 <CSSTransition in={this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
                     <React.Fragment>
                         <Container padding="40px">

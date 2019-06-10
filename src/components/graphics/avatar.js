@@ -18,6 +18,7 @@ export class Avatar extends React.Component{
     render(){
         return (
             <img 
+                className='avatar'
                 style={this.style} 
                 src={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'} 
                 alt={this.props.description} 

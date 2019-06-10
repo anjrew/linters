@@ -37,7 +37,7 @@ export function FindPeople() {
         <CSSTransition key="users" in={!!users} timeout={300} classNames="scale" unmountOnExit>
             <Column   
                 padding="30px"
-                alignItems='start'>
+                alignItems='center'>
                 {users && users.map(
                     user => <ProfileTile key={`${user.id}`} user={user} />
                 )}
@@ -46,7 +46,7 @@ export function FindPeople() {
     ): null;
     
     return (
-        <Column width='80%'>
+        <Column width='100%' >
             <h2>Find people</h2>
             <input onChange={e => setSearchVal(e.target.value)} defaultValue={''} />
 

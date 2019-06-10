@@ -7,8 +7,6 @@ import { UserProfile } from '../data/user_profile';
 import { ErrorMessage } from '../components/text/error_message';
 import { CSSTransition } from "react-transition-group";
 
-
-
 export class OtherProfile extends React.Component{
 
     constructor (props) {

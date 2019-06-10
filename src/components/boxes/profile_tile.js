@@ -7,6 +7,9 @@ export class ProfileTile extends React.Component{
 
     constructor (props) {
         super(props);
+        this.textStyle={
+            textAlign: 'start'
+        };
     }
     render(){
         const user = this.props.user;
@@ -15,19 +18,19 @@ export class ProfileTile extends React.Component{
                 classNames="user-tile" 
                 margin="10px" 
                 padding="10px"
-                justifyContent='flex-start'>
+                placeContent= 'center flex-start'
+            >
 
                 <Avatar imageUrl={user.pic_url}/>
         
                 <Column 
-                    justifyContent= 'start'
+                    justifyContent= 'center'
                     alignItems= 'start'
                     alignContent= 'start'
-                    alignSelf="start">
-                    <h2>{user.first}</h2>
-                    <h3>{user.bio}</h3>
-                    <h4>{user.email}</h4>
-                    <h4>Joined { new Date(user.created_at).toLocaleDateString() }</h4>
+                    alignSelf="center">
+                    <h2 style={this.textStyle}>{user.first}</h2>
+                    <h3 style={this.textStyle}>{user.bio}</h3>
+                    <h4 style={this.textStyle}>Joined { new Date(user.created_at).toLocaleDateString() }</h4>
                 </Column>
             </Row>
         );

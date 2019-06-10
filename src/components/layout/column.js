@@ -13,7 +13,7 @@ export class Column extends React.Component{
             alignSelf: props.alignSelf || 'center',
             flexWrap: 'wrap',
             alignContent: props.alignContent || 'center',
-            width: props.width
+            width: props.width || '100%'
         };
     }
     
