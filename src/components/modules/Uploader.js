@@ -21,20 +21,26 @@ export class Uploader extends React.Component{
         },
         this.handleChange = this.handleChange.bind(this);
         this.upload = this.upload.bind(this);
-        this.uploading = props.uploading;
     }
 
     render(){
         const file = this.state.file;
+        console.log('Rendering upLoader with this', this);
         return (
-            <Row placeContent="center center" >
-                {/* <CSSTransition in={this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
+            <Container 
+                padding="40px"
+                position="fixed"
+                width='100vw'
+                height='100vh'
+                backgroundColor= 'rgba(0,0,0,0.20)'
+                zIndex="999">
+                <CSSTransition in={this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
                     <React.Fragment>
                         <Container padding="40px">
                             <CircularProgressIndicator/> 
                         </Container>
                     </React.Fragment>
-                </CSSTransition> */}
+                </CSSTransition>
 
                 <CSSTransition in={!this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
                     <Container 
@@ -73,16 +79,22 @@ export class Uploader extends React.Component{
                         </React.Fragment>
                     </Container>
                 </CSSTransition>
-            </Row>
+            </Container>
         );
     }
 
     async upload() {
-        this.props.uploading();
+        console.log('Upload clicked and this is', this);
+        this.setState({
+            uploading: true
+        }, () => { 
+            console.log('The new state is ', this.state);
+        } );
         var formData = new FormData();
         formData.append("file", this.state.file);
         try {
             const response = await axios.post(routes.upload, formData);
+            console.log('The response data is ', response.data);
             this.props.changeImage(response.data.pic_url);
             this.props.dismissLoader();
         } catch (e) {

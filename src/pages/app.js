@@ -52,8 +52,13 @@ export class App extends React.Component{
                 <Route render= {({location}) => {
                     return(
                         <Column>
-                            <CSSTransition in={this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
-                                <Loader/>
+
+                            <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="fade" unmountOnExit>
+                                <Uploader 
+                                    uploading={ () => this.setState({ uploading: true }, () => console.log('The state is ',this.state))}
+                                    dismissLoader={ this.dismissLoader } 
+                                    changeImage={this.changeImage}
+                                />
                             </CSSTransition>
 
                             <Row id="header" backgroundColor={ 'red' } justifyContent='flex-start'>
@@ -117,15 +122,6 @@ export class App extends React.Component{
                                         </OverLappedChildren>            
                                     </CSSTransition>
                                 </TransitionGroup>
-                          
-
-                                <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
-                                    <Uploader 
-                                        uploading={ () => this.setState({ uploading: true }, () => console.log('The state is ',this.state))}
-                                        dismissLoader={ this.dismissLoader } 
-                                        changeImage={this.changeImage}
-                                    />
-                                </CSSTransition>
 
                             </SafeArea>
                         </Column>

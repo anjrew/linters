@@ -24,7 +24,7 @@ export class Loader extends React.Component{
                 position="fixed"
                 width='100vw'
                 height='100vh'
-                backgroundColor= 'rgba(0,0,0,0.25)'
+                backgroundColor= 'rgba(0,0,0,0.20)'
                 zIndex="999">
                 <CircularProgressIndicator/> 
             </Container>
