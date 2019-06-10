@@ -26,16 +26,15 @@ export class Uploader extends React.Component{
 
     render(){
         const file = this.state.file;
-        console.log('Rendering upLoader with this', this);
         return (
             <Row placeContent="center center" >
-                <CSSTransition in={this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
+                {/* <CSSTransition in={this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
                     <React.Fragment>
                         <Container padding="40px">
                             <CircularProgressIndicator/> 
                         </Container>
                     </React.Fragment>
-                </CSSTransition>
+                </CSSTransition> */}
 
                 <CSSTransition in={!this.state.uploading} timeout={300} classNames="scale" unmountOnExit>
                     <Container 
@@ -79,18 +78,11 @@ export class Uploader extends React.Component{
     }
 
     async upload() {
-        console.log('Upload clicked and this is', this);
         this.props.uploading();
-        this.setState({
-            uploading: true
-        }, () => { 
-            console.log('The new state is ', this.state);
-        } );
         var formData = new FormData();
         formData.append("file", this.state.file);
         try {
             const response = await axios.post(routes.upload, formData);
-            console.log('The response data is ', response.data);
             this.props.changeImage(response.data.pic_url);
             this.props.dismissLoader();
         } catch (e) {
