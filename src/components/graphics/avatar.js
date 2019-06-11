@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'react-shimmer';
 
 export class Avatar extends React.Component{
                     
@@ -21,14 +22,23 @@ export class Avatar extends React.Component{
     }
                     
     render(){
+        const shimmerWidth = this.props.width ? Number(this.props.width.slice(0,-2)) * 1 : 100 ;
+        const shimmerheight = this.props.height? Number(this.props.height.slice(0,-2)) * 1: 100 ;
+
         return (
-            <img 
+            <Image 
                 key={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'}
                 className='avatar'
+                width={shimmerWidth} 
+                height={shimmerheight}
                 style={this.style}
                 src={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'} 
                 alt={this.props.description} 
                 onClick={this.props.onClick}/>
         );
+    }
+
+    componentWillUnmount(){
+        this.style = null;
     }
 }

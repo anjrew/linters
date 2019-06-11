@@ -74,10 +74,32 @@ export class App extends React.Component{
                             </CSSTransition>
 
                             <Row id="header" backgroundColor={ 'red' } justifyContent='flex-start'>
+
                                 <Logo height={ '100px' } width={ "100px" }/>
-                                <Link className='link-button' to={'/users'}>Find users</Link>
-                                <Link className='link-button' to={'/'}>My profile</Link>
+
+                                <TransitionGroup>
+                                    <CSSTransition
+                                        key={location.pathname}
+                                        timeout={{ enter: 300, exit: 300 }}
+                                        classNames="scale"
+                                    >
+                                        <Switch location={location}>
+                                            <Route exact path={routes.home} render={() => {
+                                                return (
+                                                    <Link className='link-button' to={'/users'}>Find users</Link>
+                                                );
+                                            }}/>
+
+                                            <Route exact path={'/users'} render={() => {
+                                                return (
+                                                    <Link className='link-button' to={'/'}>My profile</Link>
+                                                );
+                                            }}/> 
+                                        </Switch>
+                                    </CSSTransition>
+                                </TransitionGroup>
                                 <a className='link-button' href='/api/logout'>Logout</a>
+
                                 <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                             </Row>
 
@@ -92,12 +114,6 @@ export class App extends React.Component{
                                         key={location.pathname}
                                         timeout={{ enter: 300, exit: 300 }}
                                         classNames="fade"
-                                        onEnter={() => console.log('In onEnter app')}
-                                        onEntering={() => console.log('In onEntering app')}
-                                        onEntered={() => console.log('In onEntered app')}
-                                        onExit={() => console.log('In onExit app')}
-                                        onExiting={() => console.log('In onExiting app')}
-                                        onExited={() => console.log('In onExited app')}
                                     >
                                         <OverLappedChildren>             
 

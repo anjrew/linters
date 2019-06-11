@@ -7,6 +7,10 @@
     transition-timing-function: ease-in-out;
 }
 
+body{
+    overflow: hidden;
+}
+
 .link-button{
     transform: translateY(-3px);
     transform: scale(1.05);
