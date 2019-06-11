@@ -39,16 +39,34 @@ export class Welcome extends React.Component{
                             console.log(location);
                             return(
 
-                                <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
-                                    <Registration 
+                                <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
+                                    <Registration
                                         key="front"
-                                        onClick={this.handleClick}/>
-        
-                            
+                                        onClick={this.handleClick}/>;
+                                    
                                     <Login 
                                         key="back"
                                         onClick={this.handleClick}/>
+                                   
                                 </ReactCardFlip>
+
+
+                            // <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
+                            // <Route exact path={ Routes.home } render={() => {
+                            //     return (<Registration 
+                            //         key="front"
+                            //         onClick={this.handleClick}/>);
+                            // }}/>
+
+
+                            // <Route path={ Routes.login } render={() => {
+                            //     return (
+                            //         <Login 
+                            //             key="back"
+                            //             onClick={this.handleClick}/>
+                            //     );
+                            // }}/>
+                            // </ReactCardFlip>
 
                                 // <TransitionGroup>
                                 //     <CSSTransition
