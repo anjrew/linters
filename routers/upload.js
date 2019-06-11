@@ -41,17 +41,13 @@ const uploader = multer({
 });
 
 router.route(routes.upload)
-    // .all((req, res) => console.log(chalk.blue('Here')))
     .post(uploader.single('file'), s3.upload, async (req, res) => {
     // If nothing went wrong the file is already in the uploads directory
-        print.info('In upload post with file');
         if (req.file) {
-            print.info("Req session info is", req.session);
             const url = secrets.AWS_URL + req.file.filename;
             const userId = req.session[cookies.userId];
             try {
                 var result = await db.insertImg(userId, url);
-                print.info("The result of the query is", result);
                 res.status(200).json(result.rows[0]);
             } catch (e) {
                 res.status(500).json({

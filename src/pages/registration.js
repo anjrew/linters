@@ -20,11 +20,9 @@ export class Registration extends React.Component{
     }
 
     render(){
-        console.log("Rendering this state", this.state);
-        console.log("this.state.error is ", this.state.error);
         return (
             <React.Fragment>
-                <CSSTransition in={this.state.error} timeout={300} classNames="scale" unmountOnExit>
+                <CSSTransition in={!!this.state.error} timeout={300} classNames="scale" unmountOnExit>
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
                 <Column>
@@ -62,8 +60,8 @@ export class Registration extends React.Component{
                     error: response.data.error,
                 });
             } else {
-                location.replace('/');
-                // this.switchToLogin();
+                // location.replace('/');
+                this.switchToLogin();
             }
         }).catch((e) =>{
             console.log('The error came from the Axios call: ', e);

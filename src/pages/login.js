@@ -22,7 +22,7 @@ export class Login extends React.Component{
     render(){
         return (
             <React.Fragment>
-                <CSSTransition in={this.state.error} timeout={300} classNames="scale" unmountOnExit>
+                <CSSTransition in={!!this.state.error} timeout={300} classNames="scale" unmountOnExit>
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
 
