@@ -36,6 +36,7 @@
         "knox-s3": "^0.9.5",
         "multer": "^1.3.0",
         "react": "^16.8.6",
+        "react-card-flip": "^0.7.1",
         "react-dom": "^16.8.6",
         "react-redux": "^5.0.5",
         "react-router": "^4.2.0",

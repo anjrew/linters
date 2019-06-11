@@ -34,7 +34,7 @@ export class Registration extends React.Component{
                     <TextField inputType="password" label="Password" id={id.password} handleChange={this.handleChange} required/>
                     <button onClick={() => this.submit()}>Sign-up</button>
                 </Column>
-                <Link className='link-button' to={routes.login}>Click here to Log in!</Link>
+                <button className='link-button' onClick={this.props.onClick}>Click here to Log in!</button>
             </React.Fragment>
         );
     }
@@ -76,5 +76,6 @@ export class Registration extends React.Component{
 
     switchToLogin(){
         console.log('Switching to login');
+        this.props.onClick();
     }
 }

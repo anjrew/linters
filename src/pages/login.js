@@ -31,7 +31,7 @@ export class Login extends React.Component{
                     <TextField inputType="password" label="Password" id={db.password} handleChange={this.handleChange} required/>
                     <button onClick={() => this.submit()}>Login</button>
                 </Column>
-                <Link className='link-button' to={routes.home}>Click here to sign up!</Link>
+                <button className='link-button' onClick={this.props.onClick}>Click here to sign up!</button>
             </React.Fragment>
         );
     }

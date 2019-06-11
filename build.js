@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 const conf = {
     entry: ["@babel/polyfill", __dirname + '/src/start.js'],
@@ -10,6 +12,9 @@ const conf = {
     performance: {
         hints: false
     },
+    plugins: [
+        new ExtractTextPlugin('styles.css'),
+    ],
     mode: require.main == module ? 'production' : 'development',
     optimization: require.main == module ? {
         minimizer: [
@@ -24,6 +29,19 @@ const conf = {
                 query: {
                     presets: ['@babel/preset-react', '@babel/preset-env']
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract(
+                    'style-loader',
+                    combineLoaders([{
+                        loader: 'css-loader',
+                        query: {
+                            modules: true,
+                            localIdentName: '[name]__[local]___[hash:base64:5]'
+                        }
+                    }])
+                )
             }
         ]
     }
