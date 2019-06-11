@@ -27,7 +27,8 @@ export class ProfileTile extends React.Component{
                     justifyContent= 'center'
                     alignItems= 'start'
                     alignContent= 'start'
-                    alignSelf="center">
+                    alignSelf="center"
+                    padding='10px'>
                     <h2 style={this.textStyle}>{user.first}</h2>
                     <h3 style={this.textStyle}>{user.bio}</h3>
                     <h4 style={this.textStyle}>Joined { new Date(user.created_at).toLocaleDateString() }</h4>

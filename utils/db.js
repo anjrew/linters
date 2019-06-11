@@ -102,6 +102,19 @@ module.exports.db = {
             `,
             [amount]
         );
+    },
+
+    getRelationship: function (currentUserId, otheruserId) {
+        
+        return db.query(
+            `
+            SELECT * 
+            FROM friendships 
+            WHERE sender_id =$1
+            WHERE reciever_id = $2
+            `,
+            [currentUserId, otheruserId]
+        );
     }
 };
 
