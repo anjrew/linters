@@ -60,7 +60,6 @@ export class BioEditor extends React.Component{
     }
 
     editClicked(){
-        console.log('Edit clicked in the bio Editor and this is ', this);
         this.setState({
             isEditing: true,
             bio: this.props.bio
@@ -68,14 +67,12 @@ export class BioEditor extends React.Component{
     }
 
     addClicked(){
-        console.log('Add clicked in the bio Editor');
         this.setState({
             isEditing: true
         });
     }
 
     handleChange({ target }) {
-        console.log('Handling text change with name: ', target.name, ' with Value: ', target.value );
         this.setState({
             [target.name]: target.value
         });
@@ -83,13 +80,11 @@ export class BioEditor extends React.Component{
 
     async setBio(bio){
         const data = { bio: bio};
-        console.log('The data in the post request is' , data);
         this.setState({
             isEditing: false,
         });
         try {
             const response = await axios.post(routes.update, data);
-            console.log('The response data from bio is ', response.data);
             this.props.setBio(response.data.bio);
         } catch (e) {
             console.log('The axios call to upload the file failed with error', e);
