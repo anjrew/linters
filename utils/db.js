@@ -110,10 +110,8 @@ module.exports.db = {
             `
             SELECT * 
             FROM friendships 
-            WHERE sender_id =$1
-            AND reciever_id = $2
-            AND sender_id =$2
-            AND reciever_id = $1;;
+            WHERE (sender_id =$1 AND reciever_id = $2)
+            OR (sender_id =$2 AND reciever_id = $1);
             `,
             [currentUserId, otheruserId]
         );
@@ -135,8 +133,8 @@ module.exports.db = {
             `
             UPDATE friendships
             SET accepted=$3
-            WHERE sender_id =$1
-            WHERE reciever_id = $2;
+            WHERE sender_id =$2
+            AND reciever_id = $1
             RETURNING id, sender_id, reciever_id, accepted;
             `,
             [currentUserId, otheruserId, true]

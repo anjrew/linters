@@ -48,6 +48,7 @@ export function FriendButton(props) {
             };
             console.log('trying to send data to post', reqData);
             const { data } = await axios.post('/api/friend-button', reqData);
+            console.log('The return data is ' , data);
             setStatus(data);
         } catch (err) {
             console.log("Error from the database was", err);
