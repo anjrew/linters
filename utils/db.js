@@ -50,7 +50,8 @@ module.exports.db = {
 
     updateBio: async function (userId, bio) {
         return db.query(
-            `UPDATE users
+            `
+            UPDATE users
             SET bio=$2
             WHERE id=$1
             RETURNING *;`,
@@ -98,20 +99,57 @@ module.exports.db = {
             SELECT * 
             FROM users 
             ORDER BY id DESC
-            LIMIT $1
+            LIMIT $1;
             `,
             [amount]
         );
     },
 
     getRelationship: function (currentUserId, otheruserId) {
-        
         return db.query(
             `
             SELECT * 
             FROM friendships 
             WHERE sender_id =$1
             WHERE reciever_id = $2
+            WHERE sender_id =$2
+            WHERE reciever_id = $1;;
+            `,
+            [currentUserId, otheruserId]
+        );
+    },
+
+    addFriendRequest: function (currentUserId, otheruserId) { 
+        return db.query(
+            `
+            INSERT INTO friendships(sender_id, reciever_id) 
+            VALUES ($1, $2)
+            RETURNING id, sender_id, reciever_id, accepted;
+            `,
+            [currentUserId, otheruserId]
+        );
+    },
+
+    acceptFriendRequest: function (currentUserId, otheruserId) { 
+        return db.query(
+            `
+            UPDATE friendships
+            SET accepted=$3
+            WHERE sender_id =$1
+            WHERE reciever_id = $2;
+            RETURNING id, sender_id, reciever_id, accepted;
+            `,
+            [currentUserId, otheruserId, true]
+        );
+    },
+
+    unfriend: function (currentUserId, otheruserId) { 
+        return db.query(
+            `
+            DELETE FROM friendships
+            WHERE sender_id =$1
+            WHERE reciever_id = $2;
+            RETURNING id, sender_id, reciever_id, accepted;
             `,
             [currentUserId, otheruserId]
         );

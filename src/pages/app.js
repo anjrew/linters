@@ -19,7 +19,8 @@ import { OtherProfile } from '../pages/other_profile';
 import { FindPeople } from '../components/modules/find_people';
 import { OverLappedChildren} from '../components/layout/overlapped_children';
 import { ErrorMessage } from '../components/text/error_message';
-import { Loader } from '../components/graphics/loader';
+import { Container } from '../components/boxes/container';
+
 
 export class App extends React.Component{
 
@@ -52,8 +53,19 @@ export class App extends React.Component{
                 <Route render= {({location}) => {
                     return(
                         <Column>
-
                             <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="fade" unmountOnExit>
+                                <Container 
+                                    padding="40px"
+                                    position="fixed"
+                                    width='100vw'
+                                    height='100vh'
+                                    backgroundColor= 'rgba(0,0,0,0.50)'
+                                    zIndex="800">
+                                </Container>
+                            </CSSTransition>
+
+
+                            <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
                                 <Uploader 
                                     uploading={ () => this.setState({ uploading: true }, () => console.log('The state is ',this.state))}
                                     dismissLoader={ this.dismissLoader } 
