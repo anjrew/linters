@@ -12,7 +12,6 @@ export function FriendButton(props) {
         if (!status && props.id) {
             // console.log('This inside the ajax call is ', this)
             axios.get(`/api/friend-button/${props.id}`).then(({ data })=>{
-                console.log(`The data from the /api/friend-button/${props.id} request was`, data);
                 setStatus(data);
             }).catch((e)=>{
                 console.log('ERROR: ' + e);
