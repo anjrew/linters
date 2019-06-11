@@ -10,10 +10,13 @@ export class Avatar extends React.Component{
             margin: props.margin || '5px',
             height: props.height || '100px',
             width: props.width || '100px',
+            minHeight: props.height || '100px',
+            minWidth: props.width || '100px',
             borderRadius: props.borderRadius || '50%',
             borderColor: props.borderColor,
             borderStyle: props.borderStyle,
-            objectFit: 'cover'
+            objectFit: 'cover',
+            overflow: 'hidden'
         };
     }
                     
@@ -22,7 +25,7 @@ export class Avatar extends React.Component{
             <img 
                 key={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'}
                 className='avatar'
-                style={this.style} 
+                style={this.style}
                 src={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'} 
                 alt={this.props.description} 
                 onClick={this.props.onClick}/>
