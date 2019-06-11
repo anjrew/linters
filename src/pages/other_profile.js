@@ -6,6 +6,7 @@ import axios from '../react_utils/axios';
 import { UserProfile } from '../data/user_profile';
 import { ErrorMessage } from '../components/text/error_message';
 import { CSSTransition } from "react-transition-group";
+import { FriendButton } from '../components/buttons/friend_button'; 
 
 export class OtherProfile extends React.Component{
 
@@ -29,12 +30,19 @@ export class OtherProfile extends React.Component{
                 </CSSTransition>
 
                 <Row padding={'20px'}>
-                    <Avatar
-                        height ='300px'
-                        width = '300px'
-                        imageUrl={this.state.user.imageUrl ||  '/assets/images/nerd-avatar.png'}
-                        description="User image"
-                    />
+                    <Column padding={'20px'}>
+
+                        <Avatar
+                            height ='300px'
+                            width = '300px'
+                            imageUrl={this.state.user.imageUrl ||  '/assets/images/nerd-avatar.png'}
+                            description="User image"
+                        />
+
+                        <FriendButton id={this.state.user.id}/>
+
+                    </Column>
+
                     <Column padding={'20px'}>
                         <h2>{`${this.state.user.first || ' '}`}</h2>   
 
@@ -51,14 +59,11 @@ export class OtherProfile extends React.Component{
     componentDidMount(){
         // Browser router adds match pramas id to props.
         const userId = this.props.match.params.id;
-        console.log("The userId to get other Profile is", userId);
 
         try {
             axios.post('/api/user', {
                 id: userId
             } ).then(res => {
-                console.log('The response in Other Profile from component did mount', res);
-
                 if (res.data.currentUser){
                     this.props.history.push("/");
                 } else if (!res.data.first) {
@@ -67,7 +72,6 @@ export class OtherProfile extends React.Component{
                     });
                 } else {
                     const userProfile =  new UserProfile(res.data);
-                    console.log(' The user profile create from the response is', userProfile);
                     this.setState({
                         user: userProfile
                     });

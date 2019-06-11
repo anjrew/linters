@@ -2,7 +2,7 @@ import React from 'react';
 import { Row } from '../layout/row';
 import { Column } from '../layout/column';
 import { Avatar } from '../graphics/avatar';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 export class ProfileTile extends React.Component{
 

@@ -3,7 +3,7 @@ import axios from '../../react_utils/axios';
 import { CSSTransition } from 'react-transition-group';
 
 // eslint-disable-next-line no-unused-vars
-export function FindButton(id) {
+export function FriendButton(id) {
     const [status, setStatus] = useState();
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export function FindButton(id) {
     return (
 
         <CSSTransition key={buttontext} in={!!status} timeout={300} classNames="scale" unmountOnExit>
-            <button style={{ margin: '10px '}}>buttontext</button>
+            <button style={{ margin: '10px '}}>{buttontext}</button>
         </CSSTransition>
     );
 }
