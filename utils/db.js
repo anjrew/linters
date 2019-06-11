@@ -148,8 +148,7 @@ module.exports.db = {
             `
             DELETE FROM friendships
             WHERE sender_id =$1
-            WHERE reciever_id = $2;
-            RETURNING id, sender_id, reciever_id, accepted;
+            AND reciever_id = $2;
             `,
             [currentUserId, otheruserId]
         );

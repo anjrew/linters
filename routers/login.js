@@ -40,7 +40,7 @@ router.route(routes.login)
             } catch (e) {
                 print.error(e);
                 res.json({
-                    error: "Not all fields were filled"
+                    error: "Bad credentials. Please check and try again"
                 });
             }
 
@@ -48,7 +48,7 @@ router.route(routes.login)
         } else {
             print.error('Not all fields were filled in login page');
             res.json({
-                error: "Not all fields were filled"
+                error: "Not all fields were filled in login page"
             });
         }
     });

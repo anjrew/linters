@@ -40,10 +40,23 @@ export function FriendButton(props) {
                         break;
     }
 
-    return (
+    async function onClick(){
+        try {
+            const reqData = { 
+                status: status,
+                id: props.id
+            };
+            console.log('trying to send data to post', reqData);
+            const { data } = await axios.post('/api/friend-button', reqData);
+            setStatus(data);
+        } catch (err) {
+            console.log("Error from the database was", err);
+        }
+    }
 
+    return (
         <CSSTransition key={buttontext} in={!!status} timeout={300} classNames="scale" unmountOnExit>
-            <button style={{ margin: '10px '}}>{buttontext}</button>
+            <button style={{ margin: '10px '}} onClick={onClick}>{buttontext}</button>
         </CSSTransition>
     );
 }

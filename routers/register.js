@@ -21,8 +21,7 @@ router.route(routes.registration)
         const lastName = req.body.lastName;
         const email = req.body.email;
         const password = req.body.password;
-        console.log(chalk.blue(`REQ BODY IS:`), req.body);
-        
+
         if (!firstName || !lastName || !email || !password) {
 
             print.error('Not all fields were filled');
@@ -39,9 +38,9 @@ router.route(routes.registration)
                 res.json( result.rows[0] );
                 
             } catch (e) {
-                print.error('Not all fields were filled');
+                print.error('The error was ', e);
                 res.json({
-                    error: "Not all fields were filled"
+                    error: "Bad credentials. Please check and try again"
                 });
             }
         }

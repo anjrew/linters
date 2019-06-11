@@ -4,46 +4,55 @@ const print = require('../utils/print');
 const { db } = require('../utils/db');
 const cookies = require('../utils/cookies');
 
-
-router.route('/api/friend-button/')
+router.route('/api/friend-button')
     .post(async(req, res) => {
         print.info('POSTing the friend button routes with req.body', req.body);
         const senderId = req.session[cookies.userId];
         const reciever = req.body.id;
+        const status = req.body.status;
         try {
-            let result = await db.addFriendRequest(senderId, reciever);
-            result = result.rows[0];
-            res.json({ 
-                requestExists: true ,
-                result: result,
-            });
+            if (status === 'noExistingRequest') {
+                let result = await db.addFriendRequest(senderId, reciever);
+                result = result.rows[0];
+                if (result){
+                    res.json('cancelRequest');
+                } else {
+                    res.status(500).json({ error: 'The datbase did not save the result' });
+                }
+            } else if (status === 'cancelRequest' || status === 'accepted') {
+                print.success('in cancel or already accepted');
+                let result = await db.unfriend(senderId, reciever);
+                result = result.rows[0];
+                print.info(`The result is `, result);
+                if (!result){
+
+                    res.json('noExistingRequest');
+                } else {
+                    res.status(500).json({ error: 'The datbase did not save the result' });
+                }  
+            }  else if (status === 'acceptRequest'){
+                let result = await db.acceptFriendRequest(senderId, reciever);
+                result = result.rows[0];
+                if (result){
+                    res.json('accepted');
+                } else {
+                    res.status(500).json({ error: 'The datbase did not save the result' });
+                } 
+            }
         } catch (e) {
+            print.error('The error in the friend button route was', e);
             res.status(500).json({ error: e });
         }
-    })
-    .delete(async(req, res) => {
-        print.info('DELETting the friend button state');
-        
-    })
-    .put(async(req, res) => {
-        print.info('PUTTING the friend button state');
-        
     });
 
 router.route('/api/friend-button/:id')
     .get(async(req, res) => {
         const senderId = req.session[cookies.userId];
         const reciever = req.params.id;
-        print.success(`In the friend button GET route with params `, req. params);
-
 
         try {
-            print.success('In the try');
-
             let result = await db.getRelationship(senderId, reciever);
             result = result.rows[0];
-
-            print.warning(`The result from the database query was in get relationship was `, result);
 
             if (result) {
 
@@ -60,7 +69,6 @@ router.route('/api/friend-button/:id')
                 res.json('noExistingRequest');
             }
 
-            print.info('GETting the friend button state');
         } catch (e) {
             print.error('The Try for other user info threw with ', e);
             res.status(500).json({ error: e });
