@@ -18,7 +18,12 @@ export class Row extends React.Component{
 
     render(){
         return (
-            <div id={this.props.id} className="row" style={this.style}>
+            <div 
+                id={this.props.id}
+                className="row" 
+                style={this.style}
+                onClick={this.props.onClick}
+            >
                 { this.props.children }
             </div>
         );
