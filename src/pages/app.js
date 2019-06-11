@@ -78,7 +78,6 @@ export class App extends React.Component{
                                 <Link className='link-button' to={'/users'}>Find users</Link>
                                 <Link className='link-button' to={'/'}>My profile</Link>
                                 <a className='link-button' href='/api/logout'>Logout</a>
-
                                 <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                             </Row>
 

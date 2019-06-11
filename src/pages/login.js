@@ -27,8 +27,8 @@ export class Login extends React.Component{
                 </CSSTransition>
 
                 <Column>
-                    <TextField inputType="email" label="Email" id={db.email} handleChange={this.handleChange} required/>
-                    <TextField inputType="password" label="Password" id={db.password} handleChange={this.handleChange} required/>
+                    <TextField uniqueId="emailLogin" inputType="email" label="Email" id={db.email} handleChange={this.handleChange} required/>
+                    <TextField uniqueId="passwordLogin" inputType="password" label="Password" id={db.password} handleChange={this.handleChange} required/>
                     <button onClick={() => this.submit()}>Login</button>
                 </Column>
                 <button className='link-button' onClick={this.props.onClick}>Click here to sign up!</button>

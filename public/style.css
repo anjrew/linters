@@ -210,14 +210,12 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     }
   }
 
-
-
 .shift-enter {
     animation-delay: 1ms;
     transform: translateX(-100vw);
 }
 
-.scale-enter-active {
+.shift-enter-active {
     transform: translateX(0px);
     transition: all 300ms ease-in;
 }
@@ -227,7 +225,7 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     transform: translateX(0px);
 }
 
-.scale-exit-active {
+.shift-exit-active {
     transform: translateX(100vw);
     transition: all 300ms ease-in;
 }
@@ -296,5 +294,26 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
         transform: translate(-100%, 0%);
     }
 }
+
+.up-enter {
+    animation-delay: 3s;
+    transform: translateY(-100vw);
+}
+
+.up-enter-active {
+    transform: translatey(0px);
+    transition: all 3s ease-in;
+}
+
+.up-exit {
+    animation-delay: 1s;
+    transform: translateY(0px);
+}
+
+.up-exit-active {
+    transform: translateY(100vw);
+    transition: all 3s ease-in;
+}
+
 
 

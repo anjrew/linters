@@ -5,7 +5,7 @@ export class TextField extends React.Component{
         super(props);
         this.inputType = props.inputType;
         this.databaseId = props.id;
-        this.id = props.id;
+        this.id = props.uniqueId;
         this.label = props.label;
         this.placeholder = props.placeholder;
         this.value =props.value;

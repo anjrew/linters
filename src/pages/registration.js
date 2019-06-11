@@ -26,10 +26,10 @@ export class Registration extends React.Component{
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
                 <Column>
-                    <TextField inputType="text" label="First name" id={id.firstName} handleChange={this.handleChange} required/>
-                    <TextField inputType="text" label="Last name" id={id.lastName} handleChange={this.handleChange} required/>
-                    <TextField inputType="email" label="Email" id={id.email} handleChange={this.handleChange} required/>
-                    <TextField inputType="password" label="Password" id={id.password} handleChange={this.handleChange} required/>
+                    <TextField uniqueId="firstName-registration" inputType="text" label="First name" id={id.firstName} handleChange={this.handleChange} required/>
+                    <TextField uniqueId="lastName-registration" inputType="text" label="Last name" id={id.lastName} handleChange={this.handleChange} required/>
+                    <TextField uniqueId="email-registration" inputType="email" label="Email" id={id.email} handleChange={this.handleChange} required/>
+                    <TextField uniqueId="password-registration" inputType="password" label="Password" id={id.password} handleChange={this.handleChange} required/>
                     <button onClick={() => this.submit()}>Sign-up</button>
                 </Column>
                 <button className='link-button' onClick={this.props.onClick}>Click here to Log in!</button>
