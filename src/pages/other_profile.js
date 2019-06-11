@@ -21,7 +21,6 @@ export class OtherProfile extends React.Component{
     }
 
     render(){
-        console.log('Rendering OtherProfile with this', this);
         return (
             <React.Fragment>
 
@@ -33,8 +32,8 @@ export class OtherProfile extends React.Component{
                     <Column padding={'20px'}>
 
                         <Avatar
-                            height ='300px'
-                            width = '300px'
+                            height ='250px'
+                            width = '250px'
                             imageUrl={this.state.user.imageUrl ||  '/assets/images/nerd-avatar.png'}
                             description="User image"
                         />

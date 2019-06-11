@@ -1,6 +1,7 @@
 
 export class UserProfile {
     constructor(params) {
+        this.id = params.id,
         this.created_at = params.created_at,
         this.email = params.email,
         this.first = params.first,

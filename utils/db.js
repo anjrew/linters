@@ -73,7 +73,7 @@ module.exports.db = {
         print.props(`User id in db is `, id);
         return db.query(
             `
-            SELECT users.id, first, last, email, bio, pic_url, created_at
+            SELECT id, first, last, email, bio, pic_url, created_at
             FROM users
             WHERE id=$1;
             `,
@@ -111,9 +111,9 @@ module.exports.db = {
             SELECT * 
             FROM friendships 
             WHERE sender_id =$1
-            WHERE reciever_id = $2
-            WHERE sender_id =$2
-            WHERE reciever_id = $1;;
+            AND reciever_id = $2
+            AND sender_id =$2
+            AND reciever_id = $1;;
             `,
             [currentUserId, otheruserId]
         );

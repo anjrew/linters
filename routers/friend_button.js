@@ -5,7 +5,7 @@ const { db } = require('../utils/db');
 const cookies = require('../utils/cookies');
 
 
-router.route('/api/friend-button')
+router.route('/api/friend-button/')
     .post(async(req, res) => {
         print.info('POSTing the friend button routes with req.body', req.body);
         const senderId = req.session[cookies.userId];
@@ -34,8 +34,12 @@ router.route('/api/friend-button/:id')
     .get(async(req, res) => {
         const senderId = req.session[cookies.userId];
         const reciever = req.params.id;
+        print.success(`In the friend button GET route with params `, req. params);
+
 
         try {
+            print.success('In the try');
+
             let result = await db.getRelationship(senderId, reciever);
             result = result.rows[0];
 
@@ -58,6 +62,7 @@ router.route('/api/friend-button/:id')
 
             print.info('GETting the friend button state');
         } catch (e) {
+            print.error('The Try for other user info threw with ', e);
             res.status(500).json({ error: e });
         }
     });

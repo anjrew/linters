@@ -3,19 +3,22 @@ import axios from '../../react_utils/axios';
 import { CSSTransition } from 'react-transition-group';
 
 // eslint-disable-next-line no-unused-vars
-export function FriendButton(id) {
-    const [status, setStatus] = useState();
+export function FriendButton(props) {
+    const [status, setStatus] = useState('');
+    console.log('The incoming Id prop is', props.id);
+    console.log('the status property is ', status);
 
     useEffect(() => {
-        if (!status) {
-            axios.get(`'/api/friend-button/${id}`).then(({ data })=>{
-                console.log(`The data from the /api/friend-button/${id} request was`, data);
+        if (!status && props.id) {
+            // console.log('This inside the ajax call is ', this)
+            axios.get(`/api/friend-button/${props.id}`).then(({ data })=>{
+                console.log(`The data from the /api/friend-button/${props.id} request was`, data);
                 setStatus(data);
             }).catch((e)=>{
                 console.log('ERROR: ' + e);
             });       
         }   
-    },[status]);
+    },[status, props]);
 
     let buttontext;
 
@@ -33,6 +36,7 @@ export function FriendButton(id) {
                         buttontext = "Send Friend Request";
                         break;
                     default:
+                        buttontext = "Error";
                         break;
     }
 
