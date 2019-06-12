@@ -21,8 +21,11 @@ export class BioEditor extends React.Component{
     }
 
     render(){
-
-        var bioBool = this.props.bio ? true : false;
+        console.log('the props bio is', this.props.bio);
+        console.log('the state bio is', this.state.bio);
+        var bio = this.state.bio;
+        console.log('this is bio', bio);
+        console.log('Bio length ', bio && bio.length);
         if (this.state.isEditing){
         
             return (
@@ -32,7 +35,7 @@ export class BioEditor extends React.Component{
                         padding={'20px'}>
                         <TextArea 
                             name='bio' 
-                            value={ this.state.bio } 
+                            value={ this.state.bio || "" } 
                             handleChange={ this.handleChange }
                         />
                         <button onClick={() => this.setBio(this.state.bio)}>Save</button>
@@ -40,20 +43,19 @@ export class BioEditor extends React.Component{
                 </CSSTransition>
             );
         } else {
-            if (this.props.bio) {
+            if (bio) {
+                console.log('returning edit');
                 return (
-                    <CSSTransition key="Edit" in={bioBool} timeout={300} classNames="scale" unmountOnExit>
-                        <Column padding={'20px'}>
-                            <p>{this.props.bio}</p>
-                            <button onClick={this.editClicked}>Edit</button>
-                        </Column>
-                    </CSSTransition>
+                    
+                    <Column padding={'20px'}>
+                        <p>{this.props.bio || ''}</p>
+                        <button onClick={this.editClicked}>Edit</button>
+                    </Column>
                 );
             } else {
+                console.log('returning Add');
                 return (
-                    <CSSTransition key="Add" in={!bioBool} timeout={300} classNames="scale" unmountOnExit>
-                        <button onClick={this.addClicked}>Add</button>
-                    </CSSTransition>
+                    <button onClick={this.addClicked}>Add</button>
                 );
             }
         }
@@ -79,9 +81,14 @@ export class BioEditor extends React.Component{
     }
 
     async setBio(bio){
+        bio.trim();
+        bio = bio == ' ' ? '': bio;
+        bio = bio ? bio : '';
+        console.log('the trimmed bio is', bio);
         const data = { bio: bio};
         this.setState({
             isEditing: false,
+            bio: bio,
         });
         try {
             const response = await axios.post(routes.update, data);

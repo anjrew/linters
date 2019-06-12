@@ -31,6 +31,9 @@ export class App extends React.Component{
             error: null,
             uploaderVisible: false,
             bioEditorIsVisible: false,
+            animatingMenu: false,
+            showProfileLink: true,
+            showFindPeopleLink: false,
             user: {
                 bio: null,
                 profile_creation_date: null,
@@ -51,6 +54,14 @@ export class App extends React.Component{
         return (
             <BrowserRouter>
                 <Route render= {({location}) => {
+
+                    if (location.pathname == '/users' && this.state.showProfileLink && !this.state.animatingMenu) {
+                        this.setState({showProfileLink: true,  showFindPeopleLink: false });
+                    } 
+                    else if (location.pathname == '/' && this.state.showProfileLink && !this.state.animatingMenu){
+                        this.setState({showFindPeopleLink: true, showProfileLink: false, });
+                    }
+
                     return(
                         <Column>
                             <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="fade" unmountOnExit>
@@ -77,27 +88,30 @@ export class App extends React.Component{
 
                                 <Logo height={ '100px' } width={ "100px" }/>
 
-                                <TransitionGroup>
-                                    <CSSTransition
-                                        key={location.pathname}
-                                        timeout={{ enter: 300, exit: 300 }}
-                                        classNames="scale"
-                                    >
-                                        <Switch location={location}>
-                                            <Route exact path={routes.home} render={() => {
-                                                return (
-                                                    <Link className='link-button' to={'/users'}>Find users</Link>
-                                                );
-                                            }}/>
+                                <CSSTransition
+                                    key={'users-link-css'}
+                                    in={location.pathname != '/users' }
+                                    timeout={{ enter: 300, exit: 300 }}
+                                    classNames="scale"
+                                    onEnter={ ()=> this.setState({ animatingMenu: true })}
+                                    onEntered={ () => this.setState({ animatingMenu: false })}
+                                    // onExited={ ()=> this.setState({ animatingMenu: false })}
+                                    unmountOnExit>
+                                    <Link className='link-button' to={'/users'}>Find users</Link>
+                                </CSSTransition>
 
-                                            <Route exact path={'/users'} render={() => {
-                                                return (
-                                                    <Link className='link-button' to={'/'}>My profile</Link>
-                                                );
-                                            }}/> 
-                                        </Switch>
-                                    </CSSTransition>
-                                </TransitionGroup>
+                                <CSSTransition
+                                    key={'home-css'}
+                                    in={location.pathname != '/'}
+                                    timeout={{ enter: 300, exit: 300 }}
+                                    classNames="scale"
+                                    onEnter={ ()=> this.setState({ animatingMenu: true })}
+                                    onExited={ ()=> this.setState({ animatingMenu: false })}
+                                    unmountOnExit>
+                                    <Link className='link-button' to={'/'}>My profile</Link>
+                                </CSSTransition>
+
+                                           
                                 <a className='link-button' href='/api/logout'>Logout</a>
 
                                 <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
@@ -159,9 +173,10 @@ export class App extends React.Component{
     }
 
     componentDidMount() {
-
         axios.get(routes.user).then(res => {
+            console.log('the response data was ', res.data);
             const userProfile =  new UserProfile({
+                id: res.data.id,
                 bio: res.data.bio,
                 profile_creation_date: res.data.created_at,
                 email: res.data.email,
@@ -213,6 +228,7 @@ export class App extends React.Component{
     setBio(bio){
         let user = this.state.user;
         user.bio = bio;
+        console.log('Setting user ', user);
         this.setState({
             user: user ,
             bioEditorIsVisible: false
