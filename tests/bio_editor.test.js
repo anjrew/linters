@@ -19,7 +19,8 @@ test(`3a: Clicking "Add" button causes a textarea and a "Save" button to be rend
 
 //TODO:
 test(`4a: Clicking the "Save" button causes an ajax request. `, () => {
-    bioEditor.find("button").simulate('click');
+    bioEditor.setState({ bio : 'mock bio'});
+    bioEditor.find("button").first().simulate('click');
     expect(axios.mockR).toBeTruthy();
 });
 
@@ -44,17 +45,7 @@ test(`3b: Clicking "Edit" button causes a textarea and a "Save" button to be ren
 
 //TODO:
 test(`4b: Clicking the "Save" button causes an ajax request. `, () => {
-    axios.get.mockResolvedValue([
-        {
-            age: 43
-        },
-        {
-            age: 27
-        },
-        {
-            age: 68
-        }
-    ]
+    
     bioEditorHasBio.find("button").simulate('click');
     expect(axios.mockR).toBeTruthy();
 });
