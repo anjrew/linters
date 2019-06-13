@@ -12,6 +12,9 @@ const print = require('./utils/print');
 const routes = require('./routers/routes');
 
 const routers = [
+    require('./routers/friends-wannabes'),	
+    require('./routers/accept-friendship'),
+    require('./routers/end-friendship'),	
     require('./routers/friend_button'),
     require('./routers/log_out'),
     require('./routers/users'),
@@ -75,14 +78,6 @@ if (process.env.NODE_ENV != 'production') {
 }
 
 app.use(...routers);
-
-
-// example from animals thing;
-app.get('/git-list-animals', (req, res) => {
-    let animals = [ 'dogs', 'cats', 'otters', 'seagulls'];
-    
-});
-
 
 // Direct the user to the welcome screen if they are not logged in
 // If there is a user ID the user must be logged in.

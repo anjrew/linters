@@ -36,7 +36,7 @@ router.route('/api/friend-button')
                 if (result){
                     res.json('accepted');
                 } else {
-                    res.status(500).json({ error: 'The datbase did not save the result' });
+                    res.status(500).json({ error: 'The database did not save the result' });
                 } 
             }
         } catch (e) {

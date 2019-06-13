@@ -13,13 +13,15 @@ import { Column } from '../components/layout/column';
 import { Row } from '../components/layout/row';
 import { Avatar } from '../components/graphics/avatar';
 import { Uploader } from '../components/modules/Uploader';
-import { Profile } from '../components/modules/profile';
-import { OtherProfile } from '../pages/other_profile';
-import { FindPeople } from '../components/modules/find_people';
 import { OverLappedChildren} from '../components/layout/overlapped_children';
 import { ErrorMessage } from '../components/text/error_message';
 import { Container } from '../components/boxes/container';
 
+// PAGES
+import { FindPeople } from '../components/modules/find_people';
+import { Profile } from '../components/modules/profile';
+import { OtherProfile } from '../pages/other_profile';
+import { Friends } from '../pages/friends';
 
 export class App extends React.Component{
 
@@ -110,6 +112,17 @@ export class App extends React.Component{
                                     <Link className='link-button' to={'/'}>My profile</Link>
                                 </CSSTransition>
 
+                                <CSSTransition
+                                    key={'friends-css'}
+                                    in={location.pathname != '/friends'}
+                                    timeout={{ enter: 300, exit: 300 }}
+                                    classNames="scale"
+                                    onEnter={ ()=> this.setState({ animatingMenu: true })}
+                                    onExited={ ()=> this.setState({ animatingMenu: false })}
+                                    unmountOnExit>
+                                    <Link className='link-button' to={'/friends'}>Friends</Link>
+                                </CSSTransition>
+
                                            
                                 <a className='link-button' href='/api/logout'>Logout</a>
 
@@ -156,7 +169,13 @@ export class App extends React.Component{
                                                     return (
                                                         <FindPeople/>
                                                     );
-                                                }}/> 
+                                                }}/>
+
+                                                <Route exact path={'/friends'} render={() => {
+                                                    return (
+                                                        <Friends/>
+                                                    );
+                                                }}/>  
 
                                             </Switch>
                                         </OverLappedChildren>            
