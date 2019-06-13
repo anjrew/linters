@@ -38,7 +38,7 @@ export class BioEditor extends React.Component{
                             value={ this.state.bio || "" } 
                             handleChange={ this.handleChange }
                         />
-                        <button onClick={() => this.setBio(this.state.bio)}>Save</button>
+                        <button style={{margin: '20px'}} onClick={() => this.setBio(this.state.bio)}>Save</button>
                     </Column>
                 </CSSTransition>
             );
@@ -49,13 +49,13 @@ export class BioEditor extends React.Component{
                     
                     <Column padding={'20px'}>
                         <p>{this.props.bio || ''}</p>
-                        <button onClick={this.editClicked}>Edit</button>
+                        <button style={{margin: '20px'}} onClick={this.editClicked}>Edit</button>
                     </Column>
                 );
             } else {
                 console.log('returning Add');
                 return (
-                    <button onClick={this.addClicked}>Add</button>
+                    <button style={{margin: '20px'}} onClick={this.addClicked}>Add</button>
                 );
             }
         }

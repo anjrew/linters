@@ -21,7 +21,9 @@ test(`3a: Clicking "Add" button causes a textarea and a "Save" button to be rend
 test(`4a: Clicking the "Save" button causes an ajax request. `, () => {
     bioEditor.setState({ bio : 'mock bio'});
     bioEditor.find("button").first().simulate('click');
-    expect(axios.mockR).toBeTruthy();
+    // Check how many calls where mode to axios post
+    expect(axios.post.mock.calls.length).toEqual(1);
+    
 });
 
 //TODO:

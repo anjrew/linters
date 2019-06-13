@@ -6,7 +6,6 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { UserProfile } from '../data/user_profile';
 import { Link } from 'react-router-dom';
 
-
 // Components
 import { Logo } from '../components/graphics/logo';
 import { SafeArea } from '../components/layout/safe_area';
@@ -21,6 +20,7 @@ import { OverLappedChildren} from '../components/layout/overlapped_children';
 import { ErrorMessage } from '../components/text/error_message';
 import { Container } from '../components/boxes/container';
 
+import { CuteAnimals } from '../components/examples/cuteAnimals';
 
 export class App extends React.Component{
 
@@ -156,6 +156,12 @@ export class App extends React.Component{
                                                 <Route exact path={'/users'} render={() => {
                                                     return (
                                                         <FindPeople/>
+                                                    );
+                                                }}/> 
+
+                                                <Route exact path={'/cute-animals'} render={() => {
+                                                    return (
+                                                        <CuteAnimals/>
                                                     );
                                                 }}/> 
 

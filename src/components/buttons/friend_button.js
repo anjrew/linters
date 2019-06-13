@@ -22,21 +22,21 @@ export function FriendButton(props) {
     let buttontext;
 
     switch (status) {
-                    case 'accepted': 
-                        buttontext = "Unfriend";
-                        break;
-                    case 'cancelRequest': 
-                        buttontext = "Cancel Friend Request";
-                        break;
-                    case 'acceptRequest': 
-                        buttontext = "Accept Friend Request";
-                        break;
-                    case 'noExistingRequest': 
-                        buttontext = "Send Friend Request";
-                        break;
-                    default:
-                        buttontext = "Error";
-                        break;
+        case 'accepted': 
+            buttontext = "Unfriend";
+            break;
+        case 'cancelRequest': 
+            buttontext = "Cancel Friend Request";
+            break;
+        case 'acceptRequest': 
+            buttontext = "Accept Friend Request";
+            break;
+        case 'noExistingRequest': 
+            buttontext = "Send Friend Request";
+            break;
+        default:
+            buttontext = "Error";
+            break;
     }
 
     async function onClick(){
