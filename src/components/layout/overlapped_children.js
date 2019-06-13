@@ -8,7 +8,8 @@ export class OverLappedChildren extends React.Component{
         this.children = props.children;
         this.style = {
             position: "absolute",
-            transform: "translateX(-50%)"
+            transform: props.transform || "translateX(-50%)",
+            width: props.width,
         };
     }
     render(){

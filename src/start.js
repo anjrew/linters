@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import routes from './react_utils/react_routes';
+
+// PAGES
 import { Welcome } from './pages/welcome';
 import { App } from './pages/app';
-import routes from './react_utils/react_routes';
 
 // REDUX SHIT
 import reducer from './react_utils/redux/reducers';
@@ -12,17 +14,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
-if (location.pathname === routes.welcome){ 
-    ReactDOM.render(
-        <Welcome/>,
-        document.querySelector('main')
-    );
+let elem;
+if (location.pathname === routes.welcome) {
+    elem = <Welcome />; 
 } else {
-    ReactDOM.render(
-        <Provider>
-            <App/>
-        </Provider>
-        ,
-        document.querySelector('main')
-    );
+    elem = <Provider store={store}>
+        <App />
+    </Provider>;
 }
+
+ReactDOM.render(elem, document.querySelector('main'));

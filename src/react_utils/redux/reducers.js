@@ -1,14 +1,30 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 export default function reducer(state = {}, action) {
-    switch (action) {
-        case "GET_WANNA_BEES":
-            return { ...state, wannabees: action.wannabees };
+    console.log('in reducer with action', action);
+    switch (action.type) {
+        case "RECEIVE_FRIENDS_WANNABES":
+            console.log('Returning state from "RECEIVE_FRIENDS_WANNABES"', { ...state, friendsWannabes: action.friendsWannabes });
+            return { ...state, friendsWannabes: action.friendsWannabes };
 			
         case "ACCPET_FRIEND_REQUEST":
-            return {...state, };
+            state.map(friend => {
+                if (friend.id == action.acceptedUserId) {
+                    return friend.accepted = true;
+                } else {
+                    return friend;
+                }
+            });
+            return {...state};
 		
         case "UNFRIEND":
-            return;
+            state.friendsWannabes.filter(friend => {
+                if (friend.id == action.endUserId) {
+                    return null;
+                } else {
+                    return friend;
+                }
+            });
+            return {...state};
 			
         default:
             return state;

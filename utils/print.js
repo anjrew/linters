@@ -47,5 +47,14 @@ module.exports = {
             message.push(obj);
         }
         console.log(...message);
+    },
+    routes: function (obj) {
+        const message = [
+            chalk.bgBlue(`Props:`)
+        ];
+        if (obj) {
+            message.push(obj);
+        }
+        console.log(...message);
     }
 };

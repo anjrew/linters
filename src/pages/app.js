@@ -21,7 +21,7 @@ import { Container } from '../components/boxes/container';
 import { FindPeople } from '../components/modules/find_people';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
-import { Friends } from '../pages/friends';
+import Friends from '../pages/friends';
 
 export class App extends React.Component{
 
@@ -192,7 +192,6 @@ export class App extends React.Component{
 
     componentDidMount() {
         axios.get(routes.user).then(res => {
-            console.log('the response data was ', res.data);
             const userProfile =  new UserProfile({
                 id: res.data.id,
                 bio: res.data.bio,

@@ -2,7 +2,6 @@ import React from 'react';
 
 export class Wrap extends React.Component{
 
-    
     render(){
         return (
             <div 

@@ -21,11 +21,7 @@ export class BioEditor extends React.Component{
     }
 
     render(){
-        console.log('the props bio is', this.props.bio);
-        console.log('the state bio is', this.state.bio);
         var bio = this.state.bio;
-        console.log('this is bio', bio);
-        console.log('Bio length ', bio && bio.length);
         if (this.state.isEditing){
         
             return (
@@ -44,16 +40,13 @@ export class BioEditor extends React.Component{
             );
         } else {
             if (bio) {
-                console.log('returning edit');
                 return (
-                    
                     <Column padding={'20px'}>
                         <p>{this.props.bio || ''}</p>
                         <button style={{margin: '20px'}} onClick={this.editClicked}>Edit</button>
                     </Column>
                 );
             } else {
-                console.log('returning Add');
                 return (
                     <button style={{margin: '20px'}} onClick={this.addClicked}>Add</button>
                 );
@@ -84,7 +77,6 @@ export class BioEditor extends React.Component{
         bio.trim();
         bio = bio == ' ' ? '': bio;
         bio = bio ? bio : '';
-        console.log('the trimmed bio is', bio);
         const data = { bio: bio};
         this.setState({
             isEditing: false,

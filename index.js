@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    console.log(chalk.blue(`Recieve ${req.method} to ${req.url}`));
+    console.log(chalk.bgBlue(`Recieve ${req.method} to ${req.url}`));
     next();
 });
 
