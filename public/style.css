@@ -159,6 +159,7 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
 
 /* Scale */
 .scale-enter {
+	display: none;
     animation-delay: 1ms;
     transform: scale(0.01);
 }

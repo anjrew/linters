@@ -4,7 +4,6 @@ import routes from '../react_utils/react_routes';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { UserProfile } from '../data/user_profile';
-import { Link } from 'react-router-dom';
 
 // Components
 import { Logo } from '../components/graphics/logo';
@@ -43,13 +42,12 @@ export class App extends React.Component{
                 last: null,
                 imageUrl: "/assets/images/nerd-avatar.png"
             },
-            location:{
-                home: false,
-                friends: false,
-                findUsers: false,
-                otherUser: false,
-                next:'',
-                current: '',
+            locations:{
+                home: 'on',
+                friends: 'on',
+                findUsers: 'on',
+                otherUser: 'on',
+                users: 'on'
             }
         };
         this.renderNext = this.renderNext.bind(this);
@@ -95,35 +93,44 @@ export class App extends React.Component{
 
                                 <CSSTransition
                                     key={'users-link-css'}
-                                    in={location.pathname != '/users' }
+                                    in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
                                     timeout={{ enter: 300, exit: 300 }}
                                     classNames="scale"
-                                    onEnter={ ()=> this.setState({ animatingMenu: true })}
-                                    onExited={ ()=> this.setState({ animatingMenu: false })}
+                                    onEnter={ () => console.log('users link is entering')}
+                                    onExited={ ()=> this.renderNext()}
                                     unmountOnExit>
-                                    <Link className='link-button' to={'/users'}>Find users</Link>
+                                    <button 
+                                        className='link-button' 
+                                        onClick={ () => this.makeNextToRender('/users')}
+                                    >Find users</button>
                                 </CSSTransition>
 
                                 <CSSTransition
                                     key={'home-css'}
-                                    in={location.pathname != '/'}
+                                    in={this.state.locations.home != 'on' && this.state.locations.home != 'next'}
                                     timeout={{ enter: 300, exit: 300 }}
                                     classNames="scale"
-                                    onEnter={ ()=> this.setState({ animatingMenu: true })}
-                                    onExited={ ()=> this.setState({ animatingMenu: false })}
+                                    onEnter={ () => console.log('home link is entering')}
+                                    onExited={ ()=> this.renderNext()}
                                     unmountOnExit>
-                                    <Link className='link-button' to={'/'}>My profile</Link>
+                                    <button 
+                                        className='link-button' 
+                                        onClick={ () => this.makeNextToRender('/') }
+                                    >My profile</button>
                                 </CSSTransition>
 
                                 <CSSTransition
                                     key={'friends-css'}
-                                    in={location.pathname != '/friends'}
+                                    in={this.state.locations.friends != 'on' && this.state.locations.friends != 'next'}
                                     timeout={{ enter: 300, exit: 300 }}
                                     classNames="scale"
-                                    onEnter={ ()=> this.setState({ animatingMenu: true })}
-                                    onExited={ ()=> this.setState({ animatingMenu: false })}
+                                    onEnter={ () => console.log('friends link is entering')}
+                                    onExited={ ()=> this.renderNext()}
                                     unmountOnExit>
-                                    <Link className='link-button' to={'/friends'}>Friends</Link>
+                                    <button 
+                                        className='link-button' 
+                                        onClick={ () => this.makeNextToRender('/friends')}
+                                    >Friends</button>
                                 </CSSTransition>
                                            
                                 <a className='link-button' href='/api/logout'>Logout</a>
@@ -204,60 +211,113 @@ export class App extends React.Component{
                 imageUrl: res.data.pic_url || "/assets/images/nerd-avatar.png"
             });
             this.setState({
-				
                 user: userProfile
             });
         });
+        this.setLocationState(window.location.pathname);
     }
 	
-    setLocationState(){
-        switch (window.location.pathname) {
+    setLocationState(location){
+        console.log('setting location state', location);
+        var locations = {};
+        Object.keys(this.state.locations).map((location, index)=>{
+            locations[location] = '';
+        });
+        console.log('New locations after mapping in setLocationState', locations);
+        switch (location) {
             case '/friends':
                 this.setState({
-                    location: {
-                        ...this.state.location,
+                    locations: {
+                        ...locations,
                         friends: 'on'
                     }
                 });
                 break;
             case '/users':
                 this.setState({
-                    location: {
-                        ...this.state.location,
+                    locations: {
+                        ...locations,
                         users: 'on'
                     }
                 });
                 break;
             case '/':
+
                 this.setState({
-                    location: {
-                        ...this.state.location,
+                    locations: {
+                        ...locations,
                         home: 'on'
                     }
                 });
                 break;
 				
             default:
-                if  (window.location.pathname.substring('other-user')){
+                if  (location.substring('other-user')){
                     this.setState({
-                        location: {
-                            ...this.state.location,
+                        locations: {
+                            ...locations,
                             otherUser: 'on'
                         }
+                    });
+                } else {
+                    this.setState({
+                        locations: {
+                            ...locations,
+                            home: 'on'
+                        }
+                    });
+                }
+                break;
+        }
+    }
+	
+    makeNextToRender(location){	  
+        var locations = this.state.locations;
+        Object.keys(this.state.locations).map((location, index)=>{
+            locations[location] = '';
+        });
+        console.log('Locations in makeNextToRender', locations);
+        switch (location) {
+            case '/friends':
+                locations.friends = 'next';
+                this.setState({
+                    locations: locations
+                });
+                break;
+            case '/users':
+                locations.users = 'next';
+                this.setState({
+                    locations: locations
+                });
+                break;
+            case '/':
+                locations.home = 'next';
+                this.setState({
+                    locations: locations
+                });
+                break;
+				
+            default:
+                if  (location.substring('other-user')){
+                    locations.otherUser = 'next';
+                    this.setState({
+                        locations: locations
                     });
                 } 
         }
     }
-	
+
     renderNext(){
         var locations = this.state.locations;
-		
+
         for (const location in locations) {
             const value = locations[location];
             if (value == 'next') {
                 locations[location] = 'on';
             }
         }
+        console.log('New locations after mapping in render next', locations);
+
         this.setState({
             locations: locations
         });
