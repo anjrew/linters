@@ -4,7 +4,7 @@ import routes from './react_utils/react_routes';
 
 // PAGES
 import { Welcome } from './pages/welcome';
-import { App } from './pages/app';
+import App from './pages/app';
 
 // REDUX SHIT
 import reducer from './react_utils/redux/reducers';

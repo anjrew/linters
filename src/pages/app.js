@@ -22,7 +22,7 @@ import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
 import Friends from '../pages/friends';
 
-export class App extends React.Component{
+export default class App extends React.Component{
 
     constructor(){
         super();
@@ -63,7 +63,7 @@ export class App extends React.Component{
     render(){
         return (
             <BrowserRouter>
-                <Route render= {({location}) => {
+                <Route render= {({location , history }) => {
 
                     return(
                         <Column>
@@ -97,7 +97,7 @@ export class App extends React.Component{
                                     timeout={{ enter: 300, exit: 300 }}
                                     classNames="scale"
                                     onEnter={ () => console.log('users link is entering')}
-                                    onExited={ ()=> this.renderNext()}
+                                    onExited={ ()=> this.renderNext(history)}
                                     unmountOnExit>
                                     <button 
                                         className='link-button' 
@@ -111,7 +111,7 @@ export class App extends React.Component{
                                     timeout={{ enter: 300, exit: 300 }}
                                     classNames="scale"
                                     onEnter={ () => console.log('home link is entering')}
-                                    onExited={ ()=> this.renderNext()}
+                                    onExited={ ()=> this.renderNext(history)}
                                     unmountOnExit>
                                     <button 
                                         className='link-button' 
@@ -125,7 +125,7 @@ export class App extends React.Component{
                                     timeout={{ enter: 300, exit: 300 }}
                                     classNames="scale"
                                     onEnter={ () => console.log('friends link is entering')}
-                                    onExited={ ()=> this.renderNext()}
+                                    onExited={ ()=> this.renderNext(history)}
                                     unmountOnExit>
                                     <button 
                                         className='link-button' 
@@ -218,12 +218,10 @@ export class App extends React.Component{
     }
 	
     setLocationState(location){
-        console.log('setting location state', location);
         var locations = {};
-        Object.keys(this.state.locations).map((location, index)=>{
+        Object.keys(this.state.locations).map((location)=>{
             locations[location] = '';
         });
-        console.log('New locations after mapping in setLocationState', locations);
         switch (location) {
             case '/friends':
                 this.setState({
@@ -233,7 +231,7 @@ export class App extends React.Component{
                     }
                 });
                 break;
-            case '/users':
+            case `/users`:
                 this.setState({
                     locations: {
                         ...locations,
@@ -242,7 +240,6 @@ export class App extends React.Component{
                 });
                 break;
             case '/':
-
                 this.setState({
                     locations: {
                         ...locations,
@@ -273,10 +270,9 @@ export class App extends React.Component{
 	
     makeNextToRender(location){	  
         var locations = this.state.locations;
-        Object.keys(this.state.locations).map((location, index)=>{
+        Object.keys(this.state.locations).map((location)=>{
             locations[location] = '';
         });
-        console.log('Locations in makeNextToRender', locations);
         switch (location) {
             case '/friends':
                 locations.friends = 'next';
@@ -307,16 +303,31 @@ export class App extends React.Component{
         }
     }
 
-    renderNext(){
+    renderNext(history){
+        
         var locations = this.state.locations;
 
         for (const location in locations) {
             const value = locations[location];
             if (value == 'next') {
                 locations[location] = 'on';
+                console.log(value);
+                switch (location) {
+                    case 'friends':
+                        history.push('/friends');
+                        break;
+                    case 'users':
+                        history.push('/users');
+                        break;
+                    case 'home':
+                        history.push('/');
+                        break;	
+                    default	:
+                        history.push('/');
+                        break;
+                }		
             }
         }
-        console.log('New locations after mapping in render next', locations);
 
         this.setState({
             locations: locations
@@ -368,3 +379,4 @@ export class App extends React.Component{
         });
     }
 }
+
