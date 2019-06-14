@@ -12,12 +12,12 @@ import { Column } from '../components/layout/column';
 import { CircularProgressIndicator } from '../components/progress_indicators/circular_progress_indicator';
 import { ProfileCard } from '../components/boxes/profile-card';
 
-import { Action } from '../react_utils/redux/actions';
+import { Action as action } from '../react_utils/redux/actions';
 
 class Friends extends React.Component{
 
     componentDidMount() {
-        this.props.dispatch(Action.receiveFriendsWannabes());
+        this.props.dispatch(action.receiveFriendsWannabes());
     }
 
     render(){
@@ -35,14 +35,19 @@ class Friends extends React.Component{
             }else{
 
                 friends = (
-				
-                    <Column padding={'20px'} width={'100%'}>
+                    <Column>
                         <h2>Check out your friends</h2>
-                        <Wrap>
+                        <Row padding={'20px'}>
                         	{ this.props.friends.map(friend => (
-                        	    <ProfileCard key={ friend.id } user={friend}/>
+                                <ProfileCard 
+                                    key={ friend.id } 
+                                    user={friend}
+                                    buttonText='Unfriend' 
+                                    onButtonClick={ () =>
+                                        this.props.dispatch(action.unfriend(friend.id))
+                                    }/>
                             ))}
-                        </Wrap>
+                        </Row>
                     </Column>);
             }
         }
@@ -56,11 +61,19 @@ class Friends extends React.Component{
                 wannabes = (<h2 style={{ margin: "100px" }}>You have no wannabes pal.</h2>);
             } else { 
                 wannabes = (
-                    <Column padding={'20px'}>
+                    <Column>
                         <h2>These people want to be your friends</h2>
-                        { this.props.wannabes.length && this.props.wannabes.map(friend => (
-                            <div key = { friend.id } >{ friend }</div>
-                        ))}
+                        <Row padding={'20px'}>
+                            { this.props.wannabes.length && this.props.wannabes.map(friend => (
+                                <ProfileCard 
+                                    key={ friend.id } 
+                                    user={friend}
+                                    buttonText='Accept friend request' 
+                                    onButtonClick={ () =>
+                                        this.props.dispatch(action.acceptFriendRequest(friend.id))
+                                    }/>
+                            ))}
+                        </Row>
                     </Column>);
             }  
         }

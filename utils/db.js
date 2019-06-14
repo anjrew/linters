@@ -145,8 +145,8 @@ module.exports.db = {
         return db.query(
             `
             DELETE FROM friendships
-            WHERE sender_id =$1
-            AND reciever_id = $2;
+            WHERE (sender_id =$1 AND reciever_id = $2)
+			OR (reciever_id =$1 AND sender_id = $2);
             `,
             [currentUserId, otheruserId]
         );

@@ -43,12 +43,12 @@ export class BioEditor extends React.Component{
                 return (
                     <Column padding={'20px'}>
                         <p>{this.props.bio || ''}</p>
-                        <button style={{margin: '20px'}} onClick={this.editClicked}>Edit</button>
+                        <button style={{margin: '20px'}} onClick={this.editClicked}>Edit bio</button>
                     </Column>
                 );
             } else {
                 return (
-                    <button style={{margin: '20px'}} onClick={this.addClicked}>Add</button>
+                    <button style={{margin: '20px'}} onClick={this.addClicked}>Add bio</button>
                 );
             }
         }

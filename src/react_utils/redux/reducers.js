@@ -7,7 +7,8 @@ export default function reducer(state = {}, action) {
             return { ...state, friendsWannabes: action.friendsWannabes };
 			
         case "ACCPET_FRIEND_REQUEST":
-            state.map(friend => {
+            console.log('In ACCPET_FRIEND_REQUEST with state', state);
+            state.friendsWannabes.map(friend => {
                 if (friend.id == action.acceptedUserId) {
                     return friend.accepted = true;
                 } else {
@@ -15,16 +16,18 @@ export default function reducer(state = {}, action) {
                 }
             });
             return {...state};
+			
+        case "REJECT_FRIEND_REQUEST":
+            return {
+                ...state, 
+                friendsWannabes: state.friendsWannabes.filter(friend => friend.id != action.endUserId)
+            };
 		
         case "UNFRIEND":
-            state.friendsWannabes.filter(friend => {
-                if (friend.id == action.endUserId) {
-                    return null;
-                } else {
-                    return friend;
-                }
-            });
-            return {...state};
+            return {
+                ...state, 
+                friendsWannabes: state.friendsWannabes.filter(friend => friend.id != action.endUserId)
+            };
 			
         default:
             return state;
