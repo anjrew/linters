@@ -130,7 +130,7 @@ export class App extends React.Component{
                             </Row>
 
                             <CSSTransition in={!!this.state.error} timeout={300} classNames="scale" unmountOnExit>
-                                <ErrorMessage> </ErrorMessage>
+                                <ErrorMessage>{this.state.error}</ErrorMessage>
                             </CSSTransition>
 
                             <SafeArea>

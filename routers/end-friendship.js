@@ -10,7 +10,7 @@ router.route('/end-friendship')
         const reciever = req.body.id;
         try {
             print.warning(`Trying to end friendship with with senderId ${senderId} and ${reciever}`);
-            let result = await db.unfriend(senderId, reciever);
+            let result = await db.unfriendReject(senderId, reciever);
             result = result.rows[0];
             print.info(`The result is `, result);
             if (!result){

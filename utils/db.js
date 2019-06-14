@@ -141,7 +141,7 @@ module.exports.db = {
         );
     },
 
-    unfriend: function (currentUserId, otheruserId) { 
+    unfriendReject: function (currentUserId, otheruserId) { 
         return db.query(
             `
             DELETE FROM friendships

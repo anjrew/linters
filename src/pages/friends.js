@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 
 // COMPONENTS
 import { Wrap } from '../components/layout/wrap';
-import { CSSTransition } from "react-transition-group";
+import { ScaleTransition } from "../components/transitions/scale-transition";
 import { Row } from '../components/layout/row';
-import { Avatar } from '../components/graphics/avatar';
 import { Column } from '../components/layout/column';
 import { CircularProgressIndicator } from '../components/progress_indicators/circular_progress_indicator';
 import { ProfileCard } from '../components/boxes/profile-card';
@@ -21,8 +20,6 @@ class Friends extends React.Component{
     }
 
     render(){
-        console.log('rendering friends with friends ', this.props.friends);
-        console.log('rendering friends with wanabees ', this.props.wannabes);
 		
         let friends;
         let wannabes;
@@ -44,7 +41,7 @@ class Friends extends React.Component{
                                     user={friend}
                                     buttonText='Unfriend' 
                                     onButtonClick={ () =>
-                                        this.props.dispatch(action.unfriend(friend.id))
+                                        this.props.dispatch(action.unfriendReject(friend.id))
                                     }/>
                             ))}
                         </Row>
@@ -71,6 +68,10 @@ class Friends extends React.Component{
                                     buttonText='Accept friend request' 
                                     onButtonClick={ () =>
                                         this.props.dispatch(action.acceptFriendRequest(friend.id))
+                                    }
+                                    secondButtonText='Reject'
+                                    onSecondButtonClick={ () =>
+                                        this.props.dispatch(action.unfriendReject(friend.id))
                                     }/>
                             ))}
                         </Row>
@@ -89,9 +90,8 @@ class Friends extends React.Component{
 }
 
 const mapStateToProps = state => {
-    if (state.friendsWannabes) {
-        console.log('state.friendsWannabes are ', state.friendsWannabes);
-		
+    console.log('The sate in mapStateToProps is ', state);
+    if (state.friendsWannabes) {		
         const wannabes = state.friendsWannabes.filter((person) =>{
             return person.accepted != true;
         });

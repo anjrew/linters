@@ -9,7 +9,6 @@ import { CSSTransition } from "react-transition-group";
 import { TextField } from '../components/inputs/textfield';
 import { Column } from '../components/layout/column';
 import { ErrorMessage } from '../components/text/error_message';
-import { Link } from 'react-router-dom';
 
 export class Login extends React.Component{
 
