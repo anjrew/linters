@@ -93,12 +93,12 @@ const mapStateToProps = state => {
         console.log('state.friendsWannabes are ', state.friendsWannabes);
 		
         const wannabes = state.friendsWannabes.filter((person) =>{
-            return person.status == 1;
+            return person.accepted != true;
         });
 		
         const friends = state.friendsWannabes.filter((person) =>{
 
-            return person.status != 1;
+            return person.accepted == true;
         });
 		
         return {

@@ -133,8 +133,8 @@ module.exports.db = {
             `
             UPDATE friendships
             SET accepted=$3
-            WHERE sender_id =$2
-            AND reciever_id = $1
+			WHERE (sender_id =$2 AND reciever_id = $1)
+			OR (reciever_id =$2 AND sender_id = $1)
             RETURNING id, sender_id, reciever_id, accepted;
             `,
             [currentUserId, otheruserId, true]
@@ -155,7 +155,7 @@ module.exports.db = {
     getFriends: function(id){ 
         return db.query( 
             `
-			SELECT users.id, first, last, email, bio, pic_url, created_at
+			SELECT users.id, first, last, email, bio, pic_url, created_at, accepted
 			FROM friendships
 			JOIN users
 			ON (accepted = false AND reciever_id = $1 AND sender_id = users.id)
