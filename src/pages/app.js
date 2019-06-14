@@ -67,7 +67,8 @@ export default class App extends React.Component{
             <CSSTransition 
                 in={this.state.showApp} 
                 timeout={300} 
-                classNames="fade" 
+                classNames="fade"
+                onExited={() => this.state.showApp == false && this.logout()} 
                 unmountOnExit>
 
                 <BrowserRouter>
@@ -143,9 +144,8 @@ export default class App extends React.Component{
                                     
                                     <button 
                                         className='link-button' 
-                                        onClick={ () => this.makeNextToRender('/') }
+                                        onClick={ () => this.setState({ showApp: false }) }
                                     >Logout</button>
-                                    <a className='link-button' href='/api/logout'>Logout</a>
 
                                     <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                                 </Row>
@@ -393,9 +393,9 @@ export default class App extends React.Component{
     }
 	
     logout(){
-
-        axios.get('/api/logout').then(res => {
-            
+        axios.get('/api/logout').then(() =>{ 
+            console.log('The window location is', window.location);
+            location.replace('/welcome');
         }).catch((e) =>{
             this.setState({
                 error: e

@@ -1,6 +1,5 @@
 import React from 'react';
-import Routes from '../react_utils/react_routes';
-import { CSSTransition, TransitionGroup,} from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import ReactCardFlip from 'react-card-flip';
 
 
@@ -30,9 +29,7 @@ export class Welcome extends React.Component{
 
     componentDidMount(){
         const initaialRoute = window.location.hash;
-        console.log(initaialRoute);
         const register = initaialRoute.indexOf('register')  >= 0;
-        console.log('the register bool is',register);
         this.setState({
             visable: true,
             isFlipped: !register

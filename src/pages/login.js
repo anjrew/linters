@@ -36,15 +36,12 @@ export class Login extends React.Component{
     }
 
     handleChange({ target }) {
-        console.log('Handling text change with name: ', target.name, ' with Value: ', target.value );
         this.setState({
             [target.name]: target.value
         });
     }
   
     submit(){
-        console.log('Login button pressed');
-        console.log(this.state);
         axios.post(routes.login, {
             email: this.state.email,
             password: this.state.password,
