@@ -8,10 +8,9 @@ import ReactCardFlip from 'react-card-flip';
 import { Logo } from '../components/graphics/logo';
 import { SafeArea } from '../components/layout/safe_area';
 import { Column } from '../components/layout/column';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route,} from 'react-router-dom';
 import { Registration } from '../pages/registration';
 import { Login } from '../pages/login';
-import { OverLappedChildren } from '../components/layout/overlapped_children';
 
 export class Welcome extends React.Component{
 
@@ -24,19 +23,24 @@ export class Welcome extends React.Component{
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick() {
+    handleClick(history) {
+        this.state.isFlipped ? history.push('/register') : history.push('/login');
         this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
     }
 
     componentDidMount(){
+        const initaialRoute = window.location.hash;
+        console.log(initaialRoute);
+        const register = initaialRoute.indexOf('register')  >= 0;
+        console.log('the register bool is',register);
         this.setState({
-            visable: true
+            visable: true,
+            isFlipped: !register
         });
     }
 
     render(){
         return (
-
             <CSSTransition
                 key='Welcome'
                 timeout= {450}
@@ -49,53 +53,20 @@ export class Welcome extends React.Component{
                         <h2>Welcome to the Nerd Network</h2>
                         <Logo margin={'30px'}/>
                         <HashRouter>
-                            <Route render= {({location}) => {
+                            <Route render= {({location, history}) => {
                                 console.log(location);
                                 return(
 
                                     <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
                                         <Registration
                                             key="front"
-                                            onClick={this.handleClick}/>
+                                            onClick={() => this.handleClick(history)}/>
                                     
                                         <Login 
                                             key="back"
-                                            onClick={this.handleClick}
+                                            onClick={ () => this.handleClick(history)}
                                             onLogin={() => this.setState({visable: false})}/>
                                     </ReactCardFlip>
-
-
-                                    // <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
-                                    // <Route exact path={ Routes.home } render={() => {
-                                    //     return (<Registration 
-                                    //         key="front"
-                                    //         onClick={this.handleClick}/>);
-                                    // }}/>
-
-
-                                    // <Route path={ Routes.login } render={() => {
-                                    //     return (
-                                    //         <Login 
-                                    //             key="back"
-                                    //             onClick={this.handleClick}/>
-                                    //     );
-                                    // }}/>
-                                    // </ReactCardFlip>
-
-                                    // <TransitionGroup>
-                                    //     <CSSTransition
-                                    //         key={location.pathname}
-                                    //         timeout= {450}
-                                    //         classNames="fade"
-                                    //     >   
-                                    //         <OverLappedChildren>             
-                                    //             <Switch location={location}>
-                                    //                 <Route exact path={ Routes.home } component={ Registration }/>
-                                    //                 <Route path={ Routes.login } component={ Login }/>
-                                    //             </Switch>
-                                    //         </OverLappedChildren>             
-                                    //     </CSSTransition>
-                                    // </TransitionGroup>
                                 );  
                             }} />
                         </HashRouter>

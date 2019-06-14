@@ -34,6 +34,7 @@ export default class App extends React.Component{
             animatingMenu: false,
             showProfileLink: true,
             showFindPeopleLink: false,
+            showApp: false,
             user: {
                 bio: null,
                 profile_creation_date: null,
@@ -43,11 +44,11 @@ export default class App extends React.Component{
                 imageUrl: "/assets/images/nerd-avatar.png"
             },
             locations:{
-                home: 'on',
-                friends: 'on',
-                findUsers: 'on',
-                otherUser: 'on',
-                users: 'on'
+                home: 'next',
+                friends: 'next',
+                findUsers: 'next',
+                otherUser: 'next',
+                users: 'next'
             }
         };
         this.renderNext = this.renderNext.bind(this);
@@ -57,145 +58,156 @@ export default class App extends React.Component{
         this.uploadClicked = this.uploadClicked.bind(this);
         this.changeImage = this.changeImage.bind(this);
         this.setBio = this.setBio.bind(this);
+        this.logout = this.logout.bind(this);
     }
 	
 
     render(){
         return (
-            <BrowserRouter>
-                <Route render= {({location , history }) => {
+            <CSSTransition 
+                in={this.state.showApp} 
+                timeout={300} 
+                classNames="fade" 
+                unmountOnExit>
 
-                    return(
-                        <Column>
-                            <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="fade" unmountOnExit>
-                                <Container 
-                                    padding="40px"
-                                    position="fixed"
-                                    width='100vw'
-                                    height='100vh'
-                                    backgroundColor= 'rgba(0,0,0,0.50)'
-                                    zIndex="800">
-                                </Container>
-                            </CSSTransition>
+                <BrowserRouter>
+                    <Route render= {({location , history }) => {
 
-
-                            <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
-                                <Uploader 
-                                    uploading={ () => this.setState({ uploading: true }, () => console.log('The state is ',this.state))}
-                                    dismissLoader={ this.dismissLoader } 
-                                    changeImage={this.changeImage}
-                                />
-                            </CSSTransition>
-
-                            <Row id="header" backgroundColor={ 'red' } justifyContent='flex-start'>
-
-                                <Logo height={ '100px' } width={ "100px" }/>
-
-                                <CSSTransition
-                                    key={'users-link-css'}
-                                    in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
-                                    timeout={{ enter: 300, exit: 300 }}
-                                    classNames="scale"
-                                    onEnter={ () => console.log('users link is entering')}
-                                    onExited={ ()=> this.renderNext(history)}
-                                    unmountOnExit>
-                                    <button 
-                                        className='link-button' 
-                                        onClick={ () => this.makeNextToRender('/users')}
-                                    >Find users</button>
+                        return(
+                            <Column>
+                                <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="fade" unmountOnExit>
+                                    <Container 
+                                        padding="40px"
+                                        position="fixed"
+                                        width='100vw'
+                                        height='100vh'
+                                        backgroundColor= 'rgba(0,0,0,0.50)'
+                                        zIndex="800">
+                                    </Container>
                                 </CSSTransition>
 
-                                <CSSTransition
-                                    key={'home-css'}
-                                    in={this.state.locations.home != 'on' && this.state.locations.home != 'next'}
-                                    timeout={{ enter: 300, exit: 300 }}
-                                    classNames="scale"
-                                    onEnter={ () => console.log('home link is entering')}
-                                    onExited={ ()=> this.renderNext(history)}
-                                    unmountOnExit>
+
+                                <CSSTransition in={this.state.uploaderVisible} timeout={300} classNames="scale" unmountOnExit>
+                                    <Uploader 
+                                        uploading={ () => this.setState({ uploading: true }, () => console.log('The state is ',this.state))}
+                                        dismissLoader={ this.dismissLoader } 
+                                        changeImage={this.changeImage}
+                                    />
+                                </CSSTransition>
+
+                                <Row id="header" backgroundColor={ 'red' } justifyContent='flex-start'>
+
+                                    <Logo height={ '100px' } width={ "100px" }/>
+
+                                    <CSSTransition
+                                        key={'users-link-css'}
+                                        in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
+                                        timeout={{ enter: 300, exit: 300 }}
+                                        classNames="scale"
+                                        onEnter={ () => console.log('users link is entering')}
+                                        onExited={ ()=> this.renderNext(history)}
+                                        unmountOnExit>
+                                        <button 
+                                            className='link-button' 
+                                            onClick={ () => this.makeNextToRender('/users')}
+                                        >Find users</button>
+                                    </CSSTransition>
+
+                                    <CSSTransition
+                                        key={'home-css'}
+                                        in={this.state.locations.home != 'on' && this.state.locations.home != 'next'}
+                                        timeout={{ enter: 300, exit: 300 }}
+                                        classNames="scale"
+                                        onEnter={ () => console.log('home link is entering')}
+                                        onExited={ ()=> this.renderNext(history)}
+                                        unmountOnExit>
+                                        <button 
+                                            className='link-button' 
+                                            onClick={ () => this.makeNextToRender('/') }
+                                        >My profile</button>
+                                    </CSSTransition>
+
+                                    <CSSTransition
+                                        key={'friends-css'}
+                                        in={this.state.locations.friends != 'on' && this.state.locations.friends != 'next'}
+                                        timeout={{ enter: 300, exit: 300 }}
+                                        classNames="scale"
+                                        onEnter={ () => console.log('friends link is entering')}
+                                        onExited={ ()=> this.renderNext(history)}
+                                        unmountOnExit>
+                                        <button 
+                                            className='link-button' 
+                                            onClick={ () => this.makeNextToRender('/friends')}
+                                        >Friends</button>
+                                    </CSSTransition>
+                                    
                                     <button 
                                         className='link-button' 
                                         onClick={ () => this.makeNextToRender('/') }
-                                    >My profile</button>
+                                    >Logout</button>
+                                    <a className='link-button' href='/api/logout'>Logout</a>
+
+                                    <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
+                                </Row>
+
+                                <CSSTransition in={!!this.state.error} timeout={300} classNames="scale" unmountOnExit>
+                                    <ErrorMessage>{this.state.error}</ErrorMessage>
                                 </CSSTransition>
 
-                                <CSSTransition
-                                    key={'friends-css'}
-                                    in={this.state.locations.friends != 'on' && this.state.locations.friends != 'next'}
-                                    timeout={{ enter: 300, exit: 300 }}
-                                    classNames="scale"
-                                    onEnter={ () => console.log('friends link is entering')}
-                                    onExited={ ()=> this.renderNext(history)}
-                                    unmountOnExit>
-                                    <button 
-                                        className='link-button' 
-                                        onClick={ () => this.makeNextToRender('/friends')}
-                                    >Friends</button>
-                                </CSSTransition>
-                                           
-                                <a className='link-button' href='/api/logout'>Logout</a>
-
-                                <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
-                            </Row>
-
-                            <CSSTransition in={!!this.state.error} timeout={300} classNames="scale" unmountOnExit>
-                                <ErrorMessage>{this.state.error}</ErrorMessage>
-                            </CSSTransition>
-
-                            <SafeArea>
+                                <SafeArea>
                     
-                                <TransitionGroup>
-                                    <CSSTransition
-                                        key={location.pathname}
-                                        timeout={{ enter: 300, exit: 300 }}
-                                        classNames="fade"
-                                    >
-                                        <OverLappedChildren>             
+                                    <TransitionGroup>
+                                        <CSSTransition
+                                            key={location.pathname}
+                                            timeout={{ enter: 300, exit: 300 }}
+                                            classNames="fade"
+                                        >
+                                            <OverLappedChildren>             
 
-                                            <Switch location={location}>
-                                                <Route path={ "/other-user/:id"} render={(props) => {
-                                                    return (
-                                                        <OtherProfile 
-                                                            key={props.match.url}
-                                                            match={props.match}
-                                                            history={props.history}
-                                                        />
-                                                    );
-                                                }}/> 
+                                                <Switch location={location}>
+                                                    <Route path={ "/other-user/:id"} render={(props) => {
+                                                        return (
+                                                            <OtherProfile 
+                                                                key={props.match.url}
+                                                                match={props.match}
+                                                                history={props.history}
+                                                            />
+                                                        );
+                                                    }}/> 
 
-                                                <Route exact path={routes.home} render={() => {
-                                                    return (
-                                                        <Profile 
-                                                            bioEditorIsVisible={ this.state.bioEditorIsVisible}
-                                                            uploadClicked={this.avatarClicked}
-                                                            user={this.state.user}
-                                                            setBio={this.setBio}
-                                                        />
-                                                    );
-                                                }}/>  
+                                                    <Route exact path={routes.home} render={() => {
+                                                        return (
+                                                            <Profile 
+                                                                bioEditorIsVisible={ this.state.bioEditorIsVisible}
+                                                                uploadClicked={this.avatarClicked}
+                                                                user={this.state.user}
+                                                                setBio={this.setBio}
+                                                            />
+                                                        );
+                                                    }}/>  
 
-                                                <Route exact path={'/users'} render={() => {
-                                                    return (
-                                                        <FindPeople/>
-                                                    );
-                                                }}/>
+                                                    <Route exact path={'/users'} render={() => {
+                                                        return (
+                                                            <FindPeople/>
+                                                        );
+                                                    }}/>
 
-                                                <Route exact path={'/friends'} render={() => {
-                                                    return (
-                                                        <Friends/>
-                                                    );
-                                                }}/>  
+                                                    <Route exact path={'/friends'} render={() => {
+                                                        return (
+                                                            <Friends/>
+                                                        );
+                                                    }}/>  
 
-                                            </Switch>
-                                        </OverLappedChildren>            
-                                    </CSSTransition>
-                                </TransitionGroup>
+                                                </Switch>
+                                            </OverLappedChildren>            
+                                        </CSSTransition>
+                                    </TransitionGroup>
 
-                            </SafeArea>
-                        </Column>
-                    );}} />
-            </BrowserRouter>
-
+                                </SafeArea>
+                            </Column>
+                        );}} />
+                </BrowserRouter>
+            </CSSTransition>
         );
     }
 
@@ -211,7 +223,8 @@ export default class App extends React.Component{
                 imageUrl: res.data.pic_url || "/assets/images/nerd-avatar.png"
             });
             this.setState({
-                user: userProfile
+                user: userProfile,
+                showApp: true
             });
         });
         this.setLocationState(window.location.pathname);
@@ -376,6 +389,17 @@ export default class App extends React.Component{
         this.setState({
             user: user ,
             bioEditorIsVisible: false
+        });
+    }
+	
+    logout(){
+
+        axios.get('/api/logout').then(res => {
+            
+        }).catch((e) =>{
+            this.setState({
+                error: e
+            });
         });
     }
 }
