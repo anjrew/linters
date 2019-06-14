@@ -42,26 +42,30 @@ export class App extends React.Component{
                 first: null,
                 last: null,
                 imageUrl: "/assets/images/nerd-avatar.png"
+            },
+            location:{
+                home: false,
+                friends: false,
+                findUsers: false,
+                otherUser: false,
+                next:'',
+                current: '',
             }
         };
+        this.renderNext = this.renderNext.bind(this);
+        this.setLocationState = this.setLocationState.bind(this);		
         this.dismissLoader = this.dismissLoader.bind(this);
         this.avatarClicked = this.avatarClicked.bind(this);
         this.uploadClicked = this.uploadClicked.bind(this);
         this.changeImage = this.changeImage.bind(this);
         this.setBio = this.setBio.bind(this);
     }
+	
 
     render(){
         return (
             <BrowserRouter>
                 <Route render= {({location}) => {
-
-                    if (location.pathname == '/users' && this.state.showProfileLink && !this.state.animatingMenu) {
-                        this.setState({showProfileLink: true,  showFindPeopleLink: false });
-                    } 
-                    else if (location.pathname == '/' && this.state.showProfileLink && !this.state.animatingMenu){
-                        this.setState({showFindPeopleLink: true, showProfileLink: false, });
-                    }
 
                     return(
                         <Column>
@@ -95,8 +99,7 @@ export class App extends React.Component{
                                     timeout={{ enter: 300, exit: 300 }}
                                     classNames="scale"
                                     onEnter={ ()=> this.setState({ animatingMenu: true })}
-                                    onEntered={ () => this.setState({ animatingMenu: false })}
-                                    // onExited={ ()=> this.setState({ animatingMenu: false })}
+                                    onExited={ ()=> this.setState({ animatingMenu: false })}
                                     unmountOnExit>
                                     <Link className='link-button' to={'/users'}>Find users</Link>
                                 </CSSTransition>
@@ -122,7 +125,6 @@ export class App extends React.Component{
                                     unmountOnExit>
                                     <Link className='link-button' to={'/friends'}>Friends</Link>
                                 </CSSTransition>
-
                                            
                                 <a className='link-button' href='/api/logout'>Logout</a>
 
@@ -202,8 +204,62 @@ export class App extends React.Component{
                 imageUrl: res.data.pic_url || "/assets/images/nerd-avatar.png"
             });
             this.setState({
-                user:userProfile
+				
+                user: userProfile
             });
+        });
+    }
+	
+    setLocationState(){
+        switch (window.location.pathname) {
+            case '/friends':
+                this.setState({
+                    location: {
+                        ...this.state.location,
+                        friends: 'on'
+                    }
+                });
+                break;
+            case '/users':
+                this.setState({
+                    location: {
+                        ...this.state.location,
+                        users: 'on'
+                    }
+                });
+                break;
+            case '/':
+                this.setState({
+                    location: {
+                        ...this.state.location,
+                        home: 'on'
+                    }
+                });
+                break;
+				
+            default:
+                if  (window.location.pathname.substring('other-user')){
+                    this.setState({
+                        location: {
+                            ...this.state.location,
+                            otherUser: 'on'
+                        }
+                    });
+                } 
+        }
+    }
+	
+    renderNext(){
+        var locations = this.state.locations;
+		
+        for (const location in locations) {
+            const value = locations[location];
+            if (value == 'next') {
+                locations[location] = 'on';
+            }
+        }
+        this.setState({
+            locations: locations
         });
     }
 

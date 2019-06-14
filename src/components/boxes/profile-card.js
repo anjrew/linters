@@ -17,7 +17,6 @@ export class ProfileCard extends React.Component{
         this.textStyle={
             textAlign: 'start'
         };
-        console.log('this is profile card is', this);
         this.handleSecondButtonClick = this.handleSecondButtonClick.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
     }
@@ -33,7 +32,6 @@ export class ProfileCard extends React.Component{
             <ScaleTransition 
                 in={this.state.show} 
                 onExited={() =>{
-					console.log('exiting profile card');
                     if (this.state.firstButtonClicked){
                         this.props.onButtonClick(); 
                     } else {
@@ -65,7 +63,6 @@ export class ProfileCard extends React.Component{
     }
 
     handleFirstButtonClick(){
-        console.log('first button pressed in profile card');
         this.setState({
             show: false,
             firstButtonClicked: true,

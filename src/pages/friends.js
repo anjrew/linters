@@ -32,8 +32,10 @@ class Friends extends React.Component{
             }else{
 
                 friends = (
-                    <Column>
-                        <h2>Check out your friends</h2>
+                    <Column border={'3px solid black'} margin='20px' padding='20px' borderRaduis='10px'>
+					 <ScaleTransition in={!!this.props.friends.length} >
+                            <h2>Check out your friends</h2>
+					 </ScaleTransition>
                         <Row padding={'20px'}>
                         	{ this.props.friends.map(friend => (
                                 <ProfileCard 
@@ -54,12 +56,13 @@ class Friends extends React.Component{
         } else {
 
             if (this.props.wannabes.length == 0){
-                console.log('wannabes length is 0');
-                wannabes = (<h2 style={{ margin: "100px" }}>You have no wannabes pal.</h2>);
+                wannabes = (<h2 style={{ margin: "10px" }}>Nobody {this.props.friends.length > 0 && 'else'} wants to be your friend... Why would they???.</h2>);
             } else { 
                 wannabes = (
-                    <Column>
-                        <h2>These people want to be your friends</h2>
+                    <Column border={'3px solid black'} margin='20px' padding='20px' borderRaduis='10px'>
+                        <ScaleTransition in={!this.props.wannabes.length} >
+                            <h2>These people want to be your friends</h2>
+                        </ScaleTransition>
                         <Row padding={'20px'}>
                             { this.props.wannabes.length && this.props.wannabes.map(friend => (
                                 <ProfileCard 
@@ -90,7 +93,6 @@ class Friends extends React.Component{
 }
 
 const mapStateToProps = state => {
-    console.log('The sate in mapStateToProps is ', state);
     if (state.friendsWannabes) {		
         const wannabes = state.friendsWannabes.filter((person) =>{
             return person.accepted != true;

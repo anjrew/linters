@@ -15,7 +15,6 @@ export function FindPeople() {
         !searchVal && setUsers(null,);
         if (!searchVal) {
             axios.get(`/api/users`).then(({ data })=>{
-                console.log('users: ', data);
                 setUsers(data);
             }).catch((e)=>{
                 console.log('ERROR: ' + e);
