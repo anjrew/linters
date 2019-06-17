@@ -45,9 +45,9 @@ class Chat extends React.Component{
         );
 	}
 	
-		componentDidUpdate(prevProps, prevState) {
-			console.log('in component did update');
-		}
+	componentDidUpdate(prevProps, prevState) {
+		console.log('in component did update');
+	}
 	
 	
     handleChange({ target }) {
@@ -59,7 +59,7 @@ class Chat extends React.Component{
 
 const mapStateToProps = (state) => {
     console.log(' The state in mapStateToProps in chat is ', state);
-    return { messages: state.messages } || {};
+    return { messages: state.messages };
 };
 
 

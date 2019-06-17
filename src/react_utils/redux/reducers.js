@@ -32,16 +32,9 @@ export default function reducer(state = {}, action) {
 
         case "RECIEVING_CHAT_MESSAGE":
 
-            var messages = state.messages;
-            if (state.messages){
-                messages.push( action.message );
-
-            } else {
-                messages = [ action.message ];
-            }
             return {
                 ...state, 
-                messages: messages
+                messages: [ action.message, ...state.messages ]
             };
 			
         default:

@@ -26,7 +26,6 @@ export const init = store => {
         socket.on(
             'connected',
             (msg) => {
-                console.log(msg.message);
                 store.dispatch(
                     action.chatMessages(msg.messages)				
                 );

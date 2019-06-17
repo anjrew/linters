@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 
 // COMPONENTS
-import { Wrap } from '../components/layout/wrap';
 import { ScaleTransition } from "../components/transitions/scale-transition";
 import { Row } from '../components/layout/row';
 import { Column } from '../components/layout/column';
