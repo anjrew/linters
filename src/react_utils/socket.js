@@ -16,9 +16,12 @@ export const init = store => {
 
         socket.on(
             'chatMessage',
-            msg => store.dispatch(
-                action.chatMessage(msg)
-            )
+            msg => {
+                console.log('Just recived a new chat message ', msg);
+                store.dispatch(
+                    action.chatMessage(msg)
+                );
+            }
         );
 		
         socket.on(

@@ -185,6 +185,25 @@ module.exports.db = {
         );
     },
 	
+    getChatMessageById: function(chatMessageId){
+        return db.query( 
+            `
+			SELECT 
+				chat_messages.id, 
+				CONCAT(users.first, ' ' ,users.last) AS name, 
+				chat_messages.user_id, 
+				chat_messages.created_at, 
+				pic_url,
+				message
+			FROM chat_messages
+			JOIN users
+			ON chat_messages.user_id = users.id
+			WHERE chat_messages.id=$1;
+			`,
+            [ chatMessageId ] 
+        );
+    },
+	
     saveChatMessage: function(message, userId){
         return db.query( 
             `

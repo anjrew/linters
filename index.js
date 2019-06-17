@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const csurf = require('csurf');
-const chalk = require('chalk');
 const path = require('path');
 const print = require('./utils/print');
 const routes = require('./routers/routes');
@@ -69,26 +68,28 @@ io.use(async (socket, next)=>{
 
     socket.on('newMessage', async(data) => {
         try {
-            await db.saveChatMessage(data.message, userId);
+            const messageSavedResult = await db.saveChatMessage(data.message, userId);
+            const returnResult = await db.getChatMessageById(messageSavedResult.rows[0].id);
+
             io.sockets.emit('chatMessage', {
-                message: data.message
+                message: returnResult.rows[0]
             });
         } catch (e) {
             print.error(`The server had an error with a new chat message: `, e);
         }
     });
 	
-    socket.on('get-chat', async() => {
-        try {
-            const messages = await db.getChat();
-            io.sockets.emit('new-message', {
-                message: messages
-            });
+    // socket.on('get-chat', async() => {
+    //     try {
+    //         const messages = await db.getChat();
+    //         io.sockets.emit('new-message', {
+    //             message: messages
+    //         });
 
-        } catch (e) {
-            print.error(`The server had an error with a new chat message: `, e);
-        }
-    });
+    //     } catch (e) {
+    //         print.error(`The server had an error with a new chat message: `, e);
+    //     }
+    // });
     // Emit sends data to the client
     // socket.emit('welcome', {
     //     message: 'Welome. It is nice to see you'
