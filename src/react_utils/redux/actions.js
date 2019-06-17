@@ -22,12 +22,25 @@ export const Action = {
     unfriendReject: function(otherUserId){
         const data = { id: otherUserId };
         return axios.post('/end-friendship', data).then(({ data }) => {
-            console.log('unfriendReject data is ', data);
             return {
                 type: "UNFRIEND",
                 endUserId: data.endUserId
             };
         });
+    },
+    chatMessages: function(messages){
+        console.log('Recieving incoming chat messages ', messages);
+        return {
+            type: 'RECIEVING_CHAT',
+            messages: messages
+        };
+    }, 
+    chatMessage: function(message){
+        console.log('Recieving a chat message ', message);
+        return {
+            type: 'RECIEVING_CHAT_MESSAGE',
+            messages: message
+        };
     }
 };
 

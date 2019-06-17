@@ -21,6 +21,7 @@ import { FindPeople } from '../components/modules/find_people';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
 import Friends from '../pages/friends';
+import { Chat } from '../pages/chat';
 
 export default class App extends React.Component{
 
@@ -134,13 +135,25 @@ export default class App extends React.Component{
                                         in={this.state.locations.friends != 'on' && this.state.locations.friends != 'next'}
                                         timeout={{ enter: 300, exit: 300 }}
                                         classNames="scale"
-                                        onEnter={ () => console.log('friends link is entering')}
                                         onExited={ ()=> this.renderNext(history)}
                                         unmountOnExit>
                                         <button 
                                             className='link-button' 
                                             onClick={ () => this.makeNextToRender('/friends')}
                                         >Friends</button>
+                                    </CSSTransition>
+
+                                    <CSSTransition
+                                        key={'chat-link-css'}
+                                        in={this.state.locations.chat != 'on' && this.state.locations.chat != 'next'}
+                                        timeout={{ enter: 300, exit: 300 }}
+                                        classNames="scale"
+                                        onExited={ ()=> this.renderNext(history)}
+                                        unmountOnExit>
+                                        <button 
+                                            className='link-button' 
+                                            onClick={ () => this.makeNextToRender('/chat')}
+                                        >Chat</button>
                                     </CSSTransition>
                                     
                                     <button 
@@ -190,6 +203,12 @@ export default class App extends React.Component{
                                                     <Route exact path={'/users'} render={() => {
                                                         return (
                                                             <FindPeople/>
+                                                        );
+                                                    }}/>
+
+                                                    <Route exact path={'/users'} render={() => {
+                                                        return (
+                                                            <Chat/>
                                                         );
                                                     }}/>
 
@@ -340,7 +359,6 @@ export default class App extends React.Component{
             const value = locations[location];
             if (value == 'next') {
                 locations[location] = 'on';
-                console.log(value);
                 switch (location) {
                     case 'friends':
                         history.push('/friends');

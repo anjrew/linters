@@ -48,22 +48,35 @@ app.use(cookieSessionMiddleWare);
 
 io.use(function(socket, next) {
     cookieSessionMiddleWare(socket.request, socket.request.res, next);
-    console.log(`socket with the id ${socket.id} is now connected`);
+    print.success(`socket with the id ${socket.id} is now connected`);
+    // Emit sends data to the client
+    socket.emit('connected', {
+        message: 'You are connected to the server via socket.io'
+    });
 
     socket.on('disconnect', function() {
-        console.log(`socket with the id ${socket.id} is now disconnected`);
+        print.error(`socket with the id ${socket.id} is now disconnected`);
     });
 
-    // ON is reciveing data
-    socket.on('thanks', function(data) {
-        console.log(data);
-    });
+    socket.on('new-message', async(data) => {
+        try {
+            const messages = await db.saveChatMessage(data.message);
+            io.sockets.emit('new-message', {
+                message: data.message
+            });
 
+        } catch (e) {
+            print.error(`The server had an error with a new chat message: `, e);
+        }
+    });
     // Emit sends data to the client
-    socket.emit('welcome', {
-        message: 'Welome. It is nice to see you'
-    });
+    // socket.emit('welcome', {
+    //     message: 'Welome. It is nice to see you'
+    // });
+	
+    // Relays the message to all sockets
 });
+
 
 
 app.use(express.static(`${__dirname}/public`));

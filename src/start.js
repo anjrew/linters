@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import routes from './react_utils/react_routes';
+import { init as initSocket } from './react_utils/chat';
 
 // PAGES
 import { Welcome } from './pages/welcome';
@@ -18,6 +19,7 @@ let elem;
 if (location.pathname === routes.welcome) {
     elem = <Welcome />; 
 } else {
+    initSocket(store);
     elem = <Provider store={store}>
         <App />
     </Provider>;

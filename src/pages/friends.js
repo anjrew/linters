@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from '../react_utils/axios';
 import { connect } from 'react-redux';
 
 
