@@ -20,5 +20,13 @@ export const init = store => {
                 action.chatMessage(msg)
             )
         );
+		
+        socket.on(
+            'connected',
+            (msg) => {
+                console.log(msg.message);
+                action.chatMessages(msg.messages);
+            }
+        );
     }
 };

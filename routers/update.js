@@ -10,7 +10,6 @@ router.route(routes.update)
     .post(async(req, res) => {
         const userId = req.session[cookies.userId];
         const bio = req.body.bio || '';
-        print.info(`The user is ${userId} and the bio is`, bio );
         try {
             let result;
             if (bio){

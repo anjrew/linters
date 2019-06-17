@@ -21,7 +21,7 @@ import { FindPeople } from '../components/modules/find_people';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
 import Friends from '../pages/friends';
-import { Chat } from '../pages/chat';
+import Chat from '../pages/chat';
 
 export default class App extends React.Component{
 
@@ -206,7 +206,7 @@ export default class App extends React.Component{
                                                         );
                                                     }}/>
 
-                                                    <Route exact path={'/users'} render={() => {
+                                                    <Route exact path={'/chat'} render={() => {
                                                         return (
                                                             <Chat/>
                                                         );
@@ -352,9 +352,7 @@ export default class App extends React.Component{
     }
 
     renderNext(history){
-        
         var locations = this.state.locations;
-
         for (const location in locations) {
             const value = locations[location];
             if (value == 'next') {

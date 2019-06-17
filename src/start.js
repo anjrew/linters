@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import routes from './react_utils/react_routes';
-import { init as initSocket } from './react_utils/chat';
+import { init as initSocket } from './react_utils/socket';
 
 // PAGES
 import { Welcome } from './pages/welcome';

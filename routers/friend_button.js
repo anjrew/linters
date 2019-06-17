@@ -20,12 +20,9 @@ router.route('/api/friend-button')
                     res.status(500).json({ error: 'The datbase did not save the result' });
                 }
             } else if (status === 'cancelRequest' || status === 'accepted') {
-                print.success('in cancel or already accepted');
                 let result = await db.unfriendReject(senderId, reciever);
                 result = result.rows[0];
-                print.info(`The result is `, result);
                 if (!result){
-
                     res.json('noExistingRequest');
                 } else {
                     res.status(500).json({ error: 'The datbase did not save the result' });

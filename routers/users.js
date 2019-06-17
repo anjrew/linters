@@ -11,9 +11,7 @@ router.route(`/api/users`)
         print.info("Finding Users with search value", searchVal);
         try {
             let result = await db.findLastestUsers(3);
-            print.success("Found Latest users from the database with details and sending", result);
             res.json(result.rows);
-            
         } catch (error) {
             res.status(500).json({
                 error: error

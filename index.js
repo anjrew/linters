@@ -12,6 +12,7 @@ const print = require('./utils/print');
 const routes = require('./routers/routes');
 const server = require('http').Server(app);
 const io = require('socket.io')(server, { origins: 'localhost:8080' });
+const { db } = require('./utils/db');
 
 const routers = [
     require('./routers/friends-wannabes'),	
@@ -46,23 +47,42 @@ const cookieSessionMiddleWare = cookieSession({
 
 app.use(cookieSessionMiddleWare);
 
-io.use(function(socket, next) {
+io.use(async (socket, next)=>{
+
     cookieSessionMiddleWare(socket.request, socket.request.res, next);
-    print.success(`socket with the id ${socket.id} is now connected`);
+	
+    const userId = socket.request.session.userId;
+    const messages = await db.getChat();
+
+    print.success(`socket with the id ${socket.id} is now connected and userID is ${userId}`);
+	
     // Emit sends data to the client
     socket.emit('connected', {
-        message: 'You are connected to the server via socket.io'
+        message: 'You are connected to the server via socket.io',
+        messages: messages
     });
-
+	
+    // Check if it is new connection
     socket.on('disconnect', function() {
         print.error(`socket with the id ${socket.id} is now disconnected`);
     });
 
-    socket.on('new-message', async(data) => {
+    socket.on('newMessage', async(data) => {
         try {
-            const messages = await db.saveChatMessage(data.message);
-            io.sockets.emit('new-message', {
+            await db.saveChatMessage(data.message, userId);
+            io.sockets.emit('chatMessage', {
                 message: data.message
+            });
+        } catch (e) {
+            print.error(`The server had an error with a new chat message: `, e);
+        }
+    });
+	
+    socket.on('get-chat', async() => {
+        try {
+            const messages = await db.getChat();
+            io.sockets.emit('new-message', {
+                message: messages
             });
 
         } catch (e) {
@@ -85,19 +105,19 @@ app.use(csurf());
 
 // SECURTIY
 app.use((req, res, next) => {
-    console.log(chalk.green(`Token is : ${req.csrfToken()}`));
+    // console.log(chalk.green(`Token is : ${req.csrfToken()}`));
     res.cookie('mytoken', req.csrfToken());
     res.setHeader('X-FRAME-OPTIONS', 'DENY');
     next();
 });
 
 app.use((req, res, next) => {
-    console.log(chalk.bgBlue(`Recieve ${req.method} to ${req.url}`));
+    // console.log(chalk.bgBlue(`Recieve ${req.method} to ${req.url}`));
     next();
 });
 
 app.use((req, res, next) => {
-    console.log(chalk.blue(`Cookie session variables: `), req.session);
+    // console.log(chalk.blue(`Cookie session variables: `), req.session);
     next();
 });
 

@@ -1,4 +1,5 @@
 import axios from "../axios";
+import { socket } from '../socket';
 
 // All aJax requests will go from this file
 export const Action = {
@@ -40,6 +41,13 @@ export const Action = {
         return {
             type: 'RECIEVING_CHAT_MESSAGE',
             messages: message
+        };
+    },
+    getChatMessages(){
+        console.log('Trying to emit to Server');
+        socket.emit('get-chat');
+        return {
+            type: 'BYPASS'
         };
     }
 };

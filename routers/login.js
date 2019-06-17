@@ -23,17 +23,11 @@ router.route(routes.login)
         if (email && passwordAttempt) {
             try {
                 const result = await db.getHashedPWord(email);
-                print.info(`Result password is `, result);
                 const hashedP = result.rows[0].password;
-                print.info('The unhashed P is ', hashedP);
                 const doesMatch = await encryption.checkPassword(passwordAttempt, hashedP);
-                    
                 let userProfile;
-
                 if (doesMatch) { userProfile = await  db.findUserEmail(email); }
                 userProfile = userProfile.rows[0];
-                print.info('userProfile is ', userProfile);
-                print.info(' The user profile from login is ', userProfile);
                 req.session[cookies.userId] = userProfile.id;
                 res.json( userProfile );
                     
@@ -43,8 +37,6 @@ router.route(routes.login)
                     error: "Bad credentials. Please check and try again"
                 });
             }
-
-            
         } else {
             print.error('Not all fields were filled in login page');
             res.json({

@@ -163,7 +163,29 @@ module.exports.db = {
 			OR (accepted = true AND sender_id = $1 AND reciever_id = users.id);
 		`,
             [id]);
-    }	
+    },	
+	
+    // CHAT
+    getChat: function(){
+        return db.query( 
+            `
+			SELECT * 
+			FROM chat_messages
+			LIMIT 10;
+			`
+        );
+    },
+	
+    saveChatMessage: function(message, userId){
+        return db.query( 
+            `
+			INSERT INTO chat_messages(message, user_id)
+			VALUES ($1, $2)
+			RETURNING *;
+			`,
+            [ message, userId ]
+        );
+    },
 };
 
 
