@@ -1,6 +1,6 @@
+/* eslint-disable indent */
 import React from 'react';
 import { connect } from 'react-redux';
-import { Action as action } from '../react_utils/redux/actions';
 
 // COMPONENTS
 import { MessageTile } from '../components/boxes/message_tile';
@@ -43,7 +43,12 @@ class Chat extends React.Component{
                 
             </Column>
         );
-    }
+	}
+	
+		componentDidUpdate(prevProps, prevState) {
+			console.log('in component did update');
+		}
+	
 	
     handleChange({ target }) {
         this.setState({

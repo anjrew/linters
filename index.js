@@ -78,24 +78,6 @@ io.use(async (socket, next)=>{
             print.error(`The server had an error with a new chat message: `, e);
         }
     });
-	
-    // socket.on('get-chat', async() => {
-    //     try {
-    //         const messages = await db.getChat();
-    //         io.sockets.emit('new-message', {
-    //             message: messages
-    //         });
-
-    //     } catch (e) {
-    //         print.error(`The server had an error with a new chat message: `, e);
-    //     }
-    // });
-    // Emit sends data to the client
-    // socket.emit('welcome', {
-    //     message: 'Welome. It is nice to see you'
-    // });
-	
-    // Relays the message to all sockets
 });
 
 

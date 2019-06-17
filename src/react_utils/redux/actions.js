@@ -30,14 +30,12 @@ export const Action = {
         });
     },
     chatMessages: function(messages){
-        console.log('Recieving incoming chat messages ', messages);
         return {
             type: 'RECIEVING_CHAT',
             messages: messages
         };
     }, 
     chatMessage: function(message){
-        console.log('Recieving a chat message ', message);
         return {
             type: 'RECIEVING_CHAT_MESSAGE',
             message: message.message

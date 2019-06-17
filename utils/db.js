@@ -180,6 +180,7 @@ module.exports.db = {
 			FROM chat_messages
 			JOIN users
 			ON chat_messages.user_id = users.id
+			ORDER BY id DESC
 			LIMIT 10;
 			`
         );
