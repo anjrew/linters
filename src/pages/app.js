@@ -48,7 +48,8 @@ export default class App extends React.Component{
                 friends: 'next',
                 findUsers: 'next',
                 otherUser: 'next',
-                users: 'next'
+                users: 'next',
+                chat: 'next'
             }
         };
         this.renderNext = this.renderNext.bind(this);
@@ -260,6 +261,14 @@ export default class App extends React.Component{
                     }
                 });
                 break;
+            case '/chat':
+                this.setState({
+                    locations: {
+                        ...locations,
+                        chat: 'on'
+                    }
+                });
+                break;
 				
             default:
                 if  (location.substring('other-user')){
@@ -306,6 +315,13 @@ export default class App extends React.Component{
                 });
                 break;
 				
+            case '/chat':
+                locations.chat = 'next';
+                this.setState({
+                    locations: locations
+                });
+                break;
+				
             default:
                 if  (location.substring('other-user')){
                     locations.otherUser = 'next';
@@ -334,6 +350,9 @@ export default class App extends React.Component{
                         break;
                     case 'home':
                         history.push('/');
+                        break;
+                    case 'chat':
+                        history.push('/chat');
                         break;	
                     default	:
                         history.push('/');

@@ -10,6 +10,8 @@ const chalk = require('chalk');
 const path = require('path');
 const print = require('./utils/print');
 const routes = require('./routers/routes');
+const server = require('http').Server(app);
+const io = require('socket.io')(server, { origins: 'localhost:8080' });
 
 const routers = [
     require('./routers/friends-wannabes'),	
@@ -37,10 +39,33 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
 
-app.use(cookieSession({
+const cookieSessionMiddleWare = cookieSession({
     secret: `I'm always angry.`,
     maxAge: 1000 * 60 * 60 * 24 * 14
-}));
+});
+
+app.use(cookieSessionMiddleWare);
+
+io.use(function(socket, next) {
+    cookieSessionMiddleWare(socket.request, socket.request.res, next);
+    console.log(`socket with the id ${socket.id} is now connected`);
+
+    socket.on('disconnect', function() {
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+    });
+
+    // ON is reciveing data
+    socket.on('thanks', function(data) {
+        console.log(data);
+    });
+
+    // Emit sends data to the client
+    socket.emit('welcome', {
+        message: 'Welome. It is nice to see you'
+    });
+});
+
+
 app.use(express.static(`${__dirname}/public`));
 
 app.use(csurf());
@@ -99,7 +124,7 @@ app.get('*', function(req, res) {
     }
 });
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
