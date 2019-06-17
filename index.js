@@ -59,7 +59,7 @@ io.use(async (socket, next)=>{
     // Emit sends data to the client
     socket.emit('connected', {
         message: 'You are connected to the server via socket.io',
-        messages: messages
+        messages: messages.rows
     });
 	
     // Check if it is new connection

@@ -40,12 +40,11 @@ export const Action = {
         console.log('Recieving a chat message ', message);
         return {
             type: 'RECIEVING_CHAT_MESSAGE',
-            messages: message
+            message: message.message
         };
     },
     getChatMessages(){
-        console.log('Trying to emit to Server');
-        socket.emit('get-chat');
+        socket.emit('getChat');
         return {
             type: 'BYPASS'
         };

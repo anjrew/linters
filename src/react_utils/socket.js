@@ -25,7 +25,9 @@ export const init = store => {
             'connected',
             (msg) => {
                 console.log(msg.message);
-                action.chatMessages(msg.messages);
+                store.dispatch(
+                    action.chatMessages(msg.messages)				
+                );
             }
         );
     }

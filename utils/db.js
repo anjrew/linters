@@ -61,7 +61,8 @@ module.exports.db = {
 
     findUserEmail: function (email) {
         return db.query(
-            `SELECT users.id, first, last, email, bio, pic_url, created_at
+            `
+			SELECT users.id, first, last, email, bio, pic_url, created_at
             FROM users
             WHERE email=$1;
             `,
@@ -169,8 +170,16 @@ module.exports.db = {
     getChat: function(){
         return db.query( 
             `
-			SELECT * 
+			SELECT 
+				chat_messages.id, 
+				CONCAT(users.first, ' ' ,users.last) AS name, 
+				chat_messages.user_id, 
+				chat_messages.created_at, 
+				pic_url,
+				message
 			FROM chat_messages
+			JOIN users
+			ON chat_messages.user_id = users.id
 			LIMIT 10;
 			`
         );

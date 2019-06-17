@@ -45,11 +45,6 @@ class Chat extends React.Component{
         );
     }
 	
-    componentDidMount(){
-        console.log('Chat component is mounting');
-        this.props.dispatch(action.getChatMessages());
-    }
-	
     handleChange({ target }) {
         this.setState({
             [target.name]: target.value
@@ -57,7 +52,10 @@ class Chat extends React.Component{
     }
 }
 
-const mapStateToProps = state => state.messages || {};
+const mapStateToProps = (state) => {
+    console.log(' The state in mapStateToProps in chat is ', state);
+    return { messages: state.messages } || {};
+};
 
 
 export default connect(mapStateToProps)(Chat);
