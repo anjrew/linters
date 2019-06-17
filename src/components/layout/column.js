@@ -17,7 +17,8 @@ export class Column extends React.Component{
             border: props.border,
             borderRadius: props.borderRaduis,
             margin: props.margin,
-            backgroundColor: props.backgroundColor
+            backgroundColor: props.backgroundColor,
+            placeContent: props.placeContent
         };
     }
     

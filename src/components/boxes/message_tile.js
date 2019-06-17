@@ -12,10 +12,13 @@ export class MessageTile extends React.Component{
         const message = this.props.message;
         return (
             <Row padding='20px' backgroundColor='purple'>
-                <Avatar imageUrl={ message.imageurl }/>
+                <Avatar imageUrl={ message.pic_url }/>
 
-                <Column backgroundColor='yellow'>
-                    <span> <h3>{message.name}</h3> <h5>{new Date(message.created_at).toLocaleDateString()}</h5></span>
+                <Column 
+                    placeContent={'start start'}
+                    alignItems={'start'} 
+                    backgroundColor='yellow'>
+                    <Row> <h3>{message.name}</h3> <h5>{new Date(message.created_at).toLocaleDateString()}</h5></Row>
                     <p>{message.message} </p>
                 </Column>
             </Row>
