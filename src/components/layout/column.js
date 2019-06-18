@@ -15,10 +15,11 @@ export class Column extends React.Component{
             alignContent: props.alignContent || 'center',
             width: props.width || '100%',
             border: props.border,
-            borderRadius: props.borderRaduis,
+            borderRadius: props.borderRadius,
             margin: props.margin,
             backgroundColor: props.backgroundColor,
-            placeContent: props.placeContent
+            placeContent: props.placeContent || 'center center',
+            boxShadow: props.boxShadow
         };
     }
     

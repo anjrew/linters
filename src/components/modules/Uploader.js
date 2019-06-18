@@ -84,21 +84,24 @@ export class Uploader extends React.Component{
     }
 
     async upload() {
-        console.log('Upload clicked and this is', this);
-        this.setState({
-            uploading: true
-        }, () => { 
-            console.log('The new state is ', this.state);
-        } );
-        var formData = new FormData();
-        formData.append("file", this.state.file);
-        try {
-            const response = await axios.post(routes.upload, formData);
-            console.log('The response data is ', response.data);
-            this.props.changeImage(response.data.pic_url);
-            this.props.dismissLoader();
-        } catch (e) {
-            console.log('The axios call to upload the file failed');
+        if ( this.state.file){
+
+            console.log('Upload clicked and this is', this);
+            this.setState({
+                uploading: true
+            }, () => { 
+                console.log('The new state is ', this.state);
+            } );
+            var formData = new FormData();
+            formData.append("file", this.state.file);
+            try {
+                const response = await axios.post(routes.upload, formData);
+                console.log('The response data is ', response.data);
+                this.props.changeImage(response.data.pic_url);
+                this.props.dismissLoader();
+            } catch (e) {
+                console.log('The axios call to upload the file failed');
+            }
         }
     }
 

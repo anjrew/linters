@@ -12,8 +12,8 @@ export class Row extends React.Component{
             backgroundColor: props.backgroundColor,
             padding: props.padding,
             placeContent: props.placeContent || 'center space-between',
+            margin: props.margin
         };
-    
     }
 
     render(){

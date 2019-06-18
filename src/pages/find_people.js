@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../../react_utils/axios';
-import { Column } from '../layout/column';
+import axios from '../react_utils/axios';
+import { Column } from '../components/layout/column';
 import { CSSTransition } from 'react-transition-group';
-import { CircularProgressIndicator } from '../progress_indicators/circular_progress_indicator';
-import { ProfileTile } from '../boxes/profile_tile';
+import { CircularProgressIndicator } from '../components/progress_indicators/circular_progress_indicator';
+import { ProfileTile } from '../components/boxes/profile_tile';
 
 // eslint-disable-next-line no-unused-vars
 export function FindPeople() {

@@ -9,13 +9,12 @@ import { Row } from '../components/layout/row';
 import { TextArea } from '../components/inputs/text_area';
 import { socket } from '../react_utils/socket';
 
-
 class Chat extends React.Component{
 
     constructor (props) {
         super(props);
         this.state = { 
-            message: '',
+			message: '',
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -24,22 +23,24 @@ class Chat extends React.Component{
         return (
             <Column
                 padding='20px'>
-                <Column>
-                    { this.props.messages && this.props.messages.map(message => (
-                        <MessageTile key={message.id} message={ message }/>
-                    ))}
-                </Column>
-                <Row>
-                    <TextArea
-                        name='message' 
-                        value={ this.state.message } 
-                        handleChange={ this.handleChange }/>
+					<Row
+						margin='20px'>
+						<TextArea
+							name='message' 
+							value={ this.state.message } 
+							handleChange={ this.handleChange }/>
                     <button 
                         onClick={ () => socket.emit('newMessage',{ 
                             message: this.state.message
                         }) }
                     >Submit</button>
                 </Row>
+                <Column>
+                    { this.props.messages && this.props.messages.map(message => (
+                        <MessageTile key={message.id} message={ message } />
+                    ))}
+                </Column>
+              
                 
             </Column>
         );

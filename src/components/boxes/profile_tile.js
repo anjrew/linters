@@ -20,7 +20,7 @@ export class ProfileTile extends React.Component{
 
         if (this.state.user) {
             return <Redirect to={`/other-user/${user.id}`} />;
-        } else{
+        } else {
             return (
                 <Row                 
                     classNames="user-tile" 

@@ -16,6 +16,7 @@ export class Avatar extends React.Component{
             borderRadius: props.borderRadius || '50%',
             borderColor: props.borderColor,
             borderStyle: props.borderStyle,
+            boxShadow: props.boxShadow,
             objectFit: 'cover',
             overflow: 'hidden'
         };

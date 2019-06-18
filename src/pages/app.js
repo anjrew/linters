@@ -17,7 +17,7 @@ import { ErrorMessage } from '../components/text/error_message';
 import { Container } from '../components/boxes/container';
 
 // PAGES
-import { FindPeople } from '../components/modules/find_people';
+import { FindPeople } from '../pages/find_people';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
 import Friends from '../pages/friends';
@@ -208,7 +208,7 @@ export default class App extends React.Component{
 
                                                     <Route exact path={'/chat'} render={() => {
                                                         return (
-                                                            <Chat/>
+                                                            <Chat />
                                                         );
                                                     }}/>
 
