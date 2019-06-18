@@ -41,10 +41,7 @@ export class MessageTile extends React.Component{
                     onEnter={ () => console.log('home link is entering')}
                     onExited={ ()=> this.renderNext(history)}
                     unmountOnExit>
-                    <Row 
-                        padding='20px'
-                        transform ={ this.props.left ? 'translateX(-30px)' : 'translateX(30px)'}
-                    >
+                    <Row padding='20px'>
                         <Avatar 
                             imageUrl={ message.pic_url }
                             boxShadow='5px 5px 10px -5px rgba(0,0,0,0.75)' 
@@ -59,7 +56,7 @@ export class MessageTile extends React.Component{
                             padding='10px 20px' 
                             placeContent={'start start'}
                             alignItems={'start'} 
-                            backgroundColor={ this.props.left ? 'yellow' : 'aqua'}
+                            backgroundColor='yellow'
                             boxShadow='5px 5px 10px -5px rgba(0,0,0,0.75)'>
                             <Row
                                 width='calc(100% - 60px)'
