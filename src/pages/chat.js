@@ -15,11 +15,13 @@ class Chat extends React.Component{
         super(props);
         this.state = { 
 			message: '',
+			left: true
         };
         this.handleChange = this.handleChange.bind(this);
-    }
+	}
 
     render(){
+		var left = this.state.left;
         return (
             <Column
                 padding='20px'>
@@ -27,29 +29,34 @@ class Chat extends React.Component{
 						margin='20px'>
 						<TextArea
 							name='message' 
+							width='80%'
 							value={ this.state.message } 
 							handleChange={ this.handleChange }/>
                     <button 
-                        onClick={ () => socket.emit('newMessage',{ 
-                            message: this.state.message
-                        }) }
+                        onClick={ () => {
+							this.setState({
+								message: ''
+							});
+							socket.emit('newMessage',{ 
+                            message: this.state.message }); 
+						}}
                     >Submit</button>
                 </Row>
                 <Column>
-                    { this.props.messages && this.props.messages.map(message => (
-                        <MessageTile key={message.id} message={ message } />
-                    ))}
+                    { this.props.messages && this.props.messages.map(message => { 
+						left  = !left;
+						return(
+							<MessageTile key={message.id} message={ message } left={left}/>
+							);
+						}
+						)
+					} 
                 </Column>
               
                 
             </Column>
         );
 	}
-	
-	componentDidUpdate(prevProps, prevState) {
-		console.log('in component did update');
-	}
-	
 	
     handleChange({ target }) {
         this.setState({

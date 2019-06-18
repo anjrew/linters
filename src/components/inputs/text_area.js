@@ -6,7 +6,8 @@ export class TextArea extends React.Component {
         super(props);
         this.style = {
             padding: props.padding || '20px',
-            borderRadius: props.borderRadius || '10px'
+            borderRadius: props.borderRadius || '10px',
+            width: props.width
         };
     }
 
