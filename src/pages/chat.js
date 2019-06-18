@@ -28,7 +28,8 @@ class Chat extends React.Component{
 						<TextArea
 							name='message' 
 							value={ this.state.message } 
-							handleChange={ this.handleChange }/>
+							handleChange={ this.handleChange }
+							width='80%'/>
                     <button 
                         onClick={ () => socket.emit('newMessage',{ 
                             message: this.state.message
