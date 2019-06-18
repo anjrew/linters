@@ -330,9 +330,7 @@ export default class App extends React.Component{
 	
     makeNextToRender(location){	  
         var locations = this.state.locations;
-        Object.keys(this.state.locations).map((location)=>{
-            locations[location] = '';
-        });
+        
         switch (location) {
             case '/friends':
                 locations.friends = 'next';
@@ -380,9 +378,13 @@ export default class App extends React.Component{
 
     renderNext(history){
         var locations = this.state.locations;
+        
         for (const location in locations) {
             const value = locations[location];
             if (value == 'next') {
+                Object.keys(this.state.locations).map((location)=>{
+                    locations[location] = '';
+                });
                 locations[location] = 'on';
                 switch (location) {
                     case 'friends':
