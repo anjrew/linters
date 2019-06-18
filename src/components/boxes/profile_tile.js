@@ -14,7 +14,8 @@ export class ProfileTile extends React.Component{
         this.textStyle={
             textAlign: 'start'
         };
-    }
+	}
+	
     render(){
         const user = this.props.user;
 

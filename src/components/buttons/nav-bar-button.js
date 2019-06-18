@@ -24,8 +24,9 @@ export class NavBarButton extends React.Component{
             <CSSTransition
                 key={this.props.key}
                 in={this.props.in}
-                timeout={{ enter: 300, exit: 300 }}
+                timeout={{ enter: 500, exit: 500 }}
                 classNames="scale"
+                // onExit={ this.props.renderNext}
                 onExited={ this.props.renderNext}
                 unmountOnExit>
                 <Column 

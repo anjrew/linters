@@ -38,11 +38,11 @@ export class ProfileCard extends React.Component{
                         this.props.onSecondButtonClick();
                     }
                 }}>
-                <Column >
+                <Column onClick={ this.props.cardClick }>
                     <Avatar
                         height ='200px'
                         width = '200px'
-                        imageUrl={this.props.user.imageUrl}
+                        imageUrl={this.props.user.imageUrl || this.props.user.pic_url || this.props.user.image_url }
                         description={`${this.props.user.first} ${this.props.user.last}`}
                     />
                     <h2>{`${this.props.user.first} ${this.props.user.last}`}</h2>   

@@ -1,25 +1,49 @@
 /* eslint-disable indent */
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 // COMPONENTS
 import { ProfileCard } from '../components/boxes/profile-card';
 import { Column } from '../components/layout/column';
+import { Row } from '../components/layout/row';
 
 class UsersOnline extends React.Component{
 
-
+	constructor (props) {
+        super(props);
+        this.state = {
+			user: null
+        };
+	}
+	
     render(){
-        return (
-            <Column padding='20px'>
-				<h2>Users currently online</h2>
+		const user = this.state.user;
+		if (this.state.user) {
+			return <Redirect to={`/other-user/${user.id}`} />;
+		} else {
 			
-				{ this.props.users && Object.keys(this.props.users).map((key)=>{
-					const user = this.props.users[key];
-					return ( <ProfileCard key={ user.id } user={ user } />);
-				})}				 
-            </Column>
-        );
+			return (
+					<Column 
+						padding='20px' 
+						margin='20px'>
+					<h2>Users currently online</h2>
+					<Row padding='20px'>
+						{ this.props.users && Object.keys(this.props.users).map((key)=>{
+							const user = this.props.users[key];
+							return ( 
+								<ProfileCard 
+								key={ user.id } 
+								user={ user } 
+								cardClick={ () => this.setState({
+									user: user
+								})}  
+								/>);
+							})}				 
+					</Row>
+				</Column>
+			);
+		}
 	}
 
     handleChange({ target }) {
@@ -30,7 +54,6 @@ class UsersOnline extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-	console.log('In map state to props function in users online ', state);
     return { users: state.onlineUsers };
 };
 
