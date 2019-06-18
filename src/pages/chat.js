@@ -31,9 +31,13 @@ class Chat extends React.Component{
 							handleChange={ this.handleChange }
 							width='80%'/>
                     <button 
-                        onClick={ () => socket.emit('newMessage',{ 
-                            message: this.state.message
-                        }) }
+                        onClick={ () => {
+							this.setState({
+								message: ''
+							});
+							socket.emit('newMessage',{ 
+                            message: this.state.message }); 
+						}}
                     >Submit</button>
                 </Row>
                 <Column>
@@ -60,7 +64,6 @@ class Chat extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(' The state in mapStateToProps in chat is ', state);
     return { messages: state.messages };
 };
 

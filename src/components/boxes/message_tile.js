@@ -38,7 +38,6 @@ export class MessageTile extends React.Component{
                     in={this.state.showMessage}
                     timeout={{ enter: 300, exit: 300 }}
                     classNames="scale"
-                    onEnter={ () => console.log('home link is entering')}
                     onExited={ ()=> this.renderNext(history)}
                     unmountOnExit>
                     <Row padding='20px'>

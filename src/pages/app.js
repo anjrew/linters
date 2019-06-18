@@ -121,7 +121,6 @@ export default class App extends React.Component{
                                         in={this.state.locations.home != 'on' && this.state.locations.home != 'next'}
                                         timeout={{ enter: 300, exit: 300 }}
                                         classNames="scale"
-                                        onEnter={ () => console.log('home link is entering')}
                                         onExited={ ()=> this.renderNext(history)}
                                         unmountOnExit>
                                         <button 
