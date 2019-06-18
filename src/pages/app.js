@@ -16,6 +16,7 @@ import { OverLappedChildren} from '../components/layout/overlapped_children';
 import { ErrorMessage } from '../components/text/error_message';
 import { Container } from '../components/boxes/container';
 import { Icon } from '../components/graphics/icon';
+import { NavBarButton } from '../components/buttons/nav-bar-button';
 
 // PAGES
 import { FindPeople } from '../pages/find_people';
@@ -109,9 +110,9 @@ export default class App extends React.Component{
 
                                     <Logo height={ '100px' } width={ "100px" }/>
 
-                                    <CSSTransition
+                                    {/* <CSSTransition
                                         key={'users-link-css'}
-                                        in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
+                                        in={}
                                         timeout={{ enter: 300, exit: 300 }}
                                         classNames="scale"
                                         onExited={ ()=> this.renderNext(history)}
@@ -123,8 +124,17 @@ export default class App extends React.Component{
                                                 style={{ margin: '5px' }}
                                                 onClick={ () => this.makeNextToRender('/users')}
                                             >Find users</button>
-                                        </Column>
-                                    </CSSTransition>
+                                        </Column> */}
+                                    {/* </CSSTransition> */}
+
+                                    <NavBarButton 
+                                        key='users-link-css'
+                                        in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
+                                        renderNext={ ()=> this.renderNext(history) }
+                                        iconSrc={ 'assets/icons/chat.png' }
+                                        makeNextToRender={ () => this.makeNextToRender('/users') }
+                                        label='Find users'
+                                    />
 
                                     <CSSTransition
                                         key={'home-css'}
