@@ -110,23 +110,6 @@ export default class App extends React.Component{
 
                                     <Logo height={ '100px' } width={ "100px" }/>
 
-                                    {/* <CSSTransition
-                                        key={'users-link-css'}
-                                        in={}
-                                        timeout={{ enter: 300, exit: 300 }}
-                                        classNames="scale"
-                                        onExited={ ()=> this.renderNext(history)}
-                                        unmountOnExit>
-                                        <Column width={'unset'}>
-                                            <Icon src={'assets/icons/chat.png'}/>
-                                            <button 
-                                                className='link-button'
-                                                style={{ margin: '5px' }}
-                                                onClick={ () => this.makeNextToRender('/users')}
-                                            >Find users</button>
-                                        </Column> */}
-                                    {/* </CSSTransition> */}
-
                                     <NavBarButton 
                                         key='users-link-css'
                                         in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
@@ -136,62 +119,52 @@ export default class App extends React.Component{
                                         label='Find users'
                                     />
 
-                                    <CSSTransition
-                                        key={'home-css'}
+                                    <NavBarButton 
+                                        key='home-css'
                                         in={this.state.locations.home != 'on' && this.state.locations.home != 'next'}
-                                        timeout={{ enter: 300, exit: 300 }}
-                                        classNames="scale"
-                                        onExited={ ()=> this.renderNext(history)}
-                                        unmountOnExit>
-                                        <button 
-                                            className='link-button' 
-                                            onClick={ () => this.makeNextToRender('/') }
-                                        >My profile</button>
-                                    </CSSTransition>
+                                        renderNext={ ()=> this.renderNext(history) }
+                                        iconSrc={ 'assets/icons/profile.png' }
+                                        makeNextToRender={ () => this.makeNextToRender('/') }
+                                        label='My profile'
+                                    />
 
-                                    <CSSTransition
+                                    <NavBarButton 
                                         key={'friends-css'}
                                         in={this.state.locations.friends != 'on' && this.state.locations.friends != 'next'}
-                                        timeout={{ enter: 300, exit: 300 }}
-                                        classNames="scale"
-                                        onExited={ ()=> this.renderNext(history)}
-                                        unmountOnExit>
-                                        <button 
-                                            className='link-button' 
-                                            onClick={ () => this.makeNextToRender('/friends')}
-                                        >Friends</button>
-                                    </CSSTransition>
+                                        renderNext={ ()=> this.renderNext(history) }
+                                        iconSrc={ 'assets/icons/friends.png' }
+                                        makeNextToRender={ () => this.makeNextToRender('/friends') }
+                                        label='Friends'
+                                    />
 
-                                    <CSSTransition
+                                    <NavBarButton 
                                         key={'chat-link-css'}
                                         in={this.state.locations.chat != 'on' && this.state.locations.chat != 'next'}
-                                        timeout={{ enter: 300, exit: 300 }}
-                                        classNames="scale"
-                                        onExited={ ()=> this.renderNext(history)}
-                                        unmountOnExit>
-                                        <button 
-                                            className='link-button' 
-                                            onClick={ () => this.makeNextToRender('/chat')}
-                                        >Chat</button>
-                                    </CSSTransition>
+                                        renderNext={ ()=> this.renderNext(history) }
+                                        iconSrc={ 'assets/icons/chat.png' }
+                                        makeNextToRender={ () => this.makeNextToRender('/chat') }
+                                        label='Chat'
+                                    />
 
-                                    <CSSTransition
+                                    <NavBarButton 
                                         key={'online-link-css'}
                                         in={this.state.locations.usersOnline != 'on' && this.state.locations.usersOnline != 'next'}
-                                        timeout={{ enter: 300, exit: 300 }}
-                                        classNames="scale"
-                                        onExited={ ()=> this.renderNext(history)}
-                                        unmountOnExit>
-                                        <button 
-                                            className='link-button' 
-                                            onClick={ () => this.makeNextToRender('/users-online')}
-                                        >Users online</button>
-                                    </CSSTransition>
-                                    
-                                    <button 
-                                        className='link-button' 
+                                        renderNext={ ()=> this.renderNext(history) }
+                                        iconSrc={ 'assets/icons/online-users.png' }
+                                        makeNextToRender={ () => this.makeNextToRender('/users-online') }
+                                        label='Users online'
+                                    />
+
+                                    <Column 
+                                        width={'unset'} 
                                         onClick={ () => this.setState({ showApp: false }) }
-                                    >Logout</button>
+                                    >
+                                        <Icon src={'assets/icons/log-out.png'}/>
+                                        <button 
+                                            className='link-button'
+                                            style={{ margin: '5px' }}
+                                        >Log-out</button>
+                                    </Column>
 
                                     <Avatar backgroundColor={ 'white' } onClick={ this.avatarClicked } imageUrl={this.state.user.imageUrl}/>
                                 </Row>

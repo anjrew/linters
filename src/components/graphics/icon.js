@@ -6,8 +6,8 @@ export class Icon extends React.Component{
     constructor (props) {
         super(props);
         this.style = {
-            height: props.height || '50px',
-            width: props.height || '50px',
+            height: props.height || '30px',
+            width: props.height || '30px',
             objectFit: CoverageMap,
             margin: props.margin || '5px',
         };
