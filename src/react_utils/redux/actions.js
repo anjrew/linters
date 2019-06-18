@@ -46,6 +46,12 @@ export const Action = {
         return {
             type: 'BYPASS'
         };
+    },
+    onlineUsers: function (onlineUsers) {
+        return {
+            type: "RECIEVING_ONLINE_USERS",
+            onlineUsers: onlineUsers
+        };
     }
 };
 

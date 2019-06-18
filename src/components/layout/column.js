@@ -25,7 +25,7 @@ export class Column extends React.Component{
     
     render(){
         return (
-            <div className="column" style={this.style}>
+            <div className="column" style={this.style} onClick={this.props.onClick}>
                 {this.props.children}
             </div>
         );

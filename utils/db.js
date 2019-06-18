@@ -215,6 +215,16 @@ module.exports.db = {
             [ message, userId ]
         );
     },
+    getUserById: function(userId){
+        return db.query(
+            `
+            SELECT users.id, first, last, email, bio, pic_url, created_at 
+            FROM users 
+            WHERE id =$1;
+            `,
+            [userId]
+        );
+    }
 };
 
 

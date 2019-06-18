@@ -50,12 +50,7 @@ class Chat extends React.Component{
             </Column>
         );
 	}
-	
-	componentDidUpdate(prevProps, prevState) {
-		console.log('in component did update');
-	}
-	
-	
+
     handleChange({ target }) {
         this.setState({
             [target.name]: target.value

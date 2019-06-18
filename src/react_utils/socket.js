@@ -25,9 +25,12 @@ export const init = store => {
 		
         socket.on(
             'connected',
-            (msg) => {
+            (data) => {
                 store.dispatch(
-                    action.chatMessages(msg.messages)				
+                    action.chatMessages(data.messages)				
+                );
+                store.dispatch(
+                    action.onlineUsers(data.onlineUsers)
                 );
             }
         );

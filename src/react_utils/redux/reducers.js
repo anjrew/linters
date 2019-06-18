@@ -31,10 +31,15 @@ export default function reducer(state = {}, action) {
             };
 
         case "RECIEVING_CHAT_MESSAGE":
-
             return {
                 ...state, 
                 messages: [ action.message, ...state.messages ]
+            };
+			
+        case "RECIEVING_ONLINE_USERS":
+            return {
+                ...state,
+                onlineUsers: action.onlineUsers
             };
 			
         default:

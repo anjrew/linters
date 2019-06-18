@@ -46,24 +46,36 @@ const cookieSessionMiddleWare = cookieSession({
 
 app.use(cookieSessionMiddleWare);
 
+const onlineUsers = {};
 io.use(async (socket, next)=>{
 
     cookieSessionMiddleWare(socket.request, socket.request.res, next);
 	
     const userId = socket.request.session.userId;
     const messages = await db.getChat();
+	
+    try {
+        const result = await db.getUserById(userId);
+        const user = result.rows[0];
+        user.socketId = socket.id; 
+        onlineUsers[userId] = user; 
+    } catch (e) {
+        print.error('getUserById db query failed with error', e);
+    }
 
     print.success(`socket with the id ${socket.id} is now connected and userID is ${userId}`);
 	
     // Emit sends data to the client
     socket.emit('connected', {
         message: 'You are connected to the server via socket.io',
-        messages: messages.rows
+        messages: messages.rows,
+        onlineUsers: onlineUsers
     });
 	
     // Check if it is new connection
     socket.on('disconnect', function() {
         print.error(`socket with the id ${socket.id} is now disconnected`);
+        delete onlineUsers[socket.id];
     });
 
     socket.on('newMessage', async(data) => {

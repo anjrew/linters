@@ -15,11 +15,13 @@ import { Uploader } from '../components/modules/Uploader';
 import { OverLappedChildren} from '../components/layout/overlapped_children';
 import { ErrorMessage } from '../components/text/error_message';
 import { Container } from '../components/boxes/container';
+import { Icon } from '../components/graphics/icon';
 
 // PAGES
 import { FindPeople } from '../pages/find_people';
 import { Profile } from '../components/modules/profile';
 import { OtherProfile } from '../pages/other_profile';
+import UsersOnline from '../pages/users_online';
 import Friends from '../pages/friends';
 import Chat from '../pages/chat';
 
@@ -50,7 +52,8 @@ export default class App extends React.Component{
                 findUsers: 'next',
                 otherUser: 'next',
                 users: 'next',
-                chat: 'next'
+                chat: 'next',
+                usersOnline: 'next',
             }
         };
         this.renderNext = this.renderNext.bind(this);
@@ -111,13 +114,16 @@ export default class App extends React.Component{
                                         in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
                                         timeout={{ enter: 300, exit: 300 }}
                                         classNames="scale"
-                                        onEnter={ () => console.log('users link is entering')}
                                         onExited={ ()=> this.renderNext(history)}
                                         unmountOnExit>
-                                        <button 
-                                            className='link-button' 
-                                            onClick={ () => this.makeNextToRender('/users')}
-                                        >Find users</button>
+                                        <Column width={'unset'}>
+                                            <Icon src={'assets/icons/chat.png'}/>
+                                            <button 
+                                                className='link-button'
+                                                style={{ margin: '5px' }}
+                                                onClick={ () => this.makeNextToRender('/users')}
+                                            >Find users</button>
+                                        </Column>
                                     </CSSTransition>
 
                                     <CSSTransition
@@ -157,6 +163,19 @@ export default class App extends React.Component{
                                             className='link-button' 
                                             onClick={ () => this.makeNextToRender('/chat')}
                                         >Chat</button>
+                                    </CSSTransition>
+
+                                    <CSSTransition
+                                        key={'online-link-css'}
+                                        in={this.state.locations.usersOnline != 'on' && this.state.locations.usersOnline != 'next'}
+                                        timeout={{ enter: 300, exit: 300 }}
+                                        classNames="scale"
+                                        onExited={ ()=> this.renderNext(history)}
+                                        unmountOnExit>
+                                        <button 
+                                            className='link-button' 
+                                            onClick={ () => this.makeNextToRender('/users-online')}
+                                        >Users online</button>
                                     </CSSTransition>
                                     
                                     <button 
@@ -218,6 +237,12 @@ export default class App extends React.Component{
                                                     <Route exact path={'/friends'} render={() => {
                                                         return (
                                                             <Friends/>
+                                                        );
+                                                    }}/> 
+
+                                                    <Route exact path={'/users-online'} render={() => {
+                                                        return (
+                                                            <UsersOnline/>
                                                         );
                                                     }}/>  
 
@@ -291,6 +316,14 @@ export default class App extends React.Component{
                     }
                 });
                 break;
+            case '/users-online':
+                this.setState({
+                    locations: {
+                        ...locations,
+                        usersOnline: 'on'
+                    }
+                });
+                break;
 				
             default:
                 if  (location.substring('other-user')){
@@ -343,6 +376,14 @@ export default class App extends React.Component{
                     locations: locations
                 });
                 break;
+            case '/users-online':
+                this.setState({
+                    locations: {
+                        ...locations,
+                        usersOnline: 'next'
+                    }
+                });
+                break;
 				
             default:
                 if  (location.substring('other-user')){
@@ -372,6 +413,9 @@ export default class App extends React.Component{
                         break;
                     case 'chat':
                         history.push('/chat');
+                        break;	
+                    case 'usersOnline':
+                        history.push('/users-online');
                         break;	
                     default	:
                         history.push('/');

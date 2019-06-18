@@ -38,7 +38,7 @@ export class ProfileCard extends React.Component{
                         this.props.onSecondButtonClick();
                     }
                 }}>
-                <Column>
+                <Column >
                     <Avatar
                         height ='200px'
                         width = '200px'
@@ -47,15 +47,21 @@ export class ProfileCard extends React.Component{
                     />
                     <h2>{`${this.props.user.first} ${this.props.user.last}`}</h2>   
                     <h2>{this.props.user.bio}</h2>
-                    <Row placeContent={'center center'}>
-                    	<button onClick={this.handleFirstButtonClick}>{this.props.buttonText}</button>
+
+                    { (this.props.handleFirstButtonClick || this.props.secondButtonText) &&
+	
+                        <Row placeContent={'center center'}>
+                            { this.props.handleFirstButtonClick &&
+								<button id='button-one'
+								    onClick={this.handleFirstButtonClick}
+								>{this.props.buttonText}</button>}
                     	{ this.props.secondButtonText &&
-							<button 
+							<button id='button-two'
 							    style={{ backgroundColor: 'red'}} 
 							    onClick={this.handleSecondButtonClick}>{this.props.secondButtonText}
-							</button>
-                        }
-                    </Row>
+							</button>}
+                        </Row>
+                    }
                     
                 </Column>
             </ScaleTransition>
