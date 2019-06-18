@@ -25,6 +25,7 @@ export class Container extends React.Component{
             backgroundColor: props.backgroundColor,
             position: props.position,
             opacity: props.opacity,
+            top: props.top,
             zIndex: props.zIndex,
         };
         console.log('Container style is ', this.style);

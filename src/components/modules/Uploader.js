@@ -33,7 +33,8 @@ export class Uploader extends React.Component{
                 width='100vw'
                 height='100vh'
                 backgroundColor= 'rgba(0,0,0,0.0)'
-                zIndex="999">
+                zIndex="999"
+                top= '0px'>
                 <CSSTransition in={this.state.uploading} timeout={300} classNames="fade" unmountOnExit>
                     <React.Fragment>
                         <Container padding="40px">
