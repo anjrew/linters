@@ -15,11 +15,13 @@ class Chat extends React.Component{
         super(props);
         this.state = { 
 			message: '',
-        };
+		};
+		this.elemRef = React.createRef();
         this.handleChange = this.handleChange.bind(this);
-    }
-
+	}
+	
     render(){
+		const messages =  this.props.messages;
         return (
             <Column
                 padding='20px'>
@@ -41,15 +43,26 @@ class Chat extends React.Component{
                     >Submit</button>
                 </Row>
                 <Column>
-                    { this.props.messages && this.props.messages.map(message => (
+                    { messages && messages.map(message => (
                         <MessageTile key={message.id} message={ message } />
                     ))}
                 </Column>
+				<button
+                        id="get-more-chat"
+                        onClick={() => {
+                            socket.emit("moreChat", { id: messages[ messages.length - 1 ].id });
+                        }}
+                >More</button>
               
                 
             </Column>
         );
 	}
+
+	// componentDidUpdate() {
+    //     this.elemRef.current.scrollTop =
+    //         this.elemRef.current.scrollHeight - this.elemRef.current.offsetTop;
+    // }
 
     handleChange({ target }) {
         this.setState({
@@ -59,6 +72,7 @@ class Chat extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+	console.log('the messages in chat are', state.messages);
     return { messages: state.messages };
 };
 

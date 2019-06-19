@@ -34,7 +34,14 @@ export const Action = {
             type: 'RECIEVING_CHAT',
             messages: messages
         };
-    }, 
+    },
+    addMoreMessages: function(messages){
+		console.log('In addMoreMessages with messages ', messages);
+        return {
+            type: 'RECIEVING_MORE_CHAT',
+            messages: messages
+        };
+    },
     chatMessage: function(message){
         return {
             type: 'RECIEVING_CHAT_MESSAGE',

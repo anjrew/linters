@@ -90,6 +90,18 @@ io.use(async (socket, next)=>{
             print.error(`The server had an error with a new chat message: `, e);
         }
     });
+	
+    socket.on('moreChat', async( data ) =>  {
+        try {
+            const result = await db.getMoreChat(data.id);
+            const messages = result.rows;
+            io.sockets.emit('moreChat', {
+                messages: messages
+            });
+        } catch (e) {
+            print.error('getMoreChat db query failed with error', e);
+        }
+    });
 });
 
 

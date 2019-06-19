@@ -42,6 +42,12 @@ export default function reducer(state = {}, action) {
                 onlineUsers: action.onlineUsers
             };
 			
+        case "RECIEVING_MORE_CHAT":
+            return {
+                ...state,
+                messages: [  ...state.messages, ...action.messages ]
+            };
+			
         default:
             return state;
     }

@@ -34,5 +34,15 @@ export const init = store => {
                 );
             }
         );
+
+        socket.on(
+            'moreChat',
+            data => {
+				console.log('Getting more chat from the socket', data);
+                store.dispatch(
+                    action.addMoreMessages(data.messages)
+                );
+            }
+        );
     }
 };
