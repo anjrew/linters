@@ -12,8 +12,7 @@ export const Action = {
     },
     acceptFriendRequest: function(otherUserId){
         const data = { id: otherUserId };
-        return axios.post('/accept-friendship', data).then(({ data }) => {
-            console.log('AcceptFriendRequest data is ', data);
+        return axios.post('/accept-friendship', data).then(() => {
             return {
                 type: "ACCEPT_FRIEND_REQUEST",
                 acceptedUserId: otherUserId
@@ -36,7 +35,6 @@ export const Action = {
         };
     },
     addMoreMessages: function(messages){
-		console.log('In addMoreMessages with messages ', messages);
         return {
             type: 'RECIEVING_MORE_CHAT',
             messages: messages
