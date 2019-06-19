@@ -1,31 +1,32 @@
 import React from 'react';
 
 export class Column extends React.Component{
-
-    constructor (props) {
-        super(props);
-        this.style = {
-            padding: props.padding,
-            display:'flex',
-            flexDirection: 'column',
-            justifyContent: 'start',
-            alignItems: props.alignItems || 'center',
-            alignSelf: props.alignSelf || 'center',
-            flexWrap: 'wrap',
-            alignContent: props.alignContent || 'center',
-            width: props.width || '100%',
-            border: props.border,
-            borderRadius: props.borderRadius,
-            margin: props.margin,
-            backgroundColor: props.backgroundColor,
-            placeContent: props.placeContent || 'center center',
-            boxShadow: props.boxShadow
-        };
-    }
     
     render(){
         return (
-            <div className="column" style={this.style} onClick={this.props.onClick}>
+            <div 
+                ref={ this.props.referance } 
+                className="column" 
+                style={{
+                    padding: this.props.padding,
+                    display:'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'start',
+                    alignItems: this.props.alignItems || 'center',
+                    alignSelf: this.props.alignSelf || 'center',
+                    flexWrap: 'wrap',
+                    alignContent: this.props.alignContent || 'center',
+                    width: this.props.width || '100%',
+                    border: this.props.border,
+                    borderRadius: this.props.borderRadius,
+                    margin: this.props.margin,
+                    backgroundColor: this.props.backgroundColor,
+                    placeContent: this.props.placeContent || 'center center',
+                    boxShadow: this.props.boxShadow,
+                    top: this.props.top,
+                    position: this.props.position
+                }} 
+                onClick={this.props.onClick}>
                 {this.props.children}
             </div>
         );

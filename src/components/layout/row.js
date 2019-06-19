@@ -13,7 +13,8 @@ export class Row extends React.Component{
             padding: props.padding,
             placeContent: props.placeContent || 'center space-between',
             margin: props.margin,
-            transform: props.transform
+            transform: props.transform,
+            borderBottomStyle: props.borderBottomStyle
         };
     }
 

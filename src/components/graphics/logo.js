@@ -15,7 +15,7 @@ export class Logo extends React.Component{
 
     render(){
         return (
-            <img style={ this.style }  src='/assets/images/nerd-logo.png'/>
+            <img style={ this.style }  src='/assets/images/verdy.jpg'/>
         );
     }
 }

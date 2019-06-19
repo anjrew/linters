@@ -47,14 +47,11 @@ class Chat extends React.Component{
                         <MessageTile key={message.id} message={ message } />
                     ))}
                 </Column>
-				<button
-                        id="get-more-chat"
+				<button id="get-more-chat"
                         onClick={() => {
                             socket.emit("moreChat", { id: messages[ messages.length - 1 ].id });
                         }}
                 >More</button>
-              
-                
             </Column>
         );
 	}
@@ -72,7 +69,6 @@ class Chat extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-	console.log('the messages in chat are', state.messages);
     return { messages: state.messages };
 };
 

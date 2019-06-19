@@ -15,10 +15,10 @@ export class Avatar extends React.Component{
             minWidth: props.width || '60px',
             borderRadius: props.borderRadius || '50%',
             borderColor: props.borderColor,
-            borderStyle: props.borderStyle,
+            borderStyle: props.borderStyle || 'groove',
             boxShadow: props.boxShadow,
             objectFit: 'cover',
-            overflow: 'hidden'
+            overflow: 'hidden',
         };
     }
                     

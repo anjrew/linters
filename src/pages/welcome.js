@@ -4,12 +4,11 @@ import ReactCardFlip from 'react-card-flip';
 
 
 // Components
-import { Logo } from '../components/graphics/logo';
-import { SafeArea } from '../components/layout/safe_area';
 import { Column } from '../components/layout/column';
 import { HashRouter, Route,} from 'react-router-dom';
 import { Registration } from '../pages/registration';
 import { Login } from '../pages/login';
+import { Container } from '../components/boxes/container';
 
 export class Welcome extends React.Component{
 
@@ -17,8 +16,10 @@ export class Welcome extends React.Component{
         super();
         this.state = {
             isFlipped: true,
-            visable: false
+            visable: false,
+            mainElementTop: 0
         };
+        this.mainElement = React.createRef();
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -32,23 +33,75 @@ export class Welcome extends React.Component{
         const register = initaialRoute.indexOf('register')  >= 0;
         this.setState({
             visable: true,
-            isFlipped: !register
+            isFlipped: !register,
+            heightSet: false
         });
+    }
+	
+    componentDidUpdate(){
+        if (!this.state.heightSet) {
+            const windowHeight = window.innerHeight;
+            const mainElementHeight = this.mainElement.current.clientHeight;
+            const mainElementTop = (windowHeight - mainElementHeight) / 2;
+            this.setState({
+                mainElementTop: mainElementTop + 'px',
+                heightSet: true
+            });
+        }
     }
 
     render(){
         return (
-            <CSSTransition
-                key='Welcome'
-                timeout= {450}
-                classNames="fade"
-                in={this.state.visable}
-                unmountOnExit
-            > 
-                <SafeArea>
-                    <Column>
-                        <h2>Welcome to the Nerd Network</h2>
-                        <Logo margin={'30px'}/>
+
+            <React.Fragment>
+
+                <CSSTransition 
+                    in={this.state.visable} 
+                    timeout={300} classNames="fade" 
+                    unmountOnExit>
+                    <img 
+                        src= '/assets/images/verdy.jpg' 
+                        style={{
+                            position: "fixed",
+                            width: '100vw',
+                            height: '100vh',
+                            zIndex: "-2",
+                            top: '0px',
+                            left: '0px'
+                        }}        
+                    />
+                </CSSTransition>
+
+                <CSSTransition 
+                    in={this.state.visable} 
+                    timeout={300} classNames="fade" 
+                    unmountOnExit>
+                    <Container 
+                        padding="40px"
+                        position="fixed"
+                        width='100vw'
+                        height='100vh'
+                        backgroundColor= 'rgba(255,255,255,0.90)'
+                        zIndex="-1"
+                        top='0px'>
+                    </Container>
+                </CSSTransition>
+
+                <CSSTransition
+                    key='Welcome'
+                    timeout= {450}
+                    classNames="fade"
+                    in={this.state.visable}
+                    unmountOnExit
+                > 
+                
+                    <Column 
+                        position={ 'absolute' } 
+                        top={ this.state.mainElementTop }
+                        referance={ this.mainElement }>
+								
+                        <h1>Welcome to Free Love Network</h1>
+							
                         <HashRouter>
                             <Route render= {({location, history}) => {
                                 console.log(location);
@@ -68,9 +121,8 @@ export class Welcome extends React.Component{
                             }} />
                         </HashRouter>
                     </Column>
-                </SafeArea>
-            </CSSTransition>
-
+                </CSSTransition>
+            </React.Fragment>
         );
     }
 }

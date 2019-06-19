@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS friendships ;
 CREATE TABLE friendships(
 id SERIAL PRIMARY KEY,
 sender_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-receiver_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+reciever_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
 accepted BOOLEAN DEFAULT FALSE NOT NULL
 );
 
@@ -12,7 +12,7 @@ accepted BOOLEAN DEFAULT FALSE NOT NULL
 -- FROM generate_series(1,5);
 --
 create unique index idx_unique_sender
- on friendships (least(sender_id, receiver_id),greatest(sender_id, receiver_id));
+ on friendships (least(sender_id, reciever_id),greatest(sender_id, reciever_id));
 
 
 CREATE OR REPLACE FUNCTION random_between(low INT ,high INT)
@@ -54,12 +54,12 @@ DECLARE frinedhsips_count int:=35;
 begin
 for r in 5..user_count loop
     for i in 1..frinedhsips_count loop
-        insert into friendships (sender_id,receiver_id,accepted)
+        insert into friendships (sender_id,reciever_id,accepted)
         values(r,(SELECT random_between(5,user_count)),(SELECT random_accept()))
-        ON CONFLICT (least(sender_id, receiver_id),greatest(sender_id, receiver_id))
+        ON CONFLICT (least(sender_id, reciever_id),greatest(sender_id, reciever_id))
         DO NOTHING;
     end loop;
 end loop;
-    delete from friendships where sender_id=receiver_id;
+    delete from friendships where sender_id=reciever_id;
 end;
 $$;

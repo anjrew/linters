@@ -106,12 +106,12 @@ export default class App extends React.Component{
                                     />
                                 </CSSTransition>
 
-                                <Row id="header" backgroundColor={ 'red' } justifyContent='flex-start'>
+                                <Row id="header" borderBottomStyle='groove' justifyContent='flex-start'>
 
                                     <Logo height={ '100px' } width={ "100px" }/>
 
                                     <NavBarButton 
-                                        key='users-link-css'
+                                        id='users-link-css'
                                         in={this.state.locations.users != 'on' && this.state.locations.users != 'next'}
                                         renderNext={ ()=> this.renderNext(history) }
                                         iconSrc={ 'assets/icons/chat.png' }
@@ -120,7 +120,7 @@ export default class App extends React.Component{
                                     />
 
                                     <NavBarButton 
-                                        key='home-css'
+                                        id='home-css'
                                         in={this.state.locations.home != 'on' && this.state.locations.home != 'next'}
                                         renderNext={ ()=> this.renderNext(history) }
                                         iconSrc={ 'assets/icons/profile.png' }
@@ -129,7 +129,7 @@ export default class App extends React.Component{
                                     />
 
                                     <NavBarButton 
-                                        key={'friends-css'}
+                                        id={'friends-css'}
                                         in={this.state.locations.friends != 'on' && this.state.locations.friends != 'next'}
                                         renderNext={ ()=> this.renderNext(history) }
                                         iconSrc={ 'assets/icons/friends.png' }
@@ -138,7 +138,7 @@ export default class App extends React.Component{
                                     />
 
                                     <NavBarButton 
-                                        key={'chat-link-css'}
+                                        id={'chat-link-css'}
                                         in={this.state.locations.chat != 'on' && this.state.locations.chat != 'next'}
                                         renderNext={ ()=> this.renderNext(history) }
                                         iconSrc={ 'assets/icons/chat.png' }
@@ -147,7 +147,7 @@ export default class App extends React.Component{
                                     />
 
                                     <NavBarButton 
-                                        key={'online-link-css'}
+                                        id={'online-link-css'}
                                         in={this.state.locations.usersOnline != 'on' && this.state.locations.usersOnline != 'next'}
                                         renderNext={ ()=> this.renderNext(history) }
                                         iconSrc={ 'assets/icons/online-users.png' }

@@ -1,5 +1,5 @@
 *{
-    font-family: 'Open Sans', sans-serif; 
+	font-family: 'Calligraffitti', cursive;
     text-align: center;
     transition: all 200ms;
     outline: none;
@@ -25,7 +25,8 @@ body{
     box-shadow: none;
     border: unset;
     border-radius: 0px;
-    margin: 20px;
+	margin: 20px;
+	font-size: 30px;
 }
 
 .header{
@@ -33,7 +34,8 @@ body{
 }
 
 button{
-    font-size: 20px;
+	font-size: 20px;
+	font-weight: bold;
     padding: 3px 10px;
     border-radius: 15px;
     box-shadow: 1px 0px 3px 1px rgba(0,0,0,0.75);
@@ -65,9 +67,21 @@ button:active{
     transform: translateY(-3px)
 }
 
+h1{
+	font-size: 45px
+}
+
+h2{
+	font-size: 35px
+}
 
 h3{
-    text-align: center
+	text-align: center;
+	font-size: 30px
+}
+
+p{
+	font-family: 'Open Sans', sans-serif;
 }
 
 .user-tile > *{
@@ -86,7 +100,8 @@ input[type='file'] {
 input[type="text"], input[type="password"], input[type="email"], input{
     border-radius: 30px;
     padding:5px 10px;
-    display: inline-block
+	display: inline-block;
+	font-size: 25px
 }
 input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hover input{
     transform: scale(1.03);
