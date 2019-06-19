@@ -10,10 +10,11 @@ export class Profile extends React.Component{
     render(){
         return (
             <Row 
+                width={'unset'}
                 padding={'20px'}
                 alignItems={'start'}
-                alignContent={'start'}
-                placeContent={'start'}
+                // alignContent={'start'}
+                placeContent={'center center'}
             >
                 <Avatar
                     height ='200px'
@@ -22,7 +23,7 @@ export class Profile extends React.Component{
                     imageUrl={this.props.user.imageUrl}
                     description="User image"
                 />
-                <Column  padding={'20px'}>
+                <Column width={'unset'} padding={'20px'}>
                     <Padding padding={'3px 10px'}>
                         <h2>{`${this.props.user.first}`}</h2>
                     </Padding>   

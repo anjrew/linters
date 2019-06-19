@@ -17,7 +17,8 @@ export class Welcome extends React.Component{
         this.state = {
             isFlipped: true,
             visable: false,
-            mainElementTop: 0
+            mainElementTop: 0,
+            loggingIn: false
         };
         this.mainElement = React.createRef();
         this.handleClick = this.handleClick.bind(this);
@@ -92,6 +93,7 @@ export class Welcome extends React.Component{
                     timeout= {450}
                     classNames="fade"
                     in={this.state.visable}
+                    onExited={()=> location.replace('/')}
                     unmountOnExit
                 > 
                 
@@ -115,7 +117,12 @@ export class Welcome extends React.Component{
                                         <Login 
                                             key="back"
                                             onClick={ () => this.handleClick(history)}
-                                            onLogin={() => this.setState({visable: false})}/>
+                                            onLogin={() => {
+                                                this.setState({
+                                                    visable: false,
+                                                    loggingIn: true
+                                                });
+                                            }}/>
                                     </ReactCardFlip>
                                 );  
                             }} />

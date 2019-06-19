@@ -28,8 +28,13 @@ export class OtherProfile extends React.Component{
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
 
-                <Row padding={'20px'}>
-                    <Column padding={'20px'}>
+                <Row 
+                    placeContent='center center'
+                    width={'unset'}
+                    padding={'20px'}>
+                    <Column 
+                        width={'unset'}
+                        padding={'20px'}>
 
                         <Avatar
                             height ='250px'
@@ -42,7 +47,9 @@ export class OtherProfile extends React.Component{
 
                     </Column>
 
-                    <Column padding={'20px'}>
+                    <Column 
+                        width={'unset'}
+                        padding={'20px'}>
                         <h2>{`${this.state.user.first || ' '}`}</h2>   
 
                         <Column padding={'20px'}>

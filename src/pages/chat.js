@@ -17,7 +17,7 @@ class Chat extends React.Component{
 			message: '',
 		};
 		this.elemRef = React.createRef();
-        this.handleChange = this.handleChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 	
     render(){
@@ -40,7 +40,7 @@ class Chat extends React.Component{
 							socket.emit('newMessage',{ 
                             message: this.state.message }); 
 						}}
-                    >Submit</button>
+                    >Leave comment</button>
                 </Row>
                 <Column>
                     { messages && messages.map(message => (

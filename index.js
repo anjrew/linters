@@ -47,6 +47,7 @@ const cookieSessionMiddleWare = cookieSession({
 app.use(cookieSessionMiddleWare);
 
 const onlineUsers = {};
+
 io.use(async (socket, next)=>{
 
     cookieSessionMiddleWare(socket.request, socket.request.res, next);
@@ -75,7 +76,7 @@ io.use(async (socket, next)=>{
     // Check if it is new connection
     socket.on('disconnect', function() {
         print.error(`socket with the id ${socket.id} is now disconnected`);
-        delete onlineUsers[socket.id];
+        delete onlineUsers[userId];
     });
 
     socket.on('newMessage', async(data) => {

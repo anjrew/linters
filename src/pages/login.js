@@ -53,7 +53,7 @@ export class Login extends React.Component{
                     error: response.data.error,
                 });
             } else {
-                location.replace('/');
+                this.props.onLogin();
             }
         }).catch((e) =>{
             console.log('The error came from the Axios call: ', e);
