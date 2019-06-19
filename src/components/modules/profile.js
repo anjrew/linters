@@ -3,6 +3,7 @@ import { Row } from '../layout/row';
 import { Avatar } from '../graphics/avatar';
 import { BioEditor } from '../modules/bio_editor';
 import { Column } from '../layout/column';
+import { Padding } from '../layout/padding';
 
 export class Profile extends React.Component{
 
@@ -22,7 +23,9 @@ export class Profile extends React.Component{
                     description="User image"
                 />
                 <Column  padding={'20px'}>
-                    <h2>{`${this.props.user.first}`}</h2>   
+                    <Padding padding={'3px 10px'}>
+                        <h2>{`${this.props.user.first}`}</h2>
+                    </Padding>   
 
                     <BioEditor
                         bio={this.props.user.bio}

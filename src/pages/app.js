@@ -181,7 +181,7 @@ export default class App extends React.Component{
                                             timeout={{ enter: 300, exit: 300 }}
                                             classNames="fade"
                                         >
-                                            <OverLappedChildren>             
+                                            <OverLappedChildren width='80%'>             
 
                                                 <Switch location={location}>
                                                     <Route path={ "/other-user/:id"} render={(props) => {

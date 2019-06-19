@@ -14,7 +14,7 @@ export class ProfileTile extends React.Component{
         this.textStyle={
             textAlign: 'start'
         };
-	}
+    }
 	
     render(){
         const user = this.props.user;
@@ -33,7 +33,10 @@ export class ProfileTile extends React.Component{
                     })} 
                 >
     
-                    <Avatar imageUrl={user.pic_url}/>
+                    <Avatar 
+                        width='100px'
+                        height='100px'
+                        imageUrl={user.pic_url}/>
             
                     <Column 
                         justifyContent= 'center'

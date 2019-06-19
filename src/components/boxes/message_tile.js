@@ -52,13 +52,17 @@ export class MessageTile extends React.Component {
 
                         <Column
                             borderRadius='20px'
-                            padding='10px 20px'
+                            padding='20px 30px'
                             placeContent={'start start'}
                             alignItems={'start'}
                             boxShadow='5px 5px 10px -5px rgba(0,0,0,0.75)'>
                             <Row
                                 width='calc(100% - 60px)'
-                            > <h3 style={{ textAlign: 'start' }}>{message.name}</h3> <h5>{new Date(message.created_at).toLocaleString()}</h5></Row>
+                                placeContent='center flex-start'
+                            > 
+                                <h3 style={{ textAlign: 'start' }}>{message.name}</h3> 
+                                <h5 style={{margin:'0px 20px'}}>{new Date(message.created_at).toLocaleString()}</h5>
+                            </Row>
                             <p>{message.message} </p>
                         </Column>
                     </Row>
