@@ -15,7 +15,7 @@ export class OtherProfile extends React.Component{
         this.state = { 
             erro: null,
             user: {
-                imageUrl: "/assets/images/nerd-avatar.png"
+                imageUrl: "/assets/images/love-avatar.jpg"
             }
         };
     }
@@ -34,7 +34,7 @@ export class OtherProfile extends React.Component{
                         <Avatar
                             height ='250px'
                             width = '250px'
-                            imageUrl={this.state.user.imageUrl ||  '/assets/images/nerd-avatar.png'}
+                            imageUrl={this.state.user.imageUrl ||  '/assets/images/love-avatar.jpg'}
                             description="User image"
                         />
 

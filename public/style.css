@@ -335,5 +335,25 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     transition: all 3s ease-in;
 }
 
+textarea{
+	font-size: 25px;
+	box-shadow: 1px 0px 3px 1px rgba(0,0,0,0.75);
+
+}
+
+textarea:hover{
+	font-size: 25px;
+	box-shadow: none;
+    transform: scale(1.0.2);
+}
+
+textarea:active{
+	font-size: 25px;
+	box-shadow: none;
+	box-shadow: 1px 0px 4px 1px rgba(0,0,0,0.75);
+}
+
+
+
 
 

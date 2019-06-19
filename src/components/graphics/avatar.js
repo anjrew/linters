@@ -28,12 +28,12 @@ export class Avatar extends React.Component{
 
         return (
             <Image 
-                key={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'}
+                key={this.props.imageUrl || this.props.pic_url ||'/assets/images/love-avatar.jpg'}
                 className='avatar'
                 width={shimmerWidth} 
                 height={shimmerheight}
                 style={this.style}
-                src={this.props.imageUrl || this.props.pic_url ||'/assets/images/nerd-avatar.png'} 
+                src={this.props.imageUrl || this.props.pic_url ||'/assets/images/love-avatar.jpg'} 
                 alt={this.props.description} 
                 onClick={this.props.onClick}/>
         );

@@ -46,7 +46,7 @@ export class ProfileCard extends React.Component{
                         description={`${this.props.user.first} ${this.props.user.last}`}
                     />
                     <h2>{`${this.props.user.first} ${this.props.user.last}`}</h2>   
-                    <h2>{this.props.user.bio}</h2>
+                    { this.props.showBio && <h2>{this.props.user.bio}</h2> }
 
                     { (this.props.handleFirstButtonClick || this.props.secondButtonText) &&
 	

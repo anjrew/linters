@@ -45,7 +45,7 @@ export default class App extends React.Component{
                 email: null,
                 first: null,
                 last: null,
-                imageUrl: "/assets/images/nerd-avatar.png"
+                imageUrl: "/assets/images/love-avatar.jpg"
             },
             locations:{
                 home: 'next',
@@ -251,7 +251,7 @@ export default class App extends React.Component{
                 email: res.data.email,
                 first: res.data.first,
                 last: res.data.last,
-                imageUrl: res.data.pic_url || "/assets/images/nerd-avatar.png"
+                imageUrl: res.data.pic_url || "/assets/images/love-avatar.jpg"
             });
             this.setState({
                 user: userProfile,

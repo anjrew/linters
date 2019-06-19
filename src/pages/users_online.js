@@ -35,6 +35,7 @@ class UsersOnline extends React.Component{
 								<ProfileCard 
 								key={ user.id } 
 								user={ user } 
+								showBio={ false }
 								cardClick={ () => this.setState({
 									user: user
 								})}  
