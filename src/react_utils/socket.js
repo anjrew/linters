@@ -63,6 +63,7 @@ export const init = store => {
         socket.on(
             'newPrivateMessage',
             data => {
+                console.log('New private socket in action is ', data.message);
                 store.dispatch(
                     action.newPrivateMessage(data.message)
                 );

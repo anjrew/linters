@@ -300,9 +300,32 @@ module.exports.db = {
 			JOIN users ON 
 			private_messages.sender_id = users.id
 			WHERE private_messages.sender_id=$1  
-			OR private_messages.receiver_id =$1;
+			OR private_messages.receiver_id =$1
+			ORDER BY private_messages.id ASC;
 			`,
             [userId]
+        );
+    },
+    getPrivateMessageId: function(id) {
+        return db.query(
+            `
+			SELECT 
+				private_messages.id, 
+				private_messages.sender_id, 
+				private_messages.receiver_id,
+				private_messages.created_at,
+				private_messages.message,
+				users.first,
+				users.last,
+				users.email,
+				users.bio,
+				users.pic_url
+			FROM private_messages
+			JOIN users ON 
+			private_messages.sender_id = users.id
+			WHERE private_messages.id=$1;
+			`,
+            [id]
         );
     }
 };

@@ -59,6 +59,8 @@ export const Action = {
         };
     },
     newPrivateMessage: function (message) {
+		console.log('New private action in action is ', message);
+
         return {
             type: "RECEIVING_NEW_PRIVATE_MESSAGE",
             message: message

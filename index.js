@@ -136,7 +136,8 @@ io.use(async (socket, next)=>{
 	
     socket.on('privateMessage', async (data) => {
         const result = await db.savePrivateMessage(data.message, userId, data.recieverId);
-        const message =  result.rows[0];
+        const messageResult = await db.getPrivateMessageId(result.rows[0].id);
+        const message = messageResult.rows[0];
 		
         if (onlineUsers[data.recieverId]) {
             const otherUserSocketId = onlineUsers[data.recieverId].socketId;

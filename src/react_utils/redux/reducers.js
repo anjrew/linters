@@ -57,14 +57,8 @@ export default function reducer(state = {}, action) {
                 state.conversations
             );
             var newChat = state.conversations[state.activeChatId];
-            action.message.bio = newChat[1].bio;
-            action.message.first = newChat[1].first;
-            action.message.last = newChat[1].last;
-            action.message.pic_url = newChat[1].pic_url;
-
             action.message.currentUserId = newChat[1].currentUserId;
             newChat.push(action.message);
-            console.log('NewChat is ', newChat);
 			
             var newStateChat = state.conversations;
             newStateChat[state.activeChatId] = newChat;
