@@ -23,15 +23,13 @@ class PrivateChat extends React.Component{
 	}
 	
     render(){
-		console.log('This props is', this.props);
 		const activeChatId =  this.props.match && this.props.match.params.id;
 		var activeUser;
 		var activeChat = this.props.activeChat;
 		if (activeChat) { 
 			activeChat = activeChat.filter((message) => message);
-			activeUser = activeChat[0].first;
+			activeUser = activeChat[0] ? activeChat[0].first :  activeChat[1].first ;
 		}
-		console.log('active chat is ', activeChat);
 		
 		var conversations =  this.props.conversations;
 		
@@ -65,6 +63,7 @@ class PrivateChat extends React.Component{
 							alignSelf='self-start'
 							padding='30px'
 							referance={this.elemRef}
+							flex-flow='column'
 							>
 							{ activeUser && <h2>{activeUser + 'Chat'}</h2>}
 							<Column 
@@ -116,7 +115,7 @@ class PrivateChat extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-	console.log('The state mapStateToProps is', state);
+	console.log('The state mapStateToProps is in private chat' 	, state);
 
 	if (state.activeChatId && state.conversations) {
 		

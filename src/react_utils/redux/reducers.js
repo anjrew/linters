@@ -50,9 +50,28 @@ export default function reducer(state = {}, action) {
             };
 		
         case "RECEIVING_NEW_PRIVATE_MESSAGE":
+            console.log(
+                'recieving new Provate message with action ', 
+                action, 
+                'and state conversations', 
+                state.conversations
+            );
+            var newChat = state.conversations[state.activeChatId];
+            action.message.bio = newChat[1].bio;
+            action.message.first = newChat[1].first;
+            action.message.last = newChat[1].last;
+            action.message.pic_url = newChat[1].pic_url;
+
+            action.message.currentUserId = newChat[1].currentUserId;
+            newChat.push(action.message);
+            console.log('NewChat is ', newChat);
+			
+            var newStateChat = state.conversations;
+            newStateChat[state.activeChatId] = newChat;
+
             return {
                 ...state,
-                conversations: [  ...state.conversations ]
+                conversations: newStateChat
             };
 
         case "RECEIVING_NEW_CONVERSATIONS":

@@ -65,7 +65,6 @@ export const Action = {
         };
     },
     conversations: function (conversations) {
-        console.log('receiving conversations in action', conversations);
         return {
             type: "RECEIVING_NEW_CONVERSATIONS",
             conversations: conversations

@@ -33,7 +33,6 @@ export class ConversationTile extends React.Component {
             return <Redirect to={`/private-chat/${this.state.user}`} />;
         } else {
             const message = this.props.message;
-            console.log('In conversation Tile with message', message);
             return (
                 <CSSTransition
                     key={message.id}
