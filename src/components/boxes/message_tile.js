@@ -60,7 +60,7 @@ export class MessageTile extends React.Component {
                                 width='calc(100% - 60px)'
                                 placeContent='center flex-start'
                             > 
-                                <h3 style={{ textAlign: 'start' }}>{message.name}</h3> 
+                                <h3 style={{ textAlign: 'start' }}>{message.name || message.first}</h3> 
                                 <h5 style={{margin:'0px 20px'}}>{new Date(message.created_at).toLocaleString()}</h5>
                             </Row>
                             <p>{message.message} </p>

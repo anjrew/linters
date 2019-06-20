@@ -98,7 +98,6 @@ io.use(async (socket, next)=>{
     }
 
     print.success(`socket with the id ${socket.id} is now connected and userID is ${userId}`);
-	console.log('new conversations is', newConversations)
     // Emit sends data to the client
     socket.emit('connected', {
         message: 'You are connected to the server via socket.io',
@@ -157,8 +156,6 @@ io.use(async (socket, next)=>{
         }
     });
 });
-
-
 
 app.use(express.static(`${__dirname}/public`));
 

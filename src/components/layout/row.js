@@ -2,28 +2,23 @@ import React from 'react';
 
 export class Row extends React.Component{
 
-    constructor (props) {
-        super(props);
-        this.style = { 
-            display: 'flex', 
-            flexDirection: 'row',
-            alignItems: props.alignItems || 'center',
-            width: props.width || '100%',
-            backgroundColor: props.backgroundColor,
-            padding: props.padding,
-            placeContent: props.placeContent || 'center space-between',
-            margin: props.margin,
-            transform: props.transform,
-            borderBottomStyle: props.borderBottomStyle
-        };
-    }
-
     render(){
         return (
             <div 
                 id={this.props.id}
                 className="row" 
-                style={this.style}
+                style={{ 
+                    display: 'flex', 
+                    flexDirection: 'row',
+                    alignItems: this.props.alignItems || 'center',
+                    width: this.props.width || '100%',
+                    backgroundColor: this.props.backgroundColor,
+                    padding: this.props.padding,
+                    placeContent: this.props.placeContent || 'center space-between',
+                    margin: this.props.margin,
+                    transform: this.props.transform,
+                    borderBottomStyle: this.props.borderBottomStyle
+                }}
                 onClick={this.props.onClick}
             >
                 { this.props.children }

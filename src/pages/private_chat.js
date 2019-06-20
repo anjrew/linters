@@ -26,16 +26,10 @@ class PrivateChat extends React.Component{
 		const activeChatId =  this.props.match && this.props.match.params.id;
 		const activeUser =  this.props.activeUser;
 
-		const activeChat = this.props.activeChat;
+		var activeChat = this.props.activeChat;
+		if (activeChat) { activeChat = activeChat.filter((message) => message);}
+		console.log('active chat is ', activeChat);
 		var conversations =  this.props.conversations;
-		// conversations = Object.keys(conversations).map(conversation => { 
-		// 	console.log('Conversations is ', conversations[conversation]);
-		// 	Object.keys(conversations[conversation]).filter( (message) => {
-		// 		if ( message.reciever_id !=  activeChatId){
-		// 			return message;
-		// 		}
-		// 	});  
-		// });
 		
         return (
             <Column
@@ -45,10 +39,13 @@ class PrivateChat extends React.Component{
 					<Row
 						margin='20px'>
 						<Column
+							alignSelf='self-start'
+							height="100%"
 							margin="30px"
 							overFlow="scroll" >
 							<h2>Conversations</h2>
-							{ conversations && Object.keys(conversations).map(conversation =>{ 
+							{ conversations && 
+							Object.keys(conversations).map(conversation =>{ 
 								console.log(conversation);
 								return (
 								<MessageTile key={conversations[conversation][1].id} message={ conversations[conversation][1] } />
@@ -56,13 +53,23 @@ class PrivateChat extends React.Component{
 							})}
 						</Column>
 					
-						{ activeChatId && <Column padding='30px'
+						{ activeChatId && 
+						<Column 
+							alignSelf='self-start'
+							padding='30px'
 							referance={this.elemRef}
 							overFlow="scroll" borderLeft={ 'black groove 2px' }>
 							{ activeUser && <h2>{activeUser}</h2>}
-							{ activeChat && activeChat.map(message => (
-								<MessageTile key={message.id} message={ message } />
-							))}
+							{ activeChat && activeChat.map(message => {
+									{ message && 
+										console.log('Trying to render message ', message);
+
+										return (
+											<MessageTile key={message.id} message={ message } />
+										);
+									}
+								}
+							)}
 							<SubmitMessage
 								submit={ (message) => 
 									socket.emit('privateMessage',{ 
@@ -95,9 +102,9 @@ class PrivateChat extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-	console.log(state);
+	console.log('The state mapStateToProps is', state);
 
-	if (state.activeChatId) {
+	if (state.activeChatId && state.conversations) {
 		
 		const activeChatId = state.activeChatId;
 		const activeChat = state.conversations[activeChatId];
@@ -106,11 +113,11 @@ const mapStateToProps = (state) => {
 				const element = activeChat[key];
 				array.push(element);
 		}
-		console.log('active chat is', activeChat);
 		
 		return {
 			conversations: state.conversations,
-			activeChat: array
+			activeChat: array,
+			activeUser: 
 		};
 	} else {
 		return {

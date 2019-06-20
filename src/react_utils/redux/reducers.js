@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 export default function reducer(state = {}, action) {
-    console.log('The reducer state is', state);
+    console.log('The reducer state is ', state, 'With action', action);
     switch (action.type) {
         case "RECEIVE_FRIENDS_WANNABES":
             return { ...state, friendsWannabes: action.friendsWannabes };
