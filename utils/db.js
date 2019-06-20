@@ -251,9 +251,9 @@ module.exports.db = {
     savePrivateMessage: function(message, sender_id, receiver_id) {
         return db.query(
             `
-		INSERT INTO private_messages (message, sender_id, receiver_id)
-		VALUES ($1,$2, $3)
-		RETURNING *
+			INSERT INTO private_messages (message, sender_id, receiver_id)
+			VALUES ($1,$2, $3)
+			RETURNING *
 		`,
             [message, sender_id, receiver_id]
         );
@@ -271,11 +271,26 @@ module.exports.db = {
         );
     },
 	
+    // getAllPrivateMessages: function(userId) {
+    //     return db.query(
+    //         `
+    // 		SELECT * 
+    // 		FROM private_messages
+    // 		WHERE sender_id=$1  
+    // 		OR receiver_id =$1
+    // 		`,
+    //         [userId]
+    //     );
+    // }
     getAllPrivateMessages: function(userId) {
         return db.query(
             `
 			SELECT * 
 			FROM private_messages
+			JOIN users ON 
+			(private_messages.sender_id = $1 AND private_messages.receiver_id = users.id)
+			OR
+			(private_messages.receiver_id = $1 AND private_messages.sender_id = users.id)
 			WHERE sender_id=$1  
 			OR receiver_id =$1
 			`,

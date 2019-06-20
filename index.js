@@ -136,9 +136,12 @@ io.use(async (socket, next)=>{
     socket.on('privateMessage', async (data) => {
         const result = await db.savePrivateMessage(data.message, userId, data.recieverId);
         const message =  result.rows[0];
-        const otherUserSocketId = onlineUsers[data.recieverId].socketId;
+		
+        if (onlineUsers[data.recieverId]) {
+            const otherUserSocketId = onlineUsers[data.recieverId].socketId;
+            io.sockets.sockets[otherUserSocketId].emit('newPrivateMessage', { message: message });
+        }
         const thisUserSocketId = onlineUsers[userId].socketId;
-        io.sockets.sockets[otherUserSocketId].emit('newPrivateMessage', { message: message });
         io.sockets.sockets[thisUserSocketId].emit('newPrivateMessage', { message: message });
     });
 	
