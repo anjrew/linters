@@ -58,7 +58,7 @@ export default function reducer(state = {}, action) {
             console.log('RECEIVING_NEW_CONVERSATIONS', action);
             return {
                 ...state,
-                conversations: [ action.conversations ]
+                conversations: action.conversations
             };
         case "SET_ACTIVE_CHAT_ID":
             console.log('SET_ACTIVE_CHAT_ID', action);

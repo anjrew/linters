@@ -37,10 +37,10 @@ class PrivateChat extends React.Component{
 						<Column 
 							overFlow="scroll" >
 							<h2>Conversations</h2>
-							{ conversations && conversations.map(message => (
-								<MessageTile key={message.id} message={ message } />
+							{ conversations && Object.keys(conversations).map(conversation => (
+								<MessageTile key={conversation[1].id} message={ conversation[1] } />
 							))}
-                		</Column>
+						</Column>
 					
 						{ activeChatId && <Column padding='30px'
 							referance={this.elemRef}
@@ -57,7 +57,7 @@ class PrivateChat extends React.Component{
 								/>
 						</Column>
 					}
-                	</Row>
+				</Row>
             </Column>
         );
 	}
@@ -82,16 +82,16 @@ class PrivateChat extends React.Component{
 
 const mapStateToProps = (state) => {
 
-	const activeChatis
+	// const activeChatis= {}
 	// const conversations;
 	// const activeChat;
 	console.log('the state in match to props is' ,state);
-	var activeChat = state.conversations.filter((convo)=>{
-		console.log(' the object is ', convo);
-		console('Object is ', convo is)
-	})
-
-    return { conversations: state.conversations };
+	var activeChat = state.conversations[state.activeChatId];
+	console.log('active chat is ', activeChat);
+	
+    return {
+		conversations: state.conversations,
+		activeChat: activeChat };
 };
 
 
