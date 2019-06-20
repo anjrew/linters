@@ -26,7 +26,7 @@ export const init = store => {
         socket.on(
             'connected',
             (data) => {
-				console.log('conected data is ', data);
+                console.log('conected data is ', data);
                 store.dispatch(
                     action.chatMessages(data.messages)				
                 );
@@ -35,6 +35,9 @@ export const init = store => {
                 );
                 store.dispatch(
                     action.conversations(data.conversations)
+                );
+                store.dispatch(
+                    action.setUserId(data.id)
                 );
             }
         );

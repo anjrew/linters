@@ -8,7 +8,7 @@ export class Column extends React.Component{
                 ref={ this.props.referance } 
                 className={`column ${this.props.classNames}` }  
                 style={{
-                    overFlow: this.props.overFlow,
+                    overflow: this.props.overflow,
                     padding: this.props.padding,
                     display:'flex',
                     flexDirection: 'column',
@@ -18,6 +18,7 @@ export class Column extends React.Component{
                     flexWrap: 'wrap',
                     alignContent: this.props.alignContent || 'center',
                     width: this.props.width || '100%',
+                    height: this.props.height || '100%',
                     border: this.props.border,
                     borderRadius: this.props.borderRadius,
                     margin: this.props.margin,

@@ -84,6 +84,7 @@ io.use(async (socket, next)=>{
 
             for (let index = 0; index < allMessages.length; index++) {
                 const message = allMessages[index];
+                message.currentUserId = userId;
                 if ( messages.sender_id != otherUserId ){
                     userMessages[message.id] = message;
                 }
@@ -104,6 +105,7 @@ io.use(async (socket, next)=>{
         messages: messages.rows,
         onlineUsers: onlineUsers,
         conversations: newConversations,
+        userId: userId
     });
 	
     io.sockets.emit('updateOnlineUsers', {

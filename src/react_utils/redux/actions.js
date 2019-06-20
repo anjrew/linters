@@ -65,7 +65,7 @@ export const Action = {
         };
     },
     conversations: function (conversations) {
-		console.log('receiving conversations in action', conversations)
+        console.log('receiving conversations in action', conversations);
         return {
             type: "RECEIVING_NEW_CONVERSATIONS",
             conversations: conversations
@@ -75,6 +75,13 @@ export const Action = {
         return {
             type: "SET_ACTIVE_CHAT_ID",
             activeChatId: id
+        };
+    },
+	
+    setUserId: function (id){
+        return {
+            type: "SET_USER_ID",
+            user: id
         };
     }
 };

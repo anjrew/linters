@@ -27,41 +27,46 @@ export class ConversationTile extends React.Component {
     }
 
     render() {
+		
 
         if (this.state.user) {
-            return <Redirect to={`/other-user/${this.state.user}`} />;
+            return <Redirect to={`/private-chat/${this.state.user}`} />;
         } else {
             const message = this.props.message;
+            console.log('In conversation Tile with message', message);
             return (
                 <CSSTransition
                     key={message.id}
                     in={this.state.showMessage}
                     timeout={{ enter: 300, exit: 300 }}
                     classNames="scale"
-                    onExited={() => this.renderNext(history)}
                     unmountOnExit>
-                    <Row padding='20px'>
+                    <Row 
+                        topBorder=' 2px solid black'
+                        bottomBorder=' 2px solid black'
+                        width="100%"
+                        onClick={() => this.setState({ 
+                            user: message.currentUserId == message.sender_id ? message.receiver_id : message.sender_id
+                        })}
+                    >
                         <Avatar
                             imageUrl={message.pic_url}
                             boxShadow='5px 5px 10px -5px rgba(0,0,0,0.75)'
                             height='60px'
                             width='60px'
-                            onClick={() => this.setState({
-                                user: message.otherUserId
-                            })} />
+                        />
 
                         <Column
-                            borderRadius='20px'
-                            padding='20px 30px'
                             placeContent={'start start'}
                             alignItems={'start'}
-                            boxShadow='5px 5px 10px -5px rgba(0,0,0,0.75)'>
+                            padding='20px 30px'
+                        >
                             <Row
                                 width='calc(100% - 60px)'
-                                placeContent='center flex-start'
+                                placeContent='center space-between'
                             > 
-                                <h3 style={{ textAlign: 'start' }}>{message.name}</h3> 
-                                <h5 style={{margin:'0px 20px'}}>{new Date(message.created_at).toLocaleString()}</h5>
+                                <h4 style={{ textAlign: 'start' }}>{message.name || message.first + ' ' + message.last}</h4> 
+                                <h5 >{new Date(message.created_at).toLocaleString()}</h5>
                             </Row>
                             <p>{message.message} </p>
                         </Column>

@@ -17,7 +17,12 @@ export class Row extends React.Component{
                     placeContent: this.props.placeContent || 'center space-between',
                     margin: this.props.margin,
                     transform: this.props.transform,
-                    borderBottomStyle: this.props.borderBottomStyle
+                    borderBottomStyle: this.props.borderBottomStyle,
+                    border: this.props.border,
+                    borderRadius: this.props.borderRadius,
+                    boxShadow: this.props.boxShadow,
+                    borderTop: this.props.topBorder || this.props.borderTop ,
+                    borderBottom: this.props.bottomBorder || this.props.borderBottom ,
                 }}
                 onClick={this.props.onClick}
             >
