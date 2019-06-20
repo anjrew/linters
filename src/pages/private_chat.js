@@ -24,11 +24,14 @@ class PrivateChat extends React.Component{
     render(){
 		console.log('This props is', this.props);
 		const activeChatId =  this.props.match && this.props.match.params.id;
-		const activeUser =  this.props.activeUser;
-
+		var activeUser;
 		var activeChat = this.props.activeChat;
-		if (activeChat) { activeChat = activeChat.filter((message) => message);}
+		if (activeChat) { 
+			activeChat = activeChat.filter((message) => message);
+			activeUser = activeChat[0].first;
+		}
 		console.log('active chat is ', activeChat);
+		
 		var conversations =  this.props.conversations;
 		
         return (
@@ -61,10 +64,7 @@ class PrivateChat extends React.Component{
 							overFlow="scroll" borderLeft={ 'black groove 2px' }>
 							{ activeUser && <h2>{activeUser}</h2>}
 							{ activeChat && activeChat.map(message => {
-									{ message && 
-										console.log('Trying to render message ', message);
-
-										return (
+									{ message &&  (
 											<MessageTile key={message.id} message={ message } />
 										);
 									}
@@ -108,17 +108,21 @@ const mapStateToProps = (state) => {
 		
 		const activeChatId = state.activeChatId;
 		const activeChat = state.conversations[activeChatId];
+		// var activeUser;
 		const array = [];
 		for (const key in activeChat) {
 				const element = activeChat[key];
+				// console.log('element is', element);
+				// activeUser = element.first + ' ' + element.last;
 				array.push(element);
 		}
 		
 		return {
 			conversations: state.conversations,
 			activeChat: array,
-			activeUser: 
+			// activeUser: activeUser
 		};
+
 	} else {
 		return {
 			conversations: state.conversations,
