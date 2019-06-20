@@ -95,7 +95,7 @@ class PrivateChat extends React.Component{
 									{ message && 
 										console.log('');
 										return (
-											<MessageTile key={message.id} message={ message } />
+											<MessageTile key={message.id} message={ message } updated={ () => this.scrollToBottom()}/>
 											);
 										}
 									}
@@ -125,6 +125,7 @@ class PrivateChat extends React.Component{
 	}
 	
 	scrollToBottom() {
+		// this.elemRef.current.scrollIntoView({ behavior: "smooth" });
 		this.elemRef.current.scrollTop =
             this.elemRef.current.scrollHeight +
             this.elemRef.current.offsetHeight;
@@ -145,12 +146,9 @@ const mapStateToProps = (state) => {
 				conversations.push([...state.conversations[conversation]]);
 			}
 		}
-		// console.log('the Conversations to be rendered are', conversations);
 
 		conversations = conversations.map( (conversation) => {
-			// console.log(' IN conversation', conversation);
 			return conversation.filter( (message) => {
-				// console.log('in message', message);
 				if (message ){
 					if (message.sender_id != message.currentUserId) {
 						return message;
