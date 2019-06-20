@@ -25,6 +25,7 @@ import { OtherProfile } from '../pages/other_profile';
 import UsersOnline from '../pages/users_online';
 import Friends from '../pages/friends';
 import Chat from '../pages/chat';
+import PrivateChat from '../pages/private_chat';
 
 export default class App extends React.Component{
 

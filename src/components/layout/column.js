@@ -25,7 +25,9 @@ export class Column extends React.Component{
                     placeContent: this.props.placeContent || 'center center',
                     boxShadow: this.props.boxShadow,
                     top: this.props.top,
-                    position: this.props.position
+                    position: this.props.position,
+					borderLeft: this.props.borderLeft,
+					borderRight: this.props.borderRight,
                 }} 
                 onClick={this.props.onClick}>
                 {this.props.children}
