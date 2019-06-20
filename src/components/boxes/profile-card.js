@@ -28,12 +28,13 @@ export class ProfileCard extends React.Component{
     }
 
     render(){
+        console.log(' The Props are ', this.props.handleFirstButtonClick);
         return (
             <ScaleTransition 
                 in={this.state.show} 
                 onExited={() =>{
                     if (this.state.firstButtonClicked){
-                        this.props.onButtonClick(); 
+                        this.props.handleFirstButtonClick(); 
                     } else {
                         this.props.onSecondButtonClick();
                     }
@@ -48,22 +49,22 @@ export class ProfileCard extends React.Component{
                     <h2>{`${this.props.user.first} ${this.props.user.last}`}</h2>   
                     { this.props.showBio && <h2>{this.props.user.bio}</h2> }
 
-                    { (this.props.handleFirstButtonClick || this.props.secondButtonText) &&
+                    {(this.props.handleFirstButtonClick || this.props.secondButtonText) &&
 	
 						<Row 
 						    placeContent={'center center'}>
-						    { this.props.onButtonClick &&
+						    { this.props.handleFirstButtonClick &&
 								<button id='button-one'
 								    onClick={this.handleFirstButtonClick}
 								>{this.props.buttonText}</button>}
-                    	{ this.props.secondButtonText &&
-							<button id='button-two'
-							    style={{ 
-							        backgroundColor: 'black',
-							        color: 'white'
-							    }} 
-							    onClick={this.handleSecondButtonClick}>{this.props.secondButtonText}
-							</button>}
+						    { this.props.secondButtonText &&
+								<button id='button-two'
+								    style={{ 
+								        backgroundColor: 'black',
+								        color: 'white'
+								    }} 
+								    onClick={this.handleSecondButtonClick}>{this.props.secondButtonText}
+								</button>}
 						</Row>
                     }
                     

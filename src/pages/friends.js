@@ -40,7 +40,7 @@ class Friends extends React.Component{
                                     key={ friend.id } 
                                     user={friend}
                                     buttonText='Unfriend' 
-                                    onButtonClick={ () =>
+                                    handleFirstButtonClick={ () =>
                                         this.props.dispatch(action.unfriendReject(friend.id))
                                     }/>
                             ))}
@@ -67,7 +67,7 @@ class Friends extends React.Component{
                                     key={ friend.id } 
                                     user={friend}
                                     buttonText='Accept friend request' 
-                                    onButtonClick={ () =>
+                                    handleFirstButtonClick={ () =>
                                         this.props.dispatch(action.acceptFriendRequest(friend.id))
                                     }
                                     secondButtonText='Reject'

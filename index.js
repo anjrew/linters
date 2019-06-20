@@ -53,13 +53,22 @@ io.use(async (socket, next)=>{
     cookieSessionMiddleWare(socket.request, socket.request.res, next);
 	
     const userId = socket.request.session.userId;
-    const messages = await db.getChat();
+    let messages;
+    let conversations;
 	
     try {
-        const result = await db.getUserById(userId);
-        const user = result.rows[0];
+        const userResult = await db.getUserById(userId);
+        const user = userResult.rows[0];
         user.socketId = socket.id; 
         onlineUsers[userId] = user; 
+        messages = await db.getChat();
+		
+        // sort coversations
+        const conversationsResult = await db.getAllPrivateMessages(userId);
+		conversations = conversationsResult.rows;
+
+
+		
     } catch (e) {
         print.error('getUserById db query failed with error', e);
     }
@@ -70,7 +79,8 @@ io.use(async (socket, next)=>{
     socket.emit('connected', {
         message: 'You are connected to the server via socket.io',
         messages: messages.rows,
-        onlineUsers: onlineUsers
+        onlineUsers: onlineUsers,
+        conversations: conversations,
 		
     });
 	
@@ -98,6 +108,12 @@ io.use(async (socket, next)=>{
         } catch (e) {
             print.error(`The server had an error with a new chat message: `, e);
         }
+    });
+	
+    socket.on('privateMessage', async (data) => {
+        const result = await db.savePrivateMessage(data.message, userId, data.recieverId);
+
+        io.sockets[onlineUsers[data.recieverId]].emit('');
     });
 	
     socket.on('moreChat', async( data ) =>  {

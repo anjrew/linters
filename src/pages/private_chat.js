@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { MessageTile } from '../components/boxes/message_tile';
 import { Column } from '../components/layout/column';
 import { Row } from '../components/layout/row';
-import { TextArea } from '../components/inputs/text_area';
+import { SubmitMessage } from '../components/modules/submit-message'; 
 import { socket } from '../react_utils/socket';
 
 class PrivateChat extends React.Component{
@@ -32,29 +32,38 @@ class PrivateChat extends React.Component{
 					<Row
 						margin='20px'>
 						<Column 
-							overFlow="scroll" borderRight={ 'black groove 2px' }>
+							overFlow="scroll" >
 							<h2>Conversations</h2>
 							{ conversations && conversations.map(message => (
 								<MessageTile key={message.id} message={ message } />
 							))}
                 		</Column>
 					
-						<Column 
+						{ activeChat && <Column padding='30px'
 							referance={this.elemRef}
-							overFlow="scroll" borderLeft={ 'black solid 3px' }>
+							overFlow="scroll" borderLeft={ 'black groove 2px' }>
 							<h2>{activeUser}</h2>
-							{ activeChat && activeChat.map(message => (
+							{ activeChat.messages && activeChat.messages.map(message => (
 								<MessageTile key={message.id} message={ message } />
 							))}
+							<SubmitMessage
+								submit={ (message) => 
+									socket.emit('privateMessage',{ 
+										recieverId: activeChat.user,
+										message: message })}
+								/>
 						</Column>
+					}
                 	</Row>
             </Column>
         );
 	}
 
 	componentDidUpdate() {
-        this.elemRef.current.scrollTop =
+		if ( this.props.activeUser ){
+			this.elemRef.current.scrollTop =
             this.elemRef.current.scrollHeight - this.elemRef.current.offsetTop;
+		}
     }
 
     handleChange({ target }) {
