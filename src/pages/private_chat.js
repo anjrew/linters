@@ -47,15 +47,15 @@ class PrivateChat extends React.Component{
 							overFlow="scroll" >
 							<h2>Conversations</h2>
 							{ conversations && 
-							Object.keys(conversations).map(conversation =>{ 
-								console.log(conversation);
-								return (
-								<ConversationTile 
-									key={conversations[conversation][1].id} 
-									message={ conversations[conversation][1] } 
-									/>
-								);
-							})}
+								conversations.map(conversation => { 
+									return (
+									<ConversationTile 
+										key={conversation[0].id} 
+										message={ conversation[0]} 
+										/>
+									);
+									})
+							}
 						</Column>
 					
 						{ activeChatId && 
@@ -126,13 +126,32 @@ const mapStateToProps = (state) => {
 		const array = [];
 		for (const key in activeChat) {
 				const element = activeChat[key];
-				// console.log('element is', element);
-				// activeUser = element.first + ' ' + element.last;
 				array.push(element);
 		}
+		var conversations = [];
+		for (const conversation in state.conversations) {
+			if (state.conversations[conversation]) {
+				conversations.push([...state.conversations[conversation]]);
+			}
+		}
+		// console.log('the Conversations to be rendered are', conversations);
+
+		conversations = conversations.map( (conversation) => {
+			// console.log(' IN conversation', conversation);
+			return conversation.filter( (message) => {
+				// console.log('in message', message);
+				if (message ){
+					if (message.sender_id != message.currentUserId) {
+						return message;
+					}
+				}
+			});
+		});
+
+		console.log('The new conversations are', conversations);
 		
 		return {
-			conversations: state.conversations,
+			conversations: conversations,
 			activeChat: array,
 			// activeUser: activeUser
 		};
