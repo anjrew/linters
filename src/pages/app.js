@@ -48,6 +48,7 @@ export default class App extends React.Component{
                 last: null,
                 imageUrl: "/assets/images/love-avatar.jpg"
             },
+            privateChatUser: null,
             locations:{
                 home: 'next',
                 friends: 'next',
@@ -243,7 +244,11 @@ export default class App extends React.Component{
 
                                                 <Route exact path={'/friends'} render={() => {
                                                     return (
-                                                        <Friends/>
+                                                        <Friends goToChat={ (id) => {
+                                                            this.setState({ privateChatUser: id }); 
+                                                            this.makeNextToRender(`/private-chat`);
+                                                        	}
+                                                        }/>
                                                     );
                                                 }}/> 
 
@@ -448,7 +453,8 @@ export default class App extends React.Component{
                         history.push('/users-online');
                         break;
                     case 'privateChat':
-                        history.push('/private-chat');
+                        var renderUrl = this.state.privateChatUser ? `/private-chat/${this.state.privateChatUser}` : '/private-chat';
+                        history.push(renderUrl);
                         break;	
                     default	:
                         if( location == 'privateChat'){

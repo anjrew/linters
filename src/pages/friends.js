@@ -52,11 +52,7 @@ class Friends extends React.Component{
                                         key={ friend.id } 
                                         user={friend}
                                         buttonText='Private chat'
-                                        handleFirstButtonClick={ () =>
-                                            this.setState({
-                                                chatUser: friend.id
-                                            })
-                                        }
+                                        handleFirstButtonClick={ () => this.props.goToChat(friend.id) }
                                         secondButtonText= 'Unfriend' 
                                         onSecondButtonClick={ () =>
                                             this.props.dispatch(action.unfriendReject(friend.id))
