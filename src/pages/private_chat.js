@@ -64,7 +64,9 @@ class PrivateChat extends React.Component{
 							overFlow="scroll" borderLeft={ 'black groove 2px' }>
 							{ activeUser && <h2>{activeUser}</h2>}
 							{ activeChat && activeChat.map(message => {
-									{ message &&  (
+									{ message && 
+										console.log('');
+										return (
 											<MessageTile key={message.id} message={ message } />
 										);
 									}
