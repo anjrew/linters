@@ -298,11 +298,9 @@ module.exports.db = {
 				users.pic_url
 			FROM private_messages
 			JOIN users ON 
-			(private_messages.sender_id = $1 AND private_messages.receiver_id = users.id)
-			OR
-			(private_messages.receiver_id = $1 AND private_messages.sender_id = users.id)
-			WHERE sender_id=$1  
-			OR receiver_id =$1
+			private_messages.sender_id = users.id
+			WHERE private_messages.sender_id=$1  
+			OR private_messages.receiver_id =$1;
 			`,
             [userId]
         );

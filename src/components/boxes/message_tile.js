@@ -40,7 +40,9 @@ export class MessageTile extends React.Component {
                     classNames="scale"
                     onExited={() => this.renderNext(history)}
                     unmountOnExit>
-                    <Row padding='20px'>
+                    <Row 
+                        minHeight={'80px'}
+                        padding='20px'>
                         <Avatar
                             imageUrl={message.pic_url}
                             boxShadow='5px 5px 10px -5px rgba(0,0,0,0.75)'

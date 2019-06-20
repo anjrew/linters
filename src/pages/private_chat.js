@@ -66,7 +66,8 @@ class PrivateChat extends React.Component{
 							flex-flow='column'
 							>
 							{ activeUser && <h2>{activeUser + 'Chat'}</h2>}
-							<Column 
+							<Column
+								flexWrap='none'
 								height='400px'
 								overflow='scroll'
 								padding='30px'
