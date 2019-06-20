@@ -20,18 +20,20 @@ class PrivateChat extends React.Component{
 		};
 		this.elemRef = React.createRef();
 		this.handleChange = this.handleChange.bind(this);
+		this.scrollToBottom = this.scrollToBottom.bind(this);
 	}
 	
     render(){
+		var conversations =  this.props.conversations;
 		const activeChatId =  this.props.match && this.props.match.params.id;
 		var activeUser;
 		var activeChat = this.props.activeChat;
 		if (activeChat) { 
 			activeChat = activeChat.filter((message) => message);
-			activeUser = activeChat[0] ? activeChat[0].first :  activeChat[1].first ;
+			activeUser = conversations[0][0].first;
 		}
 		
-		var conversations =  this.props.conversations;
+		
 		
         return (
             <Column
@@ -51,6 +53,7 @@ class PrivateChat extends React.Component{
 							alignSelf='self-start'
 							height="100%"
 							overFlow="scroll"
+							scrollHeight="auto"
 							borderTop= 'solid black 2px'
 							borderRadius='20px 0px 0px 20px'
 							padding='30px'
@@ -61,8 +64,8 @@ class PrivateChat extends React.Component{
 								conversations.map(conversation => { 
 									return (
 									<ConversationTile 
-										key={conversation[0].id} 
-										message={ conversation[0]} 
+										key={conversation[conversation.length -1 ].id} 
+										message={ conversation[conversation.length -1 ]} 
 										/>
 									);
 									})
@@ -73,12 +76,11 @@ class PrivateChat extends React.Component{
 						<Column 
 							alignSelf='self-start'
 							padding='30px'
-							referance={this.elemRef}
 							flex-flow='column'
 							borderLeft= 'solid black 2px'
 							boxSizing='border-box'
 							>
-							{ activeUser && <h2>{activeUser + 'Chat'}</h2>}
+							{ activeUser && <h2>{activeUser + ' ' +'Chat'}</h2>}
 							<Column
 								id='chat'
 								flexWrap='none'
@@ -87,6 +89,7 @@ class PrivateChat extends React.Component{
 								padding='30px'
 								alignSelf='self-start'
 								border= 'solid black'
+								referance={this.elemRef}
 								>
 								{ activeChat && activeChat.map(message => {
 									{ message && 
@@ -116,11 +119,16 @@ class PrivateChat extends React.Component{
 	}
 
 	componentDidUpdate() {
-		if ( this.props.activeUser ){
-			this.elemRef.current.scrollTop =
-            this.elemRef.current.scrollHeight - this.elemRef.current.offsetTop;
+		if ( this.props.activeChat ){
+			this.scrollToBottom();
 		}
-    }
+	}
+	
+	scrollToBottom() {
+		this.elemRef.current.scrollTop =
+            this.elemRef.current.scrollHeight +
+            this.elemRef.current.offsetHeight;
+	}
 
     handleChange({ target }) {
         this.setState({
@@ -131,18 +139,7 @@ class PrivateChat extends React.Component{
 
 const mapStateToProps = (state) => {
 	console.log('The state mapStateToProps is in private chat' 	, state);
-
-	if (state.activeChatId && state.conversations) {
-		
-		const activeChatId = state.activeChatId;
-		const activeChat = state.conversations[activeChatId];
-		// var activeUser;
-		const array = [];
-		for (const key in activeChat) {
-				const element = activeChat[key];
-				array.push(element);
-		}
-		var conversations = [];
+	var conversations = [];
 		for (const conversation in state.conversations) {
 			if (state.conversations[conversation]) {
 				conversations.push([...state.conversations[conversation]]);
@@ -162,6 +159,18 @@ const mapStateToProps = (state) => {
 			});
 		});
 
+	if (state.activeChatId && state.conversations) {
+		
+		const activeChatId = state.activeChatId;
+		const activeChat = state.conversations[activeChatId];
+		// var activeUser;
+		const array = [];
+		for (const key in activeChat) {
+				const element = activeChat[key];
+				array.push(element);
+		}
+		
+
 		console.log('The new conversations are', conversations);
 		
 		return {
@@ -172,16 +181,8 @@ const mapStateToProps = (state) => {
 
 	} else {
 
-		var dummy = [];
-		// for (const conversation in state.conversations) {
-		// 	if (state.conversations[conversation]) {
-		// 		conversations.push([...state.conversations[conversation]]);
-		// 	}
-		// }
-		// console.log('The new conversations are', conversations);
-
 		return {
-			conversations: dummy,
+			conversations: conversations,
 		};
 	}
 };

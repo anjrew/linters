@@ -195,69 +195,70 @@ export default class App extends React.Component{
                                             timeout={{ enter: 300, exit: 300 }}
                                             classNames="fade"
                                         >
-                                            <OverLappedChildren width='80%'>             
+                                            <OverLappedChildren width='80%'>  
+                                                <Switch location={location}>         
 
-                                                <Route path={ "/other-user/:id"} render={(props) => {
-                                                    return (
-                                                        <OtherProfile 
-                                                            key={props.match.url}
-                                                            match={props.match}
-                                                            history={props.history}
-                                                        />
-                                                    );
-                                                }}/> 
+                                                    <Route path={ "/other-user/:id"} render={(props) => {
+                                                        return (
+                                                            <OtherProfile 
+                                                                key={props.match.url}
+                                                                match={props.match}
+                                                                history={props.history}
+                                                            />
+                                                        );
+                                                    }}/> 
 
-                                                <Route exact path={'/private-chat/:id'} render={(props) => {
-                                                    return (
-                                                        <PrivateChat match={props.match}/>
-                                                    );
-                                                }}/> 
+                                                    <Route exact path={'/private-chat/:id'} render={(props) => {
+                                                        return (
+                                                            <PrivateChat match={props.match}/>
+                                                        );
+                                                    }}/> 
 
-                                                <Route exact path={'/private-chat/'} render={() => {
-                                                    return (
-                                                        <PrivateChat/>
-                                                    );
-                                                }}/>  
+                                                    <Route exact path={'/private-chat/'} render={() => {
+                                                        return (
+                                                            <PrivateChat/>
+                                                        );
+                                                    }}/>  
 
-                                                <Route exact path={routes.home} render={() => {
-                                                    return (
-                                                        <Profile 
-                                                            bioEditorIsVisible={ this.state.bioEditorIsVisible}
-                                                            uploadClicked={this.avatarClicked}
-                                                            user={this.state.user}
-                                                            setBio={this.setBio}
-                                                        />
-                                                    );
-                                                }}/>  
+                                                    <Route exact path={routes.home} render={() => {
+                                                        return (
+                                                            <Profile 
+                                                                bioEditorIsVisible={ this.state.bioEditorIsVisible}
+                                                                uploadClicked={this.avatarClicked}
+                                                                user={this.state.user}
+                                                                setBio={this.setBio}
+                                                            />
+                                                        );
+                                                    }}/>  
 
-                                                <Route exact path={'/users'} render={() => {
-                                                    return (
-                                                        <FindPeople/>
-                                                    );
-                                                }}/>
+                                                    <Route exact path={'/users'} render={() => {
+                                                        return (
+                                                            <FindPeople/>
+                                                        );
+                                                    }}/>
 
-                                                <Route exact path={'/chat'} render={() => {
-                                                    return (
-                                                        <Chat />
-                                                    );
-                                                }}/>
+                                                    <Route exact path={'/chat'} render={() => {
+                                                        return (
+                                                            <Chat />
+                                                        );
+                                                    }}/>
 
-                                                <Route exact path={'/friends'} render={() => {
-                                                    return (
-                                                        <Friends goToChat={ (id) => {
-                                                            this.setState({ privateChatUser: id }); 
-                                                            this.makeNextToRender(`/private-chat`);
-                                                        	}
-                                                        }/>
-                                                    );
-                                                }}/> 
+                                                    <Route exact path={'/friends'} render={() => {
+                                                        return (
+                                                            <Friends goToChat={ (id) => {
+                                                                this.setState({ privateChatUser: id }); 
+                                                                this.makeNextToRender(`/private-chat`);
+                                                            }
+                                                            }/>
+                                                        );
+                                                    }}/> 
 
-                                                <Route exact path={'/users-online'} render={() => {
-                                                    return (
-                                                        <UsersOnline/>
-                                                    );
-                                                }}/>
-
+                                                    <Route exact path={'/users-online'} render={() => {
+                                                        return (
+                                                            <UsersOnline/>
+                                                        );
+                                                    }}/>
+                                                </Switch>  
                                             </OverLappedChildren>            
                                         </CSSTransition>
                                     </TransitionGroup>
