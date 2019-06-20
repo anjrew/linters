@@ -30,7 +30,7 @@ class Friends extends React.Component{
             }else{
 
                 friends = (
-                    <Column border={'3px solid black'} margin='20px' padding='20px' borderRaduis='10px'>
+                    <Column  margin='20px' padding='20px' borderRaduis='10px'>
 					 <ScaleTransition in={!!this.props.friends.length} >
                             <h2>Check out your friends</h2>
 					 </ScaleTransition>
@@ -57,7 +57,7 @@ class Friends extends React.Component{
                 wannabes = (<h2 style={{ margin: "10px" }}>Nobody {this.props.friends.length > 0 && 'else'} wants to be your friend... Why would they???.</h2>);
             } else { 
                 wannabes = (
-                    <Column border={'3px solid black'} margin='20px' padding='20px' borderRaduis='10px'>
+                    <Column margin='20px' padding='20px' borderRaduis='10px'>
                         <ScaleTransition in={!this.props.wannabes.length} >
                             <h2>These people want to be your friends</h2>
                         </ScaleTransition>

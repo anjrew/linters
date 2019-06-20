@@ -50,8 +50,9 @@ export class ProfileCard extends React.Component{
 
                     { (this.props.handleFirstButtonClick || this.props.secondButtonText) &&
 	
-                        <Row placeContent={'center center'}>
-                            { this.props.onButtonClick &&
+						<Row 
+						    placeContent={'center center'}>
+						    { this.props.onButtonClick &&
 								<button id='button-one'
 								    onClick={this.handleFirstButtonClick}
 								>{this.props.buttonText}</button>}
@@ -63,7 +64,7 @@ export class ProfileCard extends React.Component{
 							    }} 
 							    onClick={this.handleSecondButtonClick}>{this.props.secondButtonText}
 							</button>}
-                        </Row>
+						</Row>
                     }
                     
                 </Column>

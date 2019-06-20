@@ -30,6 +30,7 @@ export class NavBarButton extends React.Component{
                 onExited={ this.props.renderNext}
                 unmountOnExit>
                 <Column 
+                    classNames="grow-on-hover"
                     width={'unset'} 
                     onClick={ this.props.makeNextToRender }
                 >

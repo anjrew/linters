@@ -245,6 +245,42 @@ module.exports.db = {
             `,
             [userId]
         );
+    },
+	
+    /// Private messages
+    savePrivateMessage: function(message, sender_id, receiver_id) {
+        return db.query(
+            `
+		INSERT INTO private_messages (message, sender_id, receiver_id)
+		VALUES ($1,$2, $3)
+		RETURNING *
+		`,
+            [message, sender_id, receiver_id]
+        );
+    },
+	
+    getPrivateMessages: function(sender_id, receiver_id) {
+        return db.query(
+            `
+			SELECT * 
+			FROM private_messages
+			WHERE (sender_id=$1 AND receiver_id =$2)
+			OR (sender_id=$2 AND receiver_id =$3)
+			`,
+            [sender_id, receiver_id]
+        );
+    },
+	
+    getAllPrivateMessages: function(userId) {
+        return db.query(
+            `
+			SELECT * 
+			FROM private_messages
+			WHERE sender_id=$1  
+			OR receiver_id =$1
+			`,
+            [userId]
+        );
     }
 };
 

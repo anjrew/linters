@@ -6,7 +6,7 @@ export class Column extends React.Component{
         return (
             <div 
                 ref={ this.props.referance } 
-                className="column" 
+                className={`column ${this.props.classNames}` }  
                 style={{
                     overFlow: this.props.overFlow,
                     padding: this.props.padding,

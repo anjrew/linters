@@ -150,6 +150,10 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     padding: 20px;
 }
 
+.grow-on-hover:hover{
+	transform: scale(1.05)
+}
+
 /* Fade */
 
 .fade-enter {

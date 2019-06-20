@@ -55,6 +55,7 @@ export default class App extends React.Component{
                 users: 'next',
                 chat: 'next',
                 usersOnline: 'next',
+                privateChat: 'next',
             }
         };
         this.renderNext = this.renderNext.bind(this);
@@ -156,8 +157,18 @@ export default class App extends React.Component{
                                         label='Users online'
                                     />
 
+                                    <NavBarButton 
+                                        id={'provate-chat-css'}
+                                        in={this.state.locations.privateChat != 'on' && this.state.locations.privateChat != 'next'}
+                                        renderNext={ ()=> this.renderNext(history) }
+                                        iconSrc={ 'assets/icons/private-chat.png' }
+                                        makeNextToRender={ () => this.makeNextToRender('/private-chat') }
+                                        label='Private chat'
+                                    />
+
                                     <Column 
-                                        width={'unset'} 
+                                        width={'unset'}
+                                        classNames={'grow-on-hover'}
                                         onClick={ () => this.setState({ showApp: false }) }
                                     >
                                         <Icon src={'assets/icons/log-out.png'}/>
@@ -227,6 +238,12 @@ export default class App extends React.Component{
                                                     <Route exact path={'/users-online'} render={() => {
                                                         return (
                                                             <UsersOnline/>
+                                                        );
+                                                    }}/>
+
+                                                    <Route exact path={'/private-chat'} render={() => {
+                                                        return (
+                                                            <PrivateChat/>
                                                         );
                                                     }}/>  
 
@@ -308,6 +325,16 @@ export default class App extends React.Component{
                     }
                 });
                 break;
+			
+            case '/private-chat':
+                this.setState({
+                    locations: {
+                        ...locations,
+                        privateChat: 'on'
+                    }
+                });
+                break;
+
 				
             default:
                 if  (location.substring('other-user')){
@@ -367,6 +394,15 @@ export default class App extends React.Component{
                 });
                 break;
 				
+            case '/private-chat':
+                this.setState({
+                    locations: {
+                        ...locations,
+                        privateChat: 'next'
+                    }
+                });
+                break;
+				
             default:
                 if  (location.substring('other-user')){
                     locations.otherUser = 'next';
@@ -402,6 +438,9 @@ export default class App extends React.Component{
                         break;	
                     case 'usersOnline':
                         history.push('/users-online');
+                        break;
+                    case 'privateChat':
+                        history.push('/private-chat');
                         break;	
                     default	:
                         history.push('/');
