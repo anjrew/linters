@@ -26,6 +26,7 @@ export const init = store => {
         socket.on(
             'connected',
             (data) => {
+				console.log('conected data is ', data);
                 store.dispatch(
                     action.chatMessages(data.messages)				
                 );

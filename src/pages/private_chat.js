@@ -110,7 +110,7 @@ const mapStateToProps = (state) => {
 		
 		return {
 			conversations: state.conversations,
-			activeChat: array1 
+			activeChat: array
 		};
 	} else {
 		return {

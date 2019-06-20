@@ -285,7 +285,17 @@ module.exports.db = {
     getAllPrivateMessages: function(userId) {
         return db.query(
             `
-			SELECT * 
+			SELECT 
+				private_messages.id, 
+				private_messages.sender_id, 
+				private_messages.receiver_id,
+				private_messages.created_at,
+				private_messages.message,
+				users.first,
+				users.last,
+				users.email,
+				users.bio,
+				users.pic_url
 			FROM private_messages
 			JOIN users ON 
 			(private_messages.sender_id = $1 AND private_messages.receiver_id = users.id)

@@ -80,7 +80,7 @@ io.use(async (socket, next)=>{
 		
         for (var otherUserId in otherUserIds) {
             // Make an array of messahes and put them in an object 
-            var userMessages = {};
+            var userMessages = [];
 
             for (let index = 0; index < allMessages.length; index++) {
                 const message = allMessages[index];
@@ -98,7 +98,7 @@ io.use(async (socket, next)=>{
     }
 
     print.success(`socket with the id ${socket.id} is now connected and userID is ${userId}`);
-	
+	console.log('new conversations is', newConversations)
     // Emit sends data to the client
     socket.emit('connected', {
         message: 'You are connected to the server via socket.io',
