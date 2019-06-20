@@ -25,6 +25,7 @@ class Chat extends React.Component{
         return (
             <Column
                 padding='20px'>
+					<h1>The Chat Room</h1>
 					<Row
 						margin='20px'>
 						<TextArea

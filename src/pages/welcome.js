@@ -58,7 +58,8 @@ export class Welcome extends React.Component{
 
                 <CSSTransition 
                     in={this.state.visable} 
-                    timeout={300} classNames="fade" 
+                    timeout={300} 
+                    classNames="fade" 
                     unmountOnExit>
                     <img 
                         src= '/assets/images/verdy.jpg' 
@@ -100,7 +101,7 @@ export class Welcome extends React.Component{
                     <Column 
                         position={ 'absolute' } 
                         top={ this.state.mainElementTop }
-                        ref={ this.mainElement }>
+                        referance={ this.mainElement }>
 								
                         <h1>Welcome to Free Love Network</h1>
 							

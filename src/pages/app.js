@@ -84,7 +84,8 @@ export default class App extends React.Component{
                             <Column>
                                 <CSSTransition 
                                     in={this.state.uploaderVisible} 
-                                    timeout={300} classNames="fade" 
+                                    timeout={300} 
+                                    classNames="fade" 
                                     unmountOnExit>
                                     <Container 
                                         padding="40px"
