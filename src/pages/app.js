@@ -196,59 +196,63 @@ export default class App extends React.Component{
                                         >
                                             <OverLappedChildren width='80%'>             
 
-                                                <Switch location={location}>
-                                                    <Route path={ "/other-user/:id"} render={(props) => {
-                                                        return (
-                                                            <OtherProfile 
-                                                                key={props.match.url}
-                                                                match={props.match}
-                                                                history={props.history}
-                                                            />
-                                                        );
-                                                    }}/> 
+                                                <Route path={ "/other-user/:id"} render={(props) => {
+                                                    return (
+                                                        <OtherProfile 
+                                                            key={props.match.url}
+                                                            match={props.match}
+                                                            history={props.history}
+                                                        />
+                                                    );
+                                                }}/> 
 
-                                                    <Route exact path={routes.home} render={() => {
-                                                        return (
-                                                            <Profile 
-                                                                bioEditorIsVisible={ this.state.bioEditorIsVisible}
-                                                                uploadClicked={this.avatarClicked}
-                                                                user={this.state.user}
-                                                                setBio={this.setBio}
-                                                            />
-                                                        );
-                                                    }}/>  
+                                                <Route exact path={'/private-chat/:id'} render={(props) => {
+                                                    return (
+                                                        <PrivateChat activeChat={props.match}/>
+                                                    );
+                                                }}/> 
 
-                                                    <Route exact path={'/users'} render={() => {
-                                                        return (
-                                                            <FindPeople/>
-                                                        );
-                                                    }}/>
+                                                <Route exact path={'/private-chat/'} render={() => {
+                                                    return (
+                                                        <PrivateChat/>
+                                                    );
+                                                }}/>  
 
-                                                    <Route exact path={'/chat'} render={() => {
-                                                        return (
-                                                            <Chat />
-                                                        );
-                                                    }}/>
+                                                <Route exact path={routes.home} render={() => {
+                                                    return (
+                                                        <Profile 
+                                                            bioEditorIsVisible={ this.state.bioEditorIsVisible}
+                                                            uploadClicked={this.avatarClicked}
+                                                            user={this.state.user}
+                                                            setBio={this.setBio}
+                                                        />
+                                                    );
+                                                }}/>  
 
-                                                    <Route exact path={'/friends'} render={() => {
-                                                        return (
-                                                            <Friends/>
-                                                        );
-                                                    }}/> 
+                                                <Route exact path={'/users'} render={() => {
+                                                    return (
+                                                        <FindPeople/>
+                                                    );
+                                                }}/>
 
-                                                    <Route exact path={'/users-online'} render={() => {
-                                                        return (
-                                                            <UsersOnline/>
-                                                        );
-                                                    }}/>
+                                                <Route exact path={'/chat'} render={() => {
+                                                    return (
+                                                        <Chat />
+                                                    );
+                                                }}/>
 
-                                                    <Route exact path={'/private-chat'} render={() => {
-                                                        return (
-                                                            <PrivateChat/>
-                                                        );
-                                                    }}/>  
+                                                <Route exact path={'/friends'} render={() => {
+                                                    return (
+                                                        <Friends/>
+                                                    );
+                                                }}/> 
 
-                                                </Switch>
+                                                <Route exact path={'/users-online'} render={() => {
+                                                    return (
+                                                        <UsersOnline/>
+                                                    );
+                                                }}/>
+
                                             </OverLappedChildren>            
                                         </CSSTransition>
                                     </TransitionGroup>
@@ -326,23 +330,22 @@ export default class App extends React.Component{
                     }
                 });
                 break;
-			
-            case '/private-chat':
-                this.setState({
-                    locations: {
-                        ...locations,
-                        privateChat: 'on'
-                    }
-                });
-                break;
 
 				
             default:
-                if  (location.substring('other-user')){
+                if  ( location.includes('other-user') ){
                     this.setState({
                         locations: {
                             ...locations,
                             otherUser: 'on'
+                        }
+                    });
+                }
+                if( location.includes( 'private-chat' )){
+                    this.setState({
+                        locations: {
+                            ...locations,
+                            privateChat: 'on'
                         }
                     });
                 } else {
@@ -359,7 +362,8 @@ export default class App extends React.Component{
 	
     makeNextToRender(location){	  
         var locations = this.state.locations;
-        
+        console.log('Make next to render', location);
+        console.log(location.substring('private-chat'));
         switch (location) {
             case '/friends':
                 locations.friends = 'next';
@@ -395,20 +399,22 @@ export default class App extends React.Component{
                 });
                 break;
 				
-            case '/private-chat':
-                this.setState({
-                    locations: {
-                        ...locations,
-                        privateChat: 'next'
-                    }
-                });
-                break;
-				
             default:
-                if  (location.substring('other-user')){
+                console.log('in here');
+                if  (location.includes('other-user')){
+                    console.log('in other user');
                     locations.otherUser = 'next';
                     this.setState({
                         locations: locations
+                    });
+                }
+                if( location.includes('private-chat')){
+                    console.log('set state');
+                    this.setState({
+                        locations: {
+                            ...locations,
+                            privateChat: 'next'
+                        }
                     });
                 } 
         }
@@ -424,6 +430,7 @@ export default class App extends React.Component{
                     locations[location] = '';
                 });
                 locations[location] = 'on';
+                console.log('The location in render next is', location);
                 switch (location) {
                     case 'friends':
                         history.push('/friends');
@@ -444,7 +451,11 @@ export default class App extends React.Component{
                         history.push('/private-chat');
                         break;	
                     default	:
-                        history.push('/');
+                        if( location == 'privateChat'){
+                            history.push('/private-chat');
+                        } else {
+                            history.push('/');
+                        }
                         break;
                 }		
             }

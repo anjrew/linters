@@ -19,6 +19,10 @@ class PrivateChat extends React.Component{
 		this.elemRef = React.createRef();
 		this.handleChange = this.handleChange.bind(this);
 	}
+
+	componentDidMount(){
+		const activeChat = this.props.match.params.id;
+	}	
 	
     render(){
 		const conversations =  this.props.conversations;

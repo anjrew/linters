@@ -65,7 +65,7 @@ io.use(async (socket, next)=>{
 		
         // sort coversations
         const conversationsResult = await db.getAllPrivateMessages(userId);
-		conversations = conversationsResult.rows;
+        conversations = conversationsResult.rows;
 
 
 		
