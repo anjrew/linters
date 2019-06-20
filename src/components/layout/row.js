@@ -8,7 +8,9 @@ export class Row extends React.Component{
                 id={this.props.id}
                 className="row" 
                 style={{ 
+                    boxSizing: this.props.boxSizing,
                     minHeight: this.props.minHeight,
+                    maxHeight: this.props.maxHeight,
                     display: this.props.display || 'flex', 
                     flexDirection: 'row',
                     alignItems: this.props.alignItems || 'center',

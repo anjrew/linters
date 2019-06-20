@@ -1,6 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 export default function reducer(state = {}, action) {
-    console.log('The reducer state is ', state, 'With action', action);
     switch (action.type) {
         case "RECEIVE_FRIENDS_WANNABES":
             return { ...state, friendsWannabes: action.friendsWannabes };
@@ -50,12 +49,7 @@ export default function reducer(state = {}, action) {
             };
 		
         case "RECEIVING_NEW_PRIVATE_MESSAGE":
-            console.log(
-                'recieving new Provate message with action ', 
-                action, 
-                'and state conversations', 
-                state.conversations
-            );
+          
             var newChat = state.conversations[state.activeChatId];
             action.message.currentUserId = newChat[1].currentUserId;
             newChat.push(action.message);

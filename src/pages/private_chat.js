@@ -39,12 +39,23 @@ class PrivateChat extends React.Component{
 					<h1>Private chat</h1>
 
 					<Row
-						margin='20px'>
+						borderRadius='20px'
+						border= 'solid black 2px'
+						borderTop= '2px solid black'
+						borderBottom= '2px solid black'
+						margin='20px'
+						maxHeight='800px'
+						minHeight='600px'
+						boxSizing='border-box'>
 						<Column
 							alignSelf='self-start'
 							height="100%"
-							margin="30px 0px"
-							overFlow="scroll" >
+							overFlow="scroll"
+							borderTop= 'solid black 2px'
+							borderRadius='20px 0px 0px 20px'
+							padding='30px'
+							boxSizing='border-box'
+							>
 							<h2>Conversations</h2>
 							{ conversations && 
 								conversations.map(conversation => { 
@@ -64,15 +75,18 @@ class PrivateChat extends React.Component{
 							padding='30px'
 							referance={this.elemRef}
 							flex-flow='column'
+							borderLeft= 'solid black 2px'
+							boxSizing='border-box'
 							>
 							{ activeUser && <h2>{activeUser + 'Chat'}</h2>}
 							<Column
+								id='chat'
 								flexWrap='none'
 								height='400px'
 								overflow='scroll'
 								padding='30px'
 								alignSelf='self-start'
-								borderLeft={ 'black groove 2px' }
+								border= 'solid black'
 								>
 								{ activeChat && activeChat.map(message => {
 									{ message && 
@@ -157,8 +171,17 @@ const mapStateToProps = (state) => {
 		};
 
 	} else {
+
+		var dummy = [];
+		// for (const conversation in state.conversations) {
+		// 	if (state.conversations[conversation]) {
+		// 		conversations.push([...state.conversations[conversation]]);
+		// 	}
+		// }
+		// console.log('The new conversations are', conversations);
+
 		return {
-			conversations: state.conversations,
+			conversations: dummy,
 		};
 	}
 };
