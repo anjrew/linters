@@ -100,7 +100,7 @@ export class Welcome extends React.Component{
                     <Column 
                         position={ 'absolute' } 
                         top={ this.state.mainElementTop }
-                        referance={ this.mainElement }>
+                        ref={ this.mainElement }>
 								
                         <h1>Welcome to Free Love Network</h1>
 							

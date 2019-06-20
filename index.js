@@ -71,12 +71,20 @@ io.use(async (socket, next)=>{
         message: 'You are connected to the server via socket.io',
         messages: messages.rows,
         onlineUsers: onlineUsers
+		
+    });
+	
+    io.sockets.emit('updateOnlineUsers', {
+        onlineUsers: onlineUsers
     });
 	
     // Check if it is new connection
     socket.on('disconnect', function() {
         print.error(`socket with the id ${socket.id} is now disconnected`);
         delete onlineUsers[userId];
+        io.sockets.emit('updateOnlineUsers', {
+            onlineUsers: onlineUsers
+        });
     });
 
     socket.on('newMessage', async(data) => {

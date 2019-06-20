@@ -43,5 +43,15 @@ export const init = store => {
                 );
             }
         );
+		
+        socket.on(
+            'updateOnlineUsers',
+            data => {
+                store.dispatch(
+                    action.onlineUsers(data.onlineUsers)
+                );
+            }
+        );
+		
     }
 };

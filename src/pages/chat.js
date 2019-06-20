@@ -42,7 +42,7 @@ class Chat extends React.Component{
 						}}
                     >Leave comment</button>
                 </Row>
-                <Column>
+                <Column overFlow="scroll">
                     { messages && messages.map(message => (
                         <MessageTile key={message.id} message={ message } />
                     ))}

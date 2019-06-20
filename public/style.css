@@ -26,7 +26,7 @@ body{
     border: unset;
     border-radius: 0px;
 	margin: 20px;
-	font-size: 30px;
+	font-size: 25px;
 }
 
 .header{
@@ -81,7 +81,7 @@ h3{
 }
 
 p{
-	font-family: 'Open Sans', sans-serif;
+	font-size: 20px
 }
 
 .user-tile > *{
@@ -237,7 +237,7 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
 
 .shift-enter-active {
     transform: translateX(0px);
-    transition: all 300ms ease-in;
+    transition: all 5s ease-in;
 }
 
 .shift-exit {
@@ -247,7 +247,7 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
 
 .shift-exit-active {
     transform: translateX(100vw);
-    transition: all 300ms ease-in;
+    transition: all 5s ease-in;
 }
 
 @keyframes lds-ring {
