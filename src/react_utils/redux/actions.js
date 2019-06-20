@@ -57,6 +57,25 @@ export const Action = {
             type: "RECIEVING_ONLINE_USERS",
             onlineUsers: onlineUsers
         };
+    },
+    newPrivateMessage: function (message) {
+        return {
+            type: "RECEIVING_NEW_PRIVATE_MESSAGE",
+            message: message
+        };
+    },
+    conversations: function (conversations) {
+
+        return {
+            type: "RECEIVING_NEW_CONVERSATIONS",
+            conversations: conversations
+        };
+    },
+    setActiveChat: function (id){
+        return {
+            type: "SET_ACTIVE_CHAT_ID",
+            activeChatId: id
+        };
     }
 };
 

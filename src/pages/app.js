@@ -209,7 +209,7 @@ export default class App extends React.Component{
 
                                                 <Route exact path={'/private-chat/:id'} render={(props) => {
                                                     return (
-                                                        <PrivateChat activeChat={props.match}/>
+                                                        <PrivateChat match={props.match}/>
                                                     );
                                                 }}/> 
 
@@ -336,7 +336,6 @@ export default class App extends React.Component{
                 });
                 break;
 
-				
             default:
                 if  ( location.includes('other-user') ){
                     this.setState({
@@ -367,8 +366,6 @@ export default class App extends React.Component{
 	
     makeNextToRender(location){	  
         var locations = this.state.locations;
-        console.log('Make next to render', location);
-        console.log(location.substring('private-chat'));
         switch (location) {
             case '/friends':
                 locations.friends = 'next';
@@ -405,16 +402,13 @@ export default class App extends React.Component{
                 break;
 				
             default:
-                console.log('in here');
                 if  (location.includes('other-user')){
-                    console.log('in other user');
                     locations.otherUser = 'next';
                     this.setState({
                         locations: locations
                     });
                 }
                 if( location.includes('private-chat')){
-                    console.log('set state');
                     this.setState({
                         locations: {
                             ...locations,
@@ -435,7 +429,6 @@ export default class App extends React.Component{
                     locations[location] = '';
                 });
                 locations[location] = 'on';
-                console.log('The location in render next is', location);
                 switch (location) {
                     case 'friends':
                         history.push('/friends');

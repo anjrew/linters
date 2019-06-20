@@ -12,6 +12,7 @@ export class ScaleTransition extends React.Component{
                 classNames="scale"
                 onEnter={this.props.onEnter}
                 onExited={this.props.onExited}
+                unmountOnExit
             > 
                 {this.props.children}
             </CSSTransition>

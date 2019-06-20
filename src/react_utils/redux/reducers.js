@@ -47,7 +47,26 @@ export default function reducer(state = {}, action) {
                 ...state,
                 messages: [  ...state.messages, ...action.messages ]
             };
-			
+		
+        case "RECEIVING_NEW_PRIVATE_MESSAGE":
+            return {
+                ...state,
+                conversations: [  ...state.activeChat, ...action.message ]
+            };
+
+        case "RECEIVING_NEW_CONVERSATIONS":
+            console.log('RECEIVING_NEW_CONVERSATIONS', action);
+            return {
+                ...state,
+                conversations: [ action.conversations ]
+            };
+        case "SET_ACTIVE_CHAT_ID":
+            console.log('SET_ACTIVE_CHAT_ID', action);
+            return {
+                ...state,
+                activeChatId: action.activeChatId
+            };
+
         default:
             return state;
     }

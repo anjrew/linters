@@ -32,6 +32,9 @@ export const init = store => {
                 store.dispatch(
                     action.onlineUsers(data.onlineUsers)
                 );
+                store.dispatch(
+                    action.conversations(data.conversations)
+                );
             }
         );
 
@@ -53,5 +56,13 @@ export const init = store => {
             }
         );
 		
+        socket.on(
+            'newPrivateMessage',
+            data => {
+                store.dispatch(
+                    action.newPrivateMessage(data.message)
+                );
+            }
+        );
     }
 };

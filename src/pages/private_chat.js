@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import React from 'react';
 import { connect } from 'react-redux';
+import { Action as action } from '../react_utils/redux/actions';
 
 // COMPONENTS
 import { MessageTile } from '../components/boxes/message_tile';
@@ -21,9 +22,11 @@ class PrivateChat extends React.Component{
 	}
 	
     render(){
+		console.log(this.props);
 		const conversations =  this.props.conversations;
-		const activeChat =  this.props.activeChat;
+		const activeChatId =  this.props.match && this.props.match.params.id;
 		const activeUser = this.props.activeUser;
+		const activeChat = this.props.activeChat;
         return (
             <Column
                 padding='20px'>
@@ -39,17 +42,17 @@ class PrivateChat extends React.Component{
 							))}
                 		</Column>
 					
-						{ activeChat && <Column padding='30px'
+						{ activeChatId && <Column padding='30px'
 							referance={this.elemRef}
 							overFlow="scroll" borderLeft={ 'black groove 2px' }>
 							<h2>{activeUser}</h2>
-							{ activeChat.messages && activeChat.messages.map(message => (
+							{ activeChat && activeChat.messages.map(message => (
 								<MessageTile key={message.id} message={ message } />
 							))}
 							<SubmitMessage
 								submit={ (message) => 
 									socket.emit('privateMessage',{ 
-										recieverId: activeChat.user,
+										recieverId: activeChatId,
 										message: message })}
 								/>
 						</Column>
@@ -57,6 +60,10 @@ class PrivateChat extends React.Component{
                 	</Row>
             </Column>
         );
+	}
+
+	componentDidMount(){
+		this.props.match && this.props.dispatch(action.setActiveChat(this.props.match.params.id));
 	}
 
 	componentDidUpdate() {
@@ -75,10 +82,16 @@ class PrivateChat extends React.Component{
 
 const mapStateToProps = (state) => {
 
+	const activeChatis
 	// const conversations;
 	// const activeChat;
+	console.log('the state in match to props is' ,state);
+	var activeChat = state.conversations.filter((convo)=>{
+		console.log(' the object is ', convo);
+		console('Object is ', convo is)
+	})
 
-    return { messages: state.messages };
+    return { conversations: state.conversations };
 };
 
 

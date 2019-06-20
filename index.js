@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 // IMPORTS
 const express = require('express');
 const app = express();
@@ -54,8 +55,8 @@ io.use(async (socket, next)=>{
 	
     const userId = socket.request.session.userId;
     let messages;
-    let conversations;
-	
+    let newConversations = {};
+
     try {
         const userResult = await db.getUserById(userId);
         const user = userResult.rows[0];
@@ -64,11 +65,34 @@ io.use(async (socket, next)=>{
         messages = await db.getChat();
 		
         // sort coversations
-        const conversationsResult = await db.getAllPrivateMessages(userId);
-        conversations = conversationsResult.rows;
-
-
+        const messagesResult = await db.getAllPrivateMessages(userId);
+        const allMessages = messagesResult.rows;
+        // Get uniquie ids of user and put into an object
+        const otherUserIds ={};
+        for (let index = 0; index < allMessages.length; index++) {
+            const message = allMessages[index];
+            if ( message.sender_id != userId ){
+                otherUserIds[message.sender_id] = userId;
+            } else {
+                otherUserIds[message.receiver_id] = userId;
+            }
+        } 
 		
+        for (var otherUserId in otherUserIds) {
+            // Make an array of messahes and put them in an object 
+            var userMessages = {};
+
+            for (let index = 0; index < allMessages.length; index++) {
+                const message = allMessages[index];
+                if ( messages.sender_id != otherUserId ){
+                    userMessages[message.id] = message;
+                }
+                if ( message.receiver_id != otherUserId ){
+                    userMessages[message.id] = message;
+                }
+            }
+            newConversations[otherUserId] = userMessages;
+        }
     } catch (e) {
         print.error('getUserById db query failed with error', e);
     }
@@ -80,8 +104,7 @@ io.use(async (socket, next)=>{
         message: 'You are connected to the server via socket.io',
         messages: messages.rows,
         onlineUsers: onlineUsers,
-        conversations: conversations,
-		
+        conversations: newConversations,
     });
 	
     io.sockets.emit('updateOnlineUsers', {
@@ -112,8 +135,11 @@ io.use(async (socket, next)=>{
 	
     socket.on('privateMessage', async (data) => {
         const result = await db.savePrivateMessage(data.message, userId, data.recieverId);
-
-        io.sockets[onlineUsers[data.recieverId]].emit('');
+        const message =  result.rows[0];
+        const otherUserSocketId = onlineUsers[data.recieverId].socketId;
+        const thisUserSocketId = onlineUsers[userId].socketId;
+        io.sockets.sockets[otherUserSocketId].emit('newPrivateMessage', { message: message });
+        io.sockets.sockets[thisUserSocketId].emit('newPrivateMessage', { message: message });
     });
 	
     socket.on('moreChat', async( data ) =>  {
