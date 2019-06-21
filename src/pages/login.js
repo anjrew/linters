@@ -25,7 +25,9 @@ export class Login extends React.Component{
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
 
-                <Column>
+                <Column
+                    placeContent='start'
+                >
                     <TextField uniqueId="emailLogin" inputType="email" label="Email" id={db.email} handleChange={this.handleChange} required/>
                     <TextField uniqueId="passwordLogin" inputType="password" label="Password" id={db.password} handleChange={this.handleChange} required/>
                     <button onClick={() => this.submit()}>Login</button>

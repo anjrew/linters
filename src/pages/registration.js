@@ -24,7 +24,9 @@ export class Registration extends React.Component{
                 <CSSTransition in={!!this.state.error} timeout={300} classNames="scale" unmountOnExit>
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
-                <Column>
+                <Column
+                    placeContent='start'
+                >
                     <TextField uniqueId="firstName-registration" inputType="text" label="First name" id={id.firstName} handleChange={this.handleChange} required/>
                     <TextField uniqueId="lastName-registration" inputType="text" label="Last name" id={id.lastName} handleChange={this.handleChange} required/>
                     <TextField uniqueId="email-registration" inputType="email" label="Email" id={id.email} handleChange={this.handleChange} required/>
@@ -65,7 +67,7 @@ export class Registration extends React.Component{
                 // location.replace('/');
                 this.switchToLogin();
             }
-        }).catch((e) =>{ß
+        }).catch((e) =>{ß;
             this.setState({
                 error: e
             });

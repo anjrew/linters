@@ -20,12 +20,16 @@ export class Welcome extends React.Component{
             mainElementTop: 0,
             loggingIn: false
         };
+        this.canScroll = false;
         this.mainElement = React.createRef();
         this.title = React.createRef();
+        this.elemRef = React.createRef();
         this.handleClick = this.handleClick.bind(this);
+        this.scrollToBottom = this.scrollToBottom.bind(this);
     }
 
     handleClick(history) {
+        this.canScroll = true;
         this.state.isFlipped ? history.push('/register') : history.push('/login');
         this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
     }
@@ -51,11 +55,15 @@ export class Welcome extends React.Component{
                 heightSet: true
             });
         }
+        if (this.canScroll) {
+            this.canScroll = false;
+            this.scrollToBottom();
+        }
     }
 
     render(){
         return (
-            <React.Fragment>
+            <React.Fragment ref={this.elemRef}>
                 <CSSTransition 
                     in={this.state.visable} 
                     timeout={300} 
@@ -143,5 +151,15 @@ export class Welcome extends React.Component{
                 </CSSTransition>
             </React.Fragment>
         );
+    }
+	
+	
+    scrollToBottom() {
+        // this.elemRef.current.scrollIntoView({ behavior: "smooth" });
+        if (this.elemRef &&  this.elemRef.current){
+            this.elemRef.current.scrollTop =
+            this.elemRef.current.scrollHeight +
+            this.elemRef.current.offsetHeight;
+        }
     }
 }
