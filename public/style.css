@@ -185,7 +185,8 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
 
 .scale-enter.scale-enter-active {
     transform: scale(1);
-    transition: all 300ms ease-in;
+	transition: all 300ms ease-in;
+	
 }
 
 .scale-exit {
@@ -197,6 +198,35 @@ input[type="text"]:hover,  input[type="password"]:hover, input[type="email"]:hov
     transform: scale(0.01);
     transition: all 300ms ease-in;
 }
+
+/* .scaleY-exit.scale-exit-active {
+    transform: scaleY(0.01);
+	transition: all 300ms ease-in;
+	transition-timing-function: cubic-bezier(.72,-0.35,.55,1.8);
+} */
+/* 
+.scaleY-enter {
+	display: none;
+    animation-delay: 1ms;
+	transform: scaleY(0.01);
+}
+
+.scaleY-enter.scale-enter-active {
+    transform: scaleY(1);
+	transition: all 300ms ease-in;
+	transition-timing-function: cubic-bezier(.72,-0.35,.55,1.8);
+}
+
+.scaleY-exit {
+    animation-delay: 1ms;
+    transform: scaleY(1);
+}
+
+.scaleY-exit.scale-exit-active {
+    transform: scaleY(0.01);
+	transition: all 300ms ease-in;
+	transition-timing-function: cubic-bezier(.72,-0.35,.55,1.8);
+} */
 
 .lds-ring {
     display: inline-block;

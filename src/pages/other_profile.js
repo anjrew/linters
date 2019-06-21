@@ -28,7 +28,7 @@ export class OtherProfile extends React.Component{
                     <ErrorMessage>{this.state.error}</ErrorMessage>
                 </CSSTransition>
 
-                <Row 
+                <Column 
                     placeContent='center center'
                     width={'unset'}
                     padding={'20px'}>
@@ -50,13 +50,13 @@ export class OtherProfile extends React.Component{
                     <Column 
                         width={'unset'}
                         padding={'20px'}>
-                        <h2>{`${this.state.user.first || ' '}`}</h2>   
+                        <h2>{`${this.state.user.first + ' ' + this.state.user.last|| ' '}`}</h2>   
 
                         <Column padding={'20px'}>
                             <p>{`${this.state.user.bio || ' '}`}</p>
                         </Column>
                     </Column>
-                </Row>
+                </Column>
             </React.Fragment>
 
         );
