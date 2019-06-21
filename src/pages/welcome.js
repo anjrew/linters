@@ -2,7 +2,6 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ReactCardFlip from 'react-card-flip';
 
-
 // Components
 import { Column } from '../components/layout/column';
 import { HashRouter, Route,} from 'react-router-dom';
@@ -20,12 +19,15 @@ export class Welcome extends React.Component{
             mainElementTop: 0,
             loggingIn: false
         };
+        this.scrollInitial= null;
         this.canScroll = false;
         this.mainElement = React.createRef();
         this.title = React.createRef();
         this.elemRef = React.createRef();
+        this.backgroundRef = React.createRef();
         this.handleClick = this.handleClick.bind(this);
         this.scrollToBottom = this.scrollToBottom.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     handleClick(history) {
@@ -35,6 +37,7 @@ export class Welcome extends React.Component{
     }
 
     componentDidMount(){
+        window.addEventListener('scroll', this.handleScroll);        
         const initaialRoute = window.location.hash;
         const register = initaialRoute.indexOf('register')  >= 0;
         this.setState({
@@ -60,21 +63,27 @@ export class Welcome extends React.Component{
             this.scrollToBottom();
         }
     }
+	
+    componentWillUnmount(){
+        window.removeEventListener('scroll', this.handleScroll);
+    }
 
     render(){
         return (
-            <React.Fragment ref={this.elemRef}>
+            <React.Fragment >
                 <CSSTransition 
                     in={this.state.visable} 
                     timeout={300} 
-                    classNames="fade" 
+                    classNames="fade"
+                    ref={this.elemRef} 
                     unmountOnExit>
                     <img 
+                        ref={this.backgroundRef}
                         src= '/assets/images/verdy.jpg' 
                         style={{
                             position: "fixed",
                             width: '100vw',
-                            height: '100vh',
+                            height: '130vh',
                             zIndex: "-2",
                             top: '0px',
                             left: '0px'
@@ -111,16 +120,11 @@ export class Welcome extends React.Component{
                         top={ this.state.mainElementTop }
                         referance={ this.mainElement }
                     >
-
-                        <div
-                            ref={ this.title } 
-                        >
+                        <div ref={ this.title } >
                             <h4>Welcome to</h4>
-                            <h1 
-                                
-                                style={
-                                    {fontSize: '100px'}
-                                }>Laissez-faire</h1>
+                            <h1 style={
+                                {fontSize: '100px'}
+                            }>Laissez-faire</h1>
                             <h3>The Free Love Network</h3>
                         </div>
 							
@@ -144,7 +148,7 @@ export class Welcome extends React.Component{
                                                 });
                                             }}/>
                                     </ReactCardFlip>
-                                );  
+                                ); 
                             }} />
                         </HashRouter>
                     </Column>
@@ -156,10 +160,37 @@ export class Welcome extends React.Component{
 	
     scrollToBottom() {
         // this.elemRef.current.scrollIntoView({ behavior: "smooth" });
-        if (this.elemRef &&  this.elemRef.current){
+        if (this.elemRef && this.elemRef.current){
             this.elemRef.current.scrollTop =
             this.elemRef.current.scrollHeight +
             this.elemRef.current.offsetHeight;
+        }
+    }
+	
+    handleScroll(e){
+        const currentTop = this.backgroundRef.current.offsetTop;
+        if ( !this.scrollInitial ){
+            this.backgroundRef.current.style.top = currentTop + 30;
+            this.scrollInitial = e.target.scrollingElement.scrollTop;
+        }else {
+
+            console.log('scroll event');
+            const scrollTop = e.target.scrollingElement.scrollTop;
+            console.log('window Scroll top is' ,scrollTop);
+            const newBackgroundBottom = scrollTop - this.scrollInitial;
+            console.log('newBackgroundTop' , newBackgroundBottom);
+			
+            console.log(this.backgroundRef.current.offsetBottom);
+            console.log('currentTop Scroll top is', currentTop);
+            var newTop;
+            if (newBackgroundBottom > 0) {
+                newTop = currentTop - newBackgroundBottom;
+                newTop = -newTop;
+            } else {
+                newTop = currentTop + newBackgroundBottom;
+            }
+            console.log('newtop is', newTop);
+            this.backgroundRef.current.style.top = newTop/2 +'px';
         }
     }
 }
