@@ -21,6 +21,7 @@ export class Welcome extends React.Component{
             loggingIn: false
         };
         this.mainElement = React.createRef();
+        this.title = React.createRef();
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -42,8 +43,9 @@ export class Welcome extends React.Component{
     componentDidUpdate(){
         if (!this.state.heightSet) {
             const windowHeight = window.innerHeight;
-            const mainElementHeight = this.mainElement.current.clientHeight;
-            const mainElementTop = (windowHeight - mainElementHeight) / 2;
+            console.log('The main title is' , this.mainElement.current);
+            const mainElementHeight = this.title.current.clientHeight;
+            const mainElementTop = (windowHeight/ 2) - mainElementHeight;
             this.setState({
                 mainElementTop: mainElementTop + 'px',
                 heightSet: true
@@ -53,9 +55,7 @@ export class Welcome extends React.Component{
 
     render(){
         return (
-
             <React.Fragment>
-
                 <CSSTransition 
                     in={this.state.visable} 
                     timeout={300} 
@@ -101,9 +101,20 @@ export class Welcome extends React.Component{
                     <Column 
                         position={ 'absolute' } 
                         top={ this.state.mainElementTop }
-                        referance={ this.mainElement }>
-								
-                        <h1>Welcome to Free Love Network</h1>
+                        referance={ this.mainElement }
+                    >
+
+                        <div
+                            ref={ this.title } 
+                        >
+                            <h4>Welcome to</h4>
+                            <h1 
+                                
+                                style={
+                                    {fontSize: '100px'}
+                                }>Laissez-faire</h1>
+                            <h3>The Free Love Network</h3>
+                        </div>
 							
                         <HashRouter>
                             <Route render= {({location, history}) => {

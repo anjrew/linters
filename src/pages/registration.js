@@ -44,6 +44,9 @@ export class Registration extends React.Component{
     }
 
     submit(){
+        this.setState({
+            error: null
+        });
         console.log('Sign up button pressed');
         console.log(this.state);
         axios.post(routes.registration, {
@@ -62,9 +65,7 @@ export class Registration extends React.Component{
                 // location.replace('/');
                 this.switchToLogin();
             }
-        }).catch((e) =>{
-            console.log('The error came from the Axios call: ', e);
-            console.log('This is catch is :', this);
+        }).catch((e) =>{ß
             this.setState({
                 error: e
             });

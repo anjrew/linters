@@ -42,6 +42,9 @@ export class Login extends React.Component{
     }
   
     submit(){
+        this.setState({
+            error: null
+        });
         axios.post(routes.login, {
             email: this.state.email,
             password: this.state.password,

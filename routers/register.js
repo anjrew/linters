@@ -40,7 +40,7 @@ router.route(routes.registration)
             } catch (e) {
                 print.error('The error was ', e);
                 res.json({
-                    error: "Bad credentials. Please check and try again"
+                    error: "Bad credentials. Please check and try again: " + e
                 });
             }
         }

@@ -327,8 +327,78 @@ module.exports.db = {
 			`,
             [id]
         );
+    },
+    findCommonFriends: function(userId,profileOwnerId) {
+        return db.query(
+            `
+			(
+			SELECT sender_id AS user_id, users.name, users.surname, users.pic_url, users.id FROM friendships JOIN users
+			ON (sender_id = users.id) WHERE receiver_id = $1 AND accepted=true
+			UNION
+			SELECT receiver_id AS user_id, users.name, users.surname, users.pic_url, users.id FROM friendships JOIN users
+			ON (receiver_id = users.id) WHERE sender_id = $1 AND accepted=true
+			)
+			INTERSECT
+			(
+			SELECT sender_id AS user_id, users.name, users.surname, users.pic_url, users.id FROM friendships JOIN users
+			ON (sender_id = users.id) WHERE receiver_id = $2 AND accepted=true
+			UNION
+			SELECT receiver_id AS user_id, users.name, users.surname, users.pic_url, users.id FROM friendships JOIN users
+			ON (receiver_id = users.id) WHERE sender_id = $2 AND accepted=true
+		);`,
+            [userId, profileOwnerId]
+        );
+    },
+    /// Delete 
+    deleteUser: async function (userId) {
+        
+        return new Promise(async (resolve) => {
+			print.info('Deleting private messages');
+            const private = await db.query(
+                `
+						DELETE FROM private_messages
+						WHERE sender_id = $1
+						OR receiver_id = $1;
+					`
+                ,
+                [userId]);
+
+            print.info('Deleting chat');
+            const chat = await db.query(
+                `
+						DELETE FROM chat_messages
+						WHERE user_id = $1;
+					`
+                ,
+                [userId]);
+			
+            print.info('Deleting friendships');
+
+            const friendships = await db.query(
+                `
+				DELETE FROM friendships
+						WHERE sender_id = $1
+						OR reciever_id = $1;
+					`
+                ,
+                [userId]);
+            print.info('Deleting user');
+	
+            const user = await db.query(
+                `
+				DELETE FROM users
+						WHERE id = $1;
+					`
+                ,
+                [userId]);
+				
+            resolve ([chat, friendships, user, private]);
+        }
+        );
     }
+	
 };
+
 
 
 

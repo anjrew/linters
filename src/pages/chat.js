@@ -57,10 +57,6 @@ class Chat extends React.Component{
         );
 	}
 
-	// componentDidUpdate() {
-    //     this.elemRef.current.scrollTop =
-    //         this.elemRef.current.scrollHeight - this.elemRef.current.offsetTop;
-    // }
 
     handleChange({ target }) {
         this.setState({

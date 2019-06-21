@@ -26,7 +26,7 @@ export class MessageTile extends React.Component {
         });
     }
     componentDidUpdate(){
-        if (this.state.showMessage) {
+        if (this.state.showMessage && this.props.updated) {
             this.props.updated();
         }
     }

@@ -33,8 +33,6 @@ class PrivateChat extends React.Component{
 			activeUser = conversations[0][0].first;
 		}
 		
-		
-		
         return (
             <Column
                 padding='20px'>
@@ -126,9 +124,11 @@ class PrivateChat extends React.Component{
 	
 	scrollToBottom() {
 		// this.elemRef.current.scrollIntoView({ behavior: "smooth" });
-		this.elemRef.current.scrollTop =
+		if (this.elemRef &&  this.elemRef.current){
+			this.elemRef.current.scrollTop =
             this.elemRef.current.scrollHeight +
             this.elemRef.current.offsetHeight;
+		}
 	}
 
     handleChange({ target }) {

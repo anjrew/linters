@@ -68,6 +68,7 @@ export default class App extends React.Component{
         this.changeImage = this.changeImage.bind(this);
         this.setBio = this.setBio.bind(this);
         this.logout = this.logout.bind(this);
+        this.deleteProfile = this.deleteProfile.bind(this);
     }
 	
 
@@ -223,6 +224,7 @@ export default class App extends React.Component{
                                                     <Route exact path={routes.home} render={() => {
                                                         return (
                                                             <Profile 
+                                                                deleteProfile={this.deleteProfile}
                                                                 bioEditorIsVisible={ this.state.bioEditorIsVisible}
                                                                 uploadClicked={this.avatarClicked}
                                                                 user={this.state.user}
@@ -511,9 +513,18 @@ export default class App extends React.Component{
         });
     }
 	
+    deleteProfile(){
+        axios.post('/delete-account').then(() => {
+            location.replace('/welcome');
+        }).catch((e) =>{
+            this.setState({
+                error: e
+            });
+        });
+    }
+	
     logout(){
         axios.get('/api/logout').then(() =>{ 
-            console.log('The window location is', window.location);
             location.replace('/welcome');
         }).catch((e) =>{
             this.setState({

@@ -20,7 +20,7 @@ export class Column extends React.Component{
                     justifyContent: 'start',
                     alignItems: this.props.alignItems || 'center',
                     alignSelf: this.props.alignSelf || 'center',
-                    flexWrap: this.props.flexWrap || 'wrap',
+                    flexWrap: this.props.flexWrap,
                     alignContent: this.props.alignContent || 'center',
                     width: this.props.width || '100%',
                     height: this.props.height || '100%',

@@ -15,6 +15,7 @@ const io = require('socket.io')(server, { origins: 'localhost:8080' });
 const { db } = require('./utils/db');
 
 const routers = [
+    require('./routers/delete-account'),
     require('./routers/friends-wannabes'),	
     require('./routers/accept-friendship'),
     require('./routers/end-friendship'),	
