@@ -73,7 +73,7 @@ class Friends extends React.Component{
                 } else { 
                     wannabes = (
                         <Column margin='20px' padding='20px' borderRaduis='10px'>
-                            <ScaleTransition in={!this.props.wannabes.length} >
+                            <ScaleTransition in={this.props.wannabes.length > 0} >
                                 <h2>These people want to be your friends</h2>
                             </ScaleTransition>
                             <Row padding={'20px'}>

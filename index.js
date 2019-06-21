@@ -159,6 +159,10 @@ io.use(async (socket, next)=>{
             print.error('getMoreChat db query failed with error', e);
         }
     });
+	
+    socket.on('friendRequest', async(data) => {
+        console.log('Data', data);
+    });
 });
 
 app.use(express.static(`${__dirname}/public`));
@@ -222,11 +226,3 @@ app.get('*', function(req, res) {
 server.listen(8080, function() {
     console.log("I'm listening.");
 });
-
-function getAllMessages(params) {
-	
-}
-
-function getAllConversations(params) {
-	
-}

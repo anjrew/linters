@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../react_utils/axios';
 import { CSSTransition } from 'react-transition-group';
+import { socket } from '../../react_utils/socket';
 
 // eslint-disable-next-line no-unused-vars
 export function FriendButton(props) {
@@ -47,6 +48,9 @@ export function FriendButton(props) {
             };
             console.log('trying to send data to post', reqData);
             const { data } = await axios.post('/api/friend-button', reqData);
+            if ( status == 'noExistingRequest'){
+                socket.emit('friendRequest',{ toUserId: props.id });
+            }
             console.log('The return data is ' , data);
             setStatus(data);
         } catch (err) {

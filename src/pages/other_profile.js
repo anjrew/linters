@@ -1,5 +1,4 @@
 import React from 'react';
-import { Row } from '../components/layout/row';
 import { Avatar } from '../components/graphics/avatar';
 import { Column } from '../components/layout/column';
 import axios from '../react_utils/axios';
@@ -43,7 +42,7 @@ export class OtherProfile extends React.Component{
                             description="User image"
                         />
 
-                        <FriendButton id={this.state.user.id}/>
+                        <FriendButton id={this.state.user.id} />
 
                     </Column>
 

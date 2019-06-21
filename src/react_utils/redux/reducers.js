@@ -51,7 +51,9 @@ export default function reducer(state = {}, action) {
         case "RECEIVING_NEW_PRIVATE_MESSAGE":
           
             var newChat = state.conversations[state.activeChatId];
-            action.message.currentUserId = newChat[1].currentUserId;
+            if (newChat[1]) {
+                action.message.currentUserId = newChat[1].currentUserId;
+            }
             newChat.push(action.message);
 			
             var newStateChat = state.conversations;

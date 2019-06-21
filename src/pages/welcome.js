@@ -189,14 +189,11 @@ export class Welcome extends React.Component{
                 newTop = currentTop + newBackgroundBottom;
                 newTop = -newTop;
             }
-            console.log('New top is ', newTop);
             if (currentTop == 0 ){
                 this.backgroundRef.current.style.top = currentTop + 30;
                 this.scrollInitial = e.target.scrollingElement.scrollTop;
             } 
             if (newTop <= 1){ 
-                console.log('New top is in', newTop);
-                console.log('This top', this.backgroundRef.current.offsetTop);
                 this.backgroundRef.current.style.top = newTop/2 +'px';
             }
         }

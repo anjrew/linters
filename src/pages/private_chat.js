@@ -25,13 +25,26 @@ class PrivateChat extends React.Component{
 	
     render(){
 		var conversations =  this.props.conversations;
-		const activeChatId =  this.props.match && this.props.match.params.id;
+		console.log('this.props',this.props);
+		var activeChatId;
+		activeChatId = this.props.match && this.props.match.params && this.props.match.params.id;
 		var activeUser;
 		var activeChat = this.props.activeChat;
+		console.log('Active chat id is', activeChatId);
+
 		if (activeChat) { 
-			activeChat = activeChat.filter((message) => message);
-			activeUser = conversations[0][0].first;
+			activeChat = activeChat.filter((message) => { 
+				if (message != null){ 
+					return  message;
+				}
+			});
+			if (conversations[0]){
+				if (conversations[0][0]){
+					activeUser = conversations[0][0].first;
+				}
+			}
 		}
+		console.log('active user', activeUser);
 		
         return (
             <Column
@@ -58,14 +71,25 @@ class PrivateChat extends React.Component{
 							boxSizing='border-box'
 							>
 							<h2>Conversations</h2>
-							{ conversations && 
+							{ 
+								conversations  &&
 								conversations.map(conversation => { 
-									return (
-									<ConversationTile 
-										key={conversation[conversation.length -1 ].id} 
-										message={ conversation[conversation.length -1 ]} 
-										/>
-									);
+									if (conversation.length > 1){
+										return (
+											<ConversationTile 
+											key={conversation[conversation.length -1 ].id} 
+											message={ conversation[conversation.length -1 ]} 
+											/>
+											);
+									}
+									if (conversation.length == 1){
+										return (
+											<ConversationTile 
+											key={conversation[0].id} 
+											message={ conversation[0]} 
+											/>
+											);
+									}
 									})
 							}
 						</Column>
@@ -83,9 +107,9 @@ class PrivateChat extends React.Component{
 								id='chat'
 								flexWrap='none'
 								height='400px'
+								width='unset'
 								overflow='scroll'
 								padding='30px'
-								alignSelf='self-start'
 								border= 'solid black'
 								referance={this.elemRef}
 								>
@@ -117,6 +141,8 @@ class PrivateChat extends React.Component{
 	}
 
 	componentDidUpdate() {
+		// this.props.dispatch(action.setActiveChat(this.props.match.params.id));
+
 		if ( this.props.activeChat ){
 			this.scrollToBottom();
 		}
@@ -151,6 +177,14 @@ const mapStateToProps = (state) => {
 			return conversation.filter( (message) => {
 				if (message ){
 					if (message.sender_id != message.currentUserId) {
+						return message;
+					} else {
+						const sender_id = message.currentUserId;
+						message.sender_id = currentUserId;
+
+						const currentUserId = sender_id;
+						message.currentUserId = sender_id;
+
 						return message;
 					}
 				}
