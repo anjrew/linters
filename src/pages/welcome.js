@@ -157,9 +157,12 @@ export class Welcome extends React.Component{
         );
     }
 	
+    componentDidCatch(error, info) {
+        // You can also log the error to an error reporting service
+        console.log(error, info);
+	  }
 	
     scrollToBottom() {
-        // this.elemRef.current.scrollIntoView({ behavior: "smooth" });
         if (this.elemRef && this.elemRef.current){
             this.elemRef.current.scrollTop =
             this.elemRef.current.scrollHeight +
@@ -173,24 +176,18 @@ export class Welcome extends React.Component{
             this.backgroundRef.current.style.top = currentTop + 30;
             this.scrollInitial = e.target.scrollingElement.scrollTop;
         }else {
-
-            console.log('scroll event');
             const scrollTop = e.target.scrollingElement.scrollTop;
-            console.log('window Scroll top is' ,scrollTop);
             const newBackgroundBottom = scrollTop - this.scrollInitial;
-            console.log('newBackgroundTop' , newBackgroundBottom);
-			
-            console.log(this.backgroundRef.current.offsetBottom);
-            console.log('currentTop Scroll top is', currentTop);
             var newTop;
             if (newBackgroundBottom > 0) {
                 newTop = currentTop - newBackgroundBottom;
-                newTop = -newTop;
             } else {
                 newTop = currentTop + newBackgroundBottom;
+                newTop = -newTop;
             }
-            console.log('newtop is', newTop);
-            this.backgroundRef.current.style.top = newTop/2 +'px';
+            if (newTop <= -1 ){ 
+                this.backgroundRef.current.style.top = newTop/2 +'px';
+            }
         }
     }
 }
