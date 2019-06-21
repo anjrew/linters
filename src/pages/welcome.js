@@ -37,6 +37,7 @@ export class Welcome extends React.Component{
     }
 
     componentDidMount(){
+        this.elemRef.current.scrollTop = 0+ 'px';
         window.addEventListener('scroll', this.handleScroll);        
         const initaialRoute = window.location.hash;
         const register = initaialRoute.indexOf('register')  >= 0;
@@ -48,6 +49,10 @@ export class Welcome extends React.Component{
     }
 	
     componentDidUpdate(){
+        const currentTop = this.backgroundRef.current.offsetTop;
+        this.elemRef.current.scrollTop = 0+ 'px';
+
+        this.backgroundRef.current.style.top = currentTop +'px';
         if (!this.state.heightSet) {
             const windowHeight = window.innerHeight;
             console.log('The main title is' , this.mainElement.current);
@@ -70,12 +75,11 @@ export class Welcome extends React.Component{
 
     render(){
         return (
-            <React.Fragment >
+            <div ref={this.elemRef}>
                 <CSSTransition 
                     in={this.state.visable} 
                     timeout={300} 
                     classNames="fade"
-                    ref={this.elemRef} 
                     unmountOnExit>
                     <img 
                         ref={this.backgroundRef}
@@ -153,7 +157,7 @@ export class Welcome extends React.Component{
                         </HashRouter>
                     </Column>
                 </CSSTransition>
-            </React.Fragment>
+            </div>
         );
     }
 	
@@ -185,7 +189,14 @@ export class Welcome extends React.Component{
                 newTop = currentTop + newBackgroundBottom;
                 newTop = -newTop;
             }
-            if (newTop <= -1 ){ 
+            console.log('New top is ', newTop);
+            if (currentTop == 0 ){
+                this.backgroundRef.current.style.top = currentTop + 30;
+                this.scrollInitial = e.target.scrollingElement.scrollTop;
+            } 
+            if (newTop <= 1){ 
+                console.log('New top is in', newTop);
+                console.log('This top', this.backgroundRef.current.offsetTop);
                 this.backgroundRef.current.style.top = newTop/2 +'px';
             }
         }
