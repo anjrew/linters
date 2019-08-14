@@ -20,9 +20,8 @@ router.route(routes.login)
 
         const email = req.body.email;
         const passwordAttempt = req.body.password;
-        
+
         if (email && passwordAttempt) {
-            console.log('Email was : ', email, " and password is ", passwordAttempt);
 
             try {
                 const result = await db.getHashedPWord(email);

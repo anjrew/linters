@@ -37,10 +37,10 @@ export class Registration extends React.Component{
     }
 
     handleChange({ target }) {
+        console.log(target.value);
         this.setState({
             [target.name]: target.value
-        });
-        
+        }, () => console.log(this.state));
     }
 
     submit(){

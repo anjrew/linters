@@ -37,7 +37,7 @@ export class Login extends React.Component{
 
     handleChange({ target }) {
         this.setState({
-            [target.name]: target.value
+            [target.id]: target.value
         });
     }
   

@@ -6,13 +6,14 @@ export default class TextField extends React.Component{
     }
 
     render(){
+        const props = this.props;
         return (
             <div className="text-field">
-                <h3>{this.label}</h3>
+                <h3>{props.label}</h3>
                 <input
                     type={this.props.inputType} 
-                    name={this.props.databaseId} 
-                    id={this.props.id}
+                    name={props.id} 
+                    id={props.id}
                     placeholder={this.props.placeholder} 
                     value={this.props.value} 
                     autoComplete="true"
