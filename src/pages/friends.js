@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 // COMPONENTS
 import { ScaleTransition } from "../components/transitions/scale-transition";
-import { Row } from '../components/layout/row';
+import { Wrap } from '../components/layout/wrap';
 import { Column } from '../components/layout/column';
 import { CircularProgressIndicator } from '../components/progress_indicators/circular_progress_indicator';
 import { ProfileCard } from '../components/boxes/profile-card';
@@ -46,7 +46,7 @@ class Friends extends React.Component{
 					 <ScaleTransition in={!!this.props.friends.length} >
                                 <h2>Check out your friends</h2>
 					 </ScaleTransition>
-                            <Row padding={'20px'}>
+                            <Wrap padding={'20px'}>
                         	{ this.props.friends.map(friend => (
                                     <ProfileCard 
                                         key={ friend.id } 
@@ -59,7 +59,7 @@ class Friends extends React.Component{
                                             
                                         }/>
                                 ))}
-                            </Row>
+                            </Wrap>
                         </Column>);
                 }
             }
@@ -76,7 +76,7 @@ class Friends extends React.Component{
                             <ScaleTransition in={this.props.wannabes.length > 0} >
                                 <h2>These people want to be your friends</h2>
                             </ScaleTransition>
-                            <Row padding={'20px'}>
+                            <Wrap padding={'20px'}>
                                 { this.props.wannabes.length && this.props.wannabes.map(friend => (
                                     <ProfileCard 
                                         key={ friend.id } 
@@ -90,7 +90,7 @@ class Friends extends React.Component{
                                             this.props.dispatch(action.unfriendReject(friend.id))
                                         }/>
                                 ))}
-                            </Row>
+                            </Wrap>
                         </Column>);
                 }  
             }

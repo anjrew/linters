@@ -10,7 +10,7 @@ export class Wrap extends React.Component{
                     padding: this.props.padding,
                     display:'flex',
                     flexDirection: this.props.flexDirection ||'row',
-                    justifyContent: 'start',
+                    justifyContent: 'center',
                     alignItems: this.props.alignItems || 'center',
                     alignSelf: this.props.alignSelf || 'center',
                     flexWrap: 'wrap',

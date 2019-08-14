@@ -25,12 +25,10 @@ class PrivateChat extends React.Component{
 	
     render(){
 		var conversations =  this.props.conversations;
-		console.log('this.props',this.props);
 		var activeChatId;
 		activeChatId = this.props.match && this.props.match.params && this.props.match.params.id;
 		var activeUser;
 		var activeChat = this.props.activeChat;
-		console.log('Active chat id is', activeChatId);
 
 		if (activeChat) { 
 			activeChat = activeChat.filter((message) => { 
@@ -77,7 +75,7 @@ class PrivateChat extends React.Component{
 									if (conversation.length > 1){
 										return (
 											<ConversationTile 
-											key={conversation[conversation.length -1 ].id} 
+											key={conversation[conversation.length -1 ].id + "Conversation" +  Math.random()} 
 											message={ conversation[conversation.length -1 ]} 
 											/>
 											);
@@ -85,7 +83,7 @@ class PrivateChat extends React.Component{
 									if (conversation.length == 1){
 										return (
 											<ConversationTile 
-											key={conversation[0].id} 
+											key={conversation[0].id + "Conversation" +  Math.random()} 
 											message={ conversation[0]} 
 											/>
 											);
@@ -117,18 +115,18 @@ class PrivateChat extends React.Component{
 									{ message && 
 										console.log('');
 										return (
-											<MessageTile key={message.id} message={ message } updated={ () => this.scrollToBottom()}/>
+											<MessageTile key={message.id + "message" + Math.random()} message={ message } updated={ () => this.scrollToBottom()}/>
 											);
 										}
 									}
 									)}
 							</Column>
-							<SubmitMessage
+							{/* <SubmitMessage
 								submit={ (message) => 
 									socket.emit('privateMessage',{ 
 										recieverId: activeChatId,
 										message: message })}
-								/>
+								/> */}
 						</Column>
 					}
 				</Row>

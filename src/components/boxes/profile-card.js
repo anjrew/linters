@@ -39,6 +39,8 @@ export class ProfileCard extends React.Component{
                     }
                 }}>
                 <Column 
+                    margin={'20px'}
+                    width={'unset'}
                     minWidth={'318px'}
                     onClick={ this.props.cardClick }>
                     <Avatar
@@ -58,7 +60,7 @@ export class ProfileCard extends React.Component{
 							<button id='button-one'
 							    onClick={this.handleFirstButtonClick}
 							>{this.props.buttonText}</button>}
-					    { this.props.secondButtonText &&
+						    { this.props.secondButtonText &&
 							<button id='button-two'
 							    style={{ 
 							        backgroundColor: 'black',
