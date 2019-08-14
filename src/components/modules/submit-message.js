@@ -3,7 +3,7 @@ import React from 'react';
 
 // COMPONENTS
 import { Row } from '../layout/row';
-import { TextArea } from '../inputs/text_area';
+import TextArea from '../inputs/text_area';
 
 export class SubmitMessage extends React.Component{
 

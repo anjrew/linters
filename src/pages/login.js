@@ -6,7 +6,7 @@ import { CSSTransition } from "react-transition-group";
 
 
 // Components
-import { TextField } from '../components/inputs/textfield';
+import TextField from '../components/inputs/textfield';
 import { Column } from '../components/layout/column';
 import { ErrorMessage } from '../components/text/error_message';
 

@@ -222,7 +222,7 @@ app.get('*', function(req, res) {
         res.sendFile(__dirname + '/index.html');
     }
 });
-
-server.listen(8080, function() {
-    console.log("I'm listening.");
+const port = 8080;
+server.listen(port, function() {
+    console.log("I'm listening on:" + port);
 });

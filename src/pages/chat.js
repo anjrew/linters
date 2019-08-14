@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { MessageTile } from '../components/boxes/message_tile';
 import { Column } from '../components/layout/column';
 import { Row } from '../components/layout/row';
-import { TextArea } from '../components/inputs/text_area';
+import TextArea from '../components/inputs/text_area';
 import { socket } from '../react_utils/socket';
 
 class Chat extends React.Component{

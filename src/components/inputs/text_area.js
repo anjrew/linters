@@ -4,17 +4,16 @@ import React from 'react';
 export class TextArea extends React.Component {
     constructor(props) {
         super(props);
-        this.style = {
-            padding: props.padding || '20px',
-            borderRadius: props.borderRadius || '10px',
-            width: props.width
-        };
     }
 
     render(){
         return (
             <textarea
-                style={this.style}
+                style={{
+                    padding: this.props.padding || '20px',
+                    borderRadius: this.props.borderRadius || '10px',
+                    width: this.props.width
+                }}
                 type='text'
                 name= {this.props.name}
                 value={this.props.value}

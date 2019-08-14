@@ -3,7 +3,7 @@ import axios from '../react_utils/axios';
 import id from '../react_utils/ids';
 
 // Components
-import { TextField } from '../components/inputs/textfield';
+import TextField from '../components/inputs/textfield';
 import { Column } from '../components/layout/column';
 import { ErrorMessage } from '../components/text/error_message';
 import routes from '../react_utils/react_routes';
@@ -65,7 +65,7 @@ export class Registration extends React.Component{
                 // location.replace('/');
                 this.switchToLogin();
             }
-        }).catch((e) =>{ß;
+        }).catch((e) =>{
             this.setState({
                 error: e
             });
